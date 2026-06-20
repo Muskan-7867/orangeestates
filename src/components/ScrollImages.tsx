@@ -79,7 +79,7 @@ export default function ScrollImages() {
             </div> */}
 
             {/* Left overlay */}
-            <div className="absolute left-0 top-0 h-full w-[65%] z-20 flex items-center">
+            <div className="absolute left-0 top-0 h-full w-[65%] z-20 flex items-center px-28">
                 {/* Dark gradient */}
                 <div className="absolute inset-0 bg-gradient-to-r from-white via-white/20 to-transparent" />
 
@@ -155,7 +155,7 @@ export default function ScrollImages() {
                         className={cn(
                             "w-[250px] h-[400px] shrink-0 overflow-hidden rounded-[28px]",
                             index % 2 === 0 ? "translate-y-12" : "-translate-y-12",
-                            index === 0 ? "ml-160" : ""
+                            index === 0 ? "ml-200" : ""
                         )}
                     >
                         <img
