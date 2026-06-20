@@ -168,3 +168,28 @@ body::after {
 
 
 
+
+
+.smooth-blur {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 71%;
+	height: 100%;
+	pointer-events: none;
+	z-index: 10;
+}
+
+.smooth-blur > div {
+	position: absolute;
+	inset: -50px;
+	-webkit-backdrop-filter: blur(var(--blur));
+	backdrop-filter: blur(var(--blur));
+	-webkit-mask-image: var(--mask);
+	mask-image: var(--mask);
+}
+
+
+
+
+
