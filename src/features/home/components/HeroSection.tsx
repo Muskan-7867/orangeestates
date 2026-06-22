@@ -5,7 +5,7 @@ import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-export default function Gsap() {
+export default function HeroSection() {
   const container = useRef<HTMLDivElement>(null);
   const image = useRef<HTMLDivElement>(null);
 
