@@ -70,17 +70,17 @@ const variants = {
 };
 
     return (
-        <section className=" py-10">
-            <div className="w-full  px-18">
-                <div className="text-xl mb-10 font-serif flex flex-col  justify-center items-center">
-                    <h2 className="text-2xl font-medium">Global Reach, Local Expertise</h2>
-                    <p className="mt-2 text-gray-400">
+        <section className="py-10">
+            <div className="w-full px-2 md:px-18">
+                <div className="text-xl mb-6 md:mb-10 font-serif flex flex-col justify-center items-center text-center px-2">
+                    <h1 className="text-2xl sm:text-3xl font-medium font-serif">Global Reach, Local Expertise</h1>
+                    <p className="mt-2 text-sm sm:text-base text-gray-400 max-w-md">
                         Offering exclusive access to exceptional properties and local experts – wherever, whenever.
                     </p>
                 </div>
                 {/* Top Row */}
-                <div className="mb-6 flex items-center justify-between">
-                    <h2 className="text-3xl font-serif">
+                <div className="mb-4 md:mb-6 flex items-center justify-between">
+                    <h2 className="text-2xl sm:text-3xl font-serif">
                         In the Spotlight
                     </h2>
 
@@ -100,7 +100,7 @@ const variants = {
                 </div>
 
                 {/* Image */}
-                <div className="relative h-[500px]  overflow-hidden">
+                <div className="relative h-[250px] sm:h-[380px] md:h-[500px] overflow-hidden">
                     <AnimatePresence initial={false} custom={direction}>
                         <motion.img
                             key={active}
@@ -121,17 +121,19 @@ const variants = {
                     {/* Left Button */}
                     <button
                         onClick={prev}
-                        className="absolute left-5 top-1/2 -translate-y-1/2 text-white"
+                        className="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 text-white"
                     >
-                        <ChevronLeft size={40} strokeWidth={1.5} />
+                        <ChevronLeft size={28} strokeWidth={1.5} className="sm:hidden" />
+                        <ChevronLeft size={40} strokeWidth={1.5} className="hidden sm:block" />
                     </button>
 
                     {/* Right Button */}
                     <button
                         onClick={next}
-                        className="absolute right-5 top-1/2 -translate-y-1/2 text-white"
+                        className="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 text-white"
                     >
-                        <ChevronRight size={40} strokeWidth={1.5} />
+                        <ChevronRight size={28} strokeWidth={1.5} className="sm:hidden" />
+                        <ChevronRight size={40} strokeWidth={1.5} className="hidden sm:block" />
                     </button>
                 </div>
 
@@ -145,17 +147,17 @@ const variants = {
                             exit={{ opacity: 0, y: -20 }}
                             transition={{ duration: 0.4 }}
                         >
-                            <h3 className="font-serif text-4xl leading-tight">
+                            <h3 className="font-serif text-xl sm:text-3xl md:text-4xl leading-tight">
                                 {properties[active].title}
                             </h3>
 
-                            <p className="mt-2 text-gray-600">
+                            <p className="mt-2 text-sm sm:text-base text-gray-600">
                                 {properties[active].location}
                             </p>
                         </motion.div>
                     </AnimatePresence>
 
-                    <button className="border border-black px-10 py-4 text-sm transition hover:bg-black hover:text-white">
+                    <button className="w-full md:w-auto border border-black px-8 py-3 md:px-10 md:py-4 text-sm transition hover:bg-black hover:text-white">
                         View property
                     </button>
                 </div>
