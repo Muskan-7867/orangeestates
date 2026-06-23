@@ -76,7 +76,7 @@ export default function Images() {
         })
     }
     return (
-        <section className="py-8 px-8">
+        <section className="py-6 px-2 sm:p-8">
             <div ref={scrollRef} className="overflow-x-auto scrollbar-hide ">
                 <div className="flex gap-4 min-w-max">
                     {images.map((image, index) => (
@@ -99,7 +99,7 @@ export default function Images() {
             </div>
 
             {/* Bottom Controls */}
-            <div className="flex items-center justify-end  mt-8">
+            <div className="flex items-center justify-end  mt-4">
 
 
                 {/* Arrows */}
