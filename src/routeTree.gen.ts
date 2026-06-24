@@ -9,13 +9,36 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as UserRouteRouteImport } from './routes/_user/route'
+import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as UserIndexRouteImport } from './routes/_user/index'
+import { Route as UserContactRouteImport } from './routes/_user/contact'
+import { Route as UserAboutRouteImport } from './routes/_user/about'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
-const IndexRoute = IndexRouteImport.update({
+const UserRouteRoute = UserRouteRouteImport.update({
+  id: '/_user',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UserIndexRoute = UserIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => UserRouteRoute,
+} as any)
+const UserContactRoute = UserContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => UserRouteRoute,
+} as any)
+const UserAboutRoute = UserAboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => UserRouteRoute,
 } as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
@@ -24,39 +47,85 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
+  '/': typeof UserIndexRoute
+  '/about': typeof UserAboutRoute
+  '/contact': typeof UserContactRoute
+  '/admin/': typeof AdminIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
+  '/about': typeof UserAboutRoute
+  '/contact': typeof UserContactRoute
+  '/': typeof UserIndexRoute
+  '/admin': typeof AdminIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
+  '/_user': typeof UserRouteRouteWithChildren
+  '/_user/about': typeof UserAboutRoute
+  '/_user/contact': typeof UserContactRoute
+  '/_user/': typeof UserIndexRoute
+  '/admin/': typeof AdminIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/api/auth/$'
+  fullPaths: '/' | '/about' | '/contact' | '/admin/' | '/api/auth/$'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api/auth/$'
-  id: '__root__' | '/' | '/api/auth/$'
+  to: '/about' | '/contact' | '/' | '/admin' | '/api/auth/$'
+  id:
+    | '__root__'
+    | '/_user'
+    | '/_user/about'
+    | '/_user/contact'
+    | '/_user/'
+    | '/admin/'
+    | '/api/auth/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
+  UserRouteRoute: typeof UserRouteRouteWithChildren
+  AdminIndexRoute: typeof AdminIndexRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
+    '/_user': {
+      id: '/_user'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof UserRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/admin'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_user/': {
+      id: '/_user/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof UserIndexRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
+    '/_user/contact': {
+      id: '/_user/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof UserContactRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
+    '/_user/about': {
+      id: '/_user/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof UserAboutRouteImport
+      parentRoute: typeof UserRouteRoute
     }
     '/api/auth/$': {
       id: '/api/auth/$'
@@ -68,8 +137,25 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface UserRouteRouteChildren {
+  UserAboutRoute: typeof UserAboutRoute
+  UserContactRoute: typeof UserContactRoute
+  UserIndexRoute: typeof UserIndexRoute
+}
+
+const UserRouteRouteChildren: UserRouteRouteChildren = {
+  UserAboutRoute: UserAboutRoute,
+  UserContactRoute: UserContactRoute,
+  UserIndexRoute: UserIndexRoute,
+}
+
+const UserRouteRouteWithChildren = UserRouteRoute._addFileChildren(
+  UserRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
+  UserRouteRoute: UserRouteRouteWithChildren,
+  AdminIndexRoute: AdminIndexRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
 }
 export const routeTree = rootRouteImport
