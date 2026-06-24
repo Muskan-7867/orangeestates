@@ -95,7 +95,7 @@ export default function ScrollImages() {
 
                     {/* Content */}
                     <div ref={contentRef} className="relative max-w-3xl px-20 z-10 ">
-                        <h1 className="mt-6 text-7xl font-medium leading-[0.95] tracking-tight text-black font-serif">
+                        <h1 className="mt-6 text-7xl  leading-[0.95] tracking-tight text-primary font-serif">
                             Find your
                             <br />
                             dream home.
@@ -107,7 +107,7 @@ export default function ScrollImages() {
                         </p>
 
                         <div className="mt-10 flex gap-4">
-                            <button className="rounded-full bg-black px-8 py-4 text-white font-medium transition hover:scale-105">
+                            <button className="rounded-full bg-primary px-8 py-4 text-white font-medium transition hover:scale-105">
                                 Explore Homes
                             </button>
 
@@ -127,7 +127,7 @@ export default function ScrollImages() {
                         <div
                             key={index}
                             className={cn(
-                                "w-[250px] h-[400px] shrink-0 overflow-hidden rounded-[28px]",
+                                "w-[250px] h-[400px] shrink-0 overflow-hidden",
                                 index % 2 === 0 ? "translate-y-12" : "-translate-y-12",
                                 index === 0 ? "ml-200" : ""
                             )}
@@ -153,10 +153,10 @@ export default function ScrollImages() {
             </section>
 
             {/* ── MOBILE (below md): text on top, horizontal image scroll below ── */}
-            <section className="flex flex-col md:hidden w-full py-10 ">
+            <section className="flex flex-col md:hidden w-full py-10 p-2 ">
                 {/* Text content */}
                 <div className="text-center mb-8 px-6">
-                    <h1 className="text-4xl font-medium leading-[1.1] tracking-tight text-black font-serif">
+                    <h1 className="text-4xl font-medium leading-[1.1] tracking-tight font-serif text-primary">
                         Find your
                         <br />
                         dream home.
@@ -168,11 +168,11 @@ export default function ScrollImages() {
                     </p>
 
                     <div className="mt-8 flex gap-3 justify-center">
-                        <button className="rounded-full bg-black px-6 py-3 text-white text-sm font-medium">
+                        <button className="rounded-xl bg-black px-4 py-2 text-white text-xs font-medium">
                             Explore Homes
                         </button>
 
-                        <button className="rounded-full border border-black/20 bg-white/70 backdrop-blur px-6 py-3 text-sm font-medium">
+                        <button className="rounded-xl border border-black/20 bg-white/70 backdrop-blur px-4 py-2 text-xs font-medium">
                             Learn More
                         </button>
                     </div>
@@ -191,7 +191,7 @@ export default function ScrollImages() {
                     }}
                 >
                     <div
-                        className="flex gap-4"
+                        className="flex gap-2"
                         style={{
                             width: "max-content",
                             paddingRight: "1.5rem",
@@ -201,7 +201,7 @@ export default function ScrollImages() {
                         {images.map((image, index) => (
                             <div
                                 key={index}
-                                className="relative w-[200px] h-[270px] shrink-0 overflow-hidden rounded-[20px]"
+                                className="relative w-[200px] h-[270px] shrink-0 overflow-hidden "
                                 style={{ scrollSnapAlign: "start" }}
                             >
                                 <img

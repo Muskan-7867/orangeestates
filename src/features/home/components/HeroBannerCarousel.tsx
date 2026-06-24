@@ -142,7 +142,7 @@ export default function PremiumHero() {
   return (
     // motion.section lets us smoothly animate the background color
     <motion.section
-      className="relative h-[55vh] sm:h-[85vh]  overflow-hidden text-white m-2 sm:m-4"
+      className="relative h-[55vh] sm:h-[85vh]  overflow-hidden text-white"
       animate={{ backgroundColor: slide.accent }}
       transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
     >
@@ -182,7 +182,7 @@ export default function PremiumHero() {
 
       {/* ── Content grid ────────────────────────────────────────────── */}
       <div className="relative z-20 flex h-full   items-center">
-        <div className="grid w-full grid-cols-1 gap-8 px-5 sm:px-8 md:grid-cols-2 md:pl-10 md:pr-0">
+        <div className="grid w-full grid-cols-1 gap-8 px-5 sm:px-8 md:grid-cols-2 md:pl-8 md:pr-0">
 
           {/* Text column */}
           <div className="flex flex-col justify-center py-16 sm:py-12 md:py-0">
@@ -204,7 +204,7 @@ export default function PremiumHero() {
                 {/* Title */}
                 <div className="overflow-hidden">
                   <motion.h1
-                    className="max-w-xl font-serif text-4xl leading-none sm:text-5xl md:text-8xl"
+                    className="max-w-xl font-serif text-4xl leading-none sm:text-5xl md:text-6xl"
                     initial={{ y: "115%", opacity: 0 }}
                     animate={textEnter(0.1)}
                     exit={textExit(0.05)}
@@ -229,7 +229,7 @@ export default function PremiumHero() {
                 <div className="overflow-hidden">
                   <motion.a
                     href="#"
-                    className="inline-flex items-center gap-3 border-b border-white pb-2 text-xs sm:text-sm uppercase tracking-[0.3em]"
+                    className="inline-flex items-center gap-3 border-b border-white pb-2 text-xs  uppercase tracking-[0.3em]"
                     initial={{ y: "115%", opacity: 0 }}
                     animate={textEnter(0.3)}
                     exit={textExit(0)}

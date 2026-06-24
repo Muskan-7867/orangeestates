@@ -34,16 +34,19 @@ export default function HeroSection() {
   );
 
   return (
-    <section ref={container} className="min-h-[80vh] p-8">
+    <section ref={container} className=" p-4">
       <div
         ref={image}
-        className="h-[80vh] overflow-hidden rounded-2xl w-full"
+        className="h-[40vh] md:h-[80vh] overflow-hidden rounded-2xl w-full"
       >
         <img
           className="object-cover h-full w-full"
           src="https://images.unsplash.com/photo-1506744038136-46273834b3fb"
         />
+
+
       </div>
+
     </section>
   );
 }
