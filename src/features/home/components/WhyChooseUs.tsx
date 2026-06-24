@@ -44,7 +44,7 @@ export default function WhyChooseUs() {
                 </p>
 
                 {/* Heading */}
-                <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl text-center text-black leading-tight max-w-2xl mx-auto">
+                <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl text-center text-primary leading-tight max-w-2xl mx-auto">
                     The Gold Standard in UK Property
                 </h2>
 
@@ -89,7 +89,7 @@ export default function WhyChooseUs() {
 
                 {/* Bottom CTA */}
                 <div className="mt-8 sm:mt-14 flex flex-col sm:flex-row items-center justify-center gap-4">
-                    <button className="w-full sm:w-auto bg-black text-white px-8 sm:px-10 py-3 sm:py-4 text-sm tracking-wide transition rounded-sm">
+                    <button className="w-full sm:w-auto bg-primary text-white px-8 sm:px-10 py-3 sm:py-4 text-sm tracking-wide transition rounded-sm">
                         Find Your Property
                     </button>
                 </div>

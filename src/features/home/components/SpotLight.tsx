@@ -73,14 +73,14 @@ const variants = {
         <section className="py-10">
             <div className="w-full px-2 md:px-18">
                 <div className="text-xl mb-6 md:mb-10 font-serif flex flex-col justify-center items-center text-center px-2">
-                    <h1 className="text-2xl sm:text-3xl font-medium font-serif">Global Reach, Local Expertise</h1>
-                    <p className="mt-2 text-sm sm:text-base text-gray-400 max-w-md">
+                    <h1 className="text-2xl sm:text-4xl font-serif text-primary">Global Reach, Local Expertise</h1>
+                    <p className="mt-2 text-sm text-gray-400 max-w-md">
                         Offering exclusive access to exceptional properties and local experts – wherever, whenever.
                     </p>
                 </div>
                 {/* Top Row */}
                 <div className="mb-4 md:mb-6 flex items-center justify-between">
-                    <h2 className="text-2xl sm:text-3xl font-serif">
+                    <h2 className="text-2xl font-serif text-primary">
                         In the Spotlight
                     </h2>
 
@@ -147,7 +147,7 @@ const variants = {
                             exit={{ opacity: 0, y: -20 }}
                             transition={{ duration: 0.4 }}
                         >
-                            <h3 className="font-serif text-xl sm:text-3xl md:text-4xl leading-tight">
+                            <h3 className=" text-primary font-serif text-xl sm:text-2xl  leading-tight">
                                 {properties[active].title}
                             </h3>
 
@@ -157,7 +157,7 @@ const variants = {
                         </motion.div>
                     </AnimatePresence>
 
-                    <button className="w-full md:w-auto border border-black px-8 py-3 md:px-10 md:py-4 text-sm transition hover:bg-black hover:text-white">
+                    <button className="w-full md:w-auto border border-primary px-8 py-3 md:px-10 md:py-4 text-sm transition hover:bg-primary hover:text-white">
                         View property
                     </button>
                 </div>

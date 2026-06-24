@@ -11,7 +11,7 @@ export default function PropertyGrid() {
             Featured Properties
           </p>
 
-          <h2 className="font-serif text-2xl md:text-4xl leading-tight text-[#001f4d]  text-center">
+          <h2 className="font-serif text-2xl md:text-4xl leading-tight text-primary  text-center">
             Exceptional Homes Crafted for Modern Living
           </h2>
 
