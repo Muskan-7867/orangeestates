@@ -1,130 +1,43 @@
-interface MenuItem {
-  title: string;
-  links: {
-    text: string;
-    url: string;
-  }[];
-}
+import { cn } from "#/lib/utils";
+import React from "react";
+import FooterContent from "../footer/FooterContent";
+import { Link } from "@tanstack/react-router";
 
-interface Footer2Props {
-  logo?: {
-    url: string;
-    src: string;
-    alt: string;
-    title: string;
-  };
-  tagline?: string;
-  menuItems?: MenuItem[];
-  copyright?: string;
-  bottomLinks?: {
-    text: string;
-    url: string;
-  }[];
-}
+type StickyFooterProps = React.ComponentProps<"footer">;
 
-const Footer = ({
-  logo = {
-    src: "https://www.shadcnblocks.com/images/block/block-1.svg",
-    alt: "blocks for shadcn/ui",
-    title: "orangeestates.co.uk",
-    url: "https://orangeestates.co.uk/",
-  },
-  tagline = "Components made easy.",
-  menuItems = [
-    {
-      title: "Product",
-      links: [
-        { text: "Overview", url: "#" },
-        { text: "Pricing", url: "#" },
-        { text: "Marketplace", url: "#" },
-        { text: "Features", url: "#" },
-        { text: "Integrations", url: "#" },
-        { text: "Pricing", url: "#" },
-      ],
-    },
-    {
-      title: "Company",
-      links: [
-        { text: "About", url: "#" },
-        { text: "Team", url: "#" },
-        { text: "Blog", url: "#" },
-        { text: "Careers", url: "#" },
-        { text: "Contact", url: "#" },
-        { text: "Privacy", url: "#" },
-      ],
-    },
-    {
-      title: "Resources",
-      links: [
-        { text: "Help", url: "#" },
-        { text: "Sales", url: "#" },
-        { text: "Advertise", url: "#" },
-      ],
-    },
-    {
-      title: "Social",
-      links: [
-        { text: "Twitter", url: "#" },
-        { text: "Instagram", url: "#" },
-        { text: "LinkedIn", url: "#" },
-      ],
-    },
-  ],
-  copyright = "© 2024 Copyright. All rights reserved.",
-  bottomLinks = [
-    { text: "Terms and Conditions", url: "#" },
-    { text: "Privacy Policy", url: "#" },
-  ],
-}: Footer2Props) => {
+const StickyFooter = ({ className, ...props }: StickyFooterProps) => {
   return (
-    <section className="py-28  flex justify-center">
-      <div className="container">
-        <footer>
-          <div className="grid grid-cols-2 gap-8 lg:grid-cols-6">
-            <div className="col-span-2 mb-8 lg:mb-0">
-              <div className="flex items-center gap-2 lg:justify-start">
-                {/* <a href="https://shadcnblocks.com">
-                  <img
-                    src={logo.src}
-                    alt={logo.alt}
-                    title={logo.title}
-                    className="h-10"
-                  />
-                </a> */}
-                <p className="text-xl font-semibold">{logo.title}</p>
-              </div>
-              <p className="mt-4 font-bold">{tagline}</p>
-            </div>
-            {menuItems.map((section, sectionIdx) => (
-              <div key={sectionIdx}>
-                <h3 className="mb-4 font-bold">{section.title}</h3>
-                <ul className="space-y-4 text-muted-foreground">
-                  {section.links.map((link, linkIdx) => (
-                    <li
-                      key={linkIdx}
-                      className="font-medium hover:text-primary"
-                    >
-                      <a href={link.url}>{link.text}</a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-          <div className="mt-24 flex flex-col justify-between gap-4 border-t pt-8 text-sm font-medium text-muted-foreground md:flex-row md:items-center">
-            <p>{copyright}</p>
-            <ul className="flex gap-4">
-              {bottomLinks.map((link, linkIdx) => (
-                <li key={linkIdx} className="underline hover:text-primary">
-                  <a href={link.url}>{link.text}</a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </footer>
+    <footer
+      className={cn(
+        "relative w-full bg-zinc-900 text-white overflow-hidden",
+        className
+      )}
+      {...props}
+    >
+      {/* Decorative background blobs */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 isolate z-0 overflow-hidden">
+        <div className="bg-[radial-gradient(68.54%_68.72%_at_55.02%_31.46%,rgba(255,255,255,0.04)_0,rgba(140,140,140,0.02)_50%,rgba(255,255,255,0.01)_80%)] absolute -top-20 -left-20 h-[36rem] w-[36rem] -rotate-45 rounded-full" />
+        <div className="bg-[radial-gradient(50%_50%_at_50%_50%,rgba(255,255,255,0.03)_0,rgba(255,255,255,0.01)_80%,transparent_100%)] absolute top-0 right-0 h-[28rem] w-[28rem] translate-x-1/3 -translate-y-1/4 rounded-full" />
       </div>
-    </section>
+
+      {/* Top border */}
+      <div className="relative z-10 border-t border-white/10 px-4 py-16 sm:px-8 md:px-16 lg:px-24 sm:py-30">
+        {/* Main columns */}
+        <FooterContent />
+
+        {/* Divider */}
+        <div className="mt-14 border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-zinc-400">
+          <p>© 2026 Orange Estate, Inc. All rights reserved.</p>
+          <Link
+            to="/"
+            className="hover:text-white transition-colors duration-300"
+          >
+            Privacy Policy
+          </Link>
+        </div>
+      </div>
+    </footer>
   );
 };
 
-export { Footer };
+export default StickyFooter;
