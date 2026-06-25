@@ -6,7 +6,8 @@ import { useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 
 import Sidebar from '#/components/navbar/Sidebar';
-import Navbar from '#/components/Navbar';
+import Navbar from '#/components/navbar/Navbar';
+import WhatsAppButton from '#/components/ui/WhatsAppButton';
 
 export const Route = createFileRoute('/_user')({
   component: RouteComponent,
@@ -31,6 +32,7 @@ function RouteComponent() {
 
           <Outlet />
           <StickyFooter />
+          <WhatsAppButton />
         </div>
 
       </div>
