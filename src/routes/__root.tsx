@@ -48,7 +48,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        <LenisProvider>
+        <LenisProvider >
           {children}
         </LenisProvider>
         <TanStackDevtools

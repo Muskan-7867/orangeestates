@@ -5,7 +5,7 @@ import { Menu, X } from "lucide-react";
 
 export const navLinks = [
   { label: "Home",       href: "/" },
-  { label: "Properties", href: "/products" },
+  { label: "Properties", href: "/properties" },
   { label: "About Us",   href: "/about" },
   { label: "Contact",    href: "/contact" },
 ];
@@ -23,7 +23,7 @@ useEffect(() => {
   return (
     <>
       {/* ── Top bar ── */}
-      <nav className="h-16 bg-black flex items-center justify-between px-6 sm:px-10 sticky w-full top-0 z-50 shadow-sm">
+      <nav className={`h-16 bg-black flex items-center justify-between px-6 sm:px-10  w-full  shadow-sm ${open ? "" : "fixed top-0 z-50"}`}>
 
         {/* Desktop quick links */}
         <div className="hidden md:flex flex-1 justify-start items-center gap-6 text-sm text-white">

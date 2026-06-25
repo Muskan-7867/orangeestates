@@ -8,7 +8,7 @@ import PropertyGrid from '#/features/home/components/PropertyGrid'
 import WhyChooseUs from '#/features/home/components/WhyChooseUs'
 import CTA from '#/features/home/components/CTA'
 import ImageCarousel from '#/features/home/components/ImageCarousel'
-import { FaqsSection } from '#/components/faqs-1'
+import { FaqsSection } from '#/features/home/components/FaqsSection'
 import Testimonials from '#/features/home/components/Testimonials'
 
 export const Route = createFileRoute('/_user/')({
@@ -16,7 +16,7 @@ export const Route = createFileRoute('/_user/')({
 })
 
 function RouteComponent() {
-  return <div>
+  return <div className='bg-bg'>
     <>
     
           <HeroBannerCarousel />
