@@ -76,7 +76,7 @@ export default function ScrollImages() {
                 {/* Left overlay */}
                 <div className="absolute left-0 top-0 h-full w-[65%] z-20 flex items-center px-28">
                     {/* Dark gradient */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-white via-white/20 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-bg via-bg/20 to-transparent" />
 
                     {/* Progressive blur */}
                     <div className="smooth-blur">
