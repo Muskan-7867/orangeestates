@@ -85,7 +85,7 @@ function MarqueeRow({
   const doubled = React.useMemo(() => [...data, ...data], [data]);
   return (
     <div className="relative w-full mx-auto max-w-7xl overflow-hidden isolation-isolate">
-      <div className="pointer-events-none absolute left-0 top-0 h-full w-24 md:w-32 z-10 bg-gradient-to-r from-white to-transparent blur-md" />
+      <div className="pointer-events-none absolute left-0 top-0 h-full w-24 md:w-32 z-10 bg-gradient-to-r from-bg to-transparent " />
       <div
         className={`flex transform-gpu min-w-[200%] ${
           reverse ? "pt-5 pb-10" : "pt-10 pb-5"
@@ -99,7 +99,7 @@ function MarqueeRow({
           <Card key={i} card={c} />
         ))}
       </div>
-      <div className="pointer-events-none absolute right-0 top-0 h-full w-24 md:w-32 z-10 bg-gradient-to-l from-white to-transparent blur-md" />
+      <div className="pointer-events-none absolute right-0 top-0 h-full w-24 md:w-32 z-10 bg-gradient-to-l from-bg to-transparent" />
     </div>
   );
 }

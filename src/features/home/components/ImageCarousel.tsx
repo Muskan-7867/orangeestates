@@ -60,9 +60,9 @@ const ImageCarousel = () => {
   }, []);
 
   return (
-    <div className="relative flex flex-col items-center justify-center min-h-[85vh] py-18 font-sans text-white">
+    <div className="relative flex flex-col items-center justify-center min-h-[85vh] py-18 font-sans text-white px-6">
       {/* Header Section */}
-      <div className="w-full max-w-2xl px-6  text-center">
+      <div className="w-full max-w-2xl px-6 text-center">
         <h1 className="text-4xl md:text-5xl font-serif text-primary mb-3 ">Escape in Style</h1>
         <p className="text-gray-500 max-w-xl mx-auto">Discover luxurious camping experiences in nature's most breathtaking spots.</p>
       </div>

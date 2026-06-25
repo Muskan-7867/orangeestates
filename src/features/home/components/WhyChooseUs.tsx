@@ -36,7 +36,7 @@ const stats = [
 
 export default function WhyChooseUs() {
     return (
-        <section className="py-8 bg-white">
+        <section className="py-8 ">
             <div className="w-full px-4 lg:px-18 ">
                 {/* Section label */}
                 <p className="mb-4 text-sm uppercase tracking-[0.35em] text-gray-400 text-center">
