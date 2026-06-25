@@ -1,5 +1,5 @@
 import { Users } from "lucide-react";
-import { useRef } from "react";
+import type { RefObject } from "react";
 
 
 const team = [
@@ -20,8 +20,8 @@ const team = [
   },
 ];
 
-export default function Team() {
-      const teamRef = useRef<HTMLDivElement>(null);
+export default function Team({teamRef}: {teamRef:RefObject<HTMLDivElement | null> }) {
+
     
     return (
       <section className="py-20 sm:py-28 bg-[#fff7ed]">

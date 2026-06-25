@@ -1,5 +1,5 @@
 import { Globe, Heart, Shield, Star } from "lucide-react";
-import { useRef } from "react";
+import type { RefObject } from "react";
 
 const values = [
     {
@@ -25,8 +25,7 @@ const values = [
 ];
 
 
-export default function Values() {
-       const valuesRef = useRef<HTMLDivElement>(null);
+export default function Values({ valuesRef}: {valuesRef:RefObject<HTMLDivElement | null> } ) {
 
  return (
 

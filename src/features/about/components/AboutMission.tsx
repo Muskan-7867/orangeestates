@@ -1,15 +1,14 @@
 import { Award, Home, MapPin, TrendingUp } from "lucide-react";
-import { useRef } from "react";
+import { type RefObject } from "react";
 
-export default function AboutMission() {
-      const missionRef = useRef<HTMLDivElement>(null);
+export default function AboutMission({ missionRef}: {missionRef: RefObject<HTMLDivElement | null>}) {
     
   return (
       <section className="py-20 sm:py-28 px-6 sm:px-12 lg:px-20 w-full mx-auto">
         <div ref={missionRef} className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left text */}
           <div>
-            <p className="text-xs uppercase tracking-[0.35em] text-orange-500 mb-5">
+            <p className="text-xs uppercase tracking-[0.35em] text-orange-500 mb-5 ">
               Our Mission
             </p>
             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl leading-tight mb-6">

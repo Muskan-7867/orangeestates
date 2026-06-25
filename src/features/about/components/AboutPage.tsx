@@ -13,6 +13,7 @@ import {
 import AboutMission from "./AboutMission";
 import Values from "./Values";
 import Team from "./Team";
+import AboutHero from "./AboutHero";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -211,41 +212,8 @@ export default function AboutPage() {
     <main className="bg-white overflow-x-hidden">
 
       {/* ── HERO ───────────────────────────────────────────── */}
-      <section
-        ref={heroRef}
-        className="relative h-[70vh] flex items-end overflow-hidden"
-      >
-        {/* Parallax image */}
-        <div ref={heroImgRef} className="absolute inset-0 scale-110">
-          <img
-            src="/about-hero.jpg"
-            alt="Orange Estate luxury property"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
-        </div>
-
-        {/* Text */}
-        <div ref={heroTextRef} className="relative z-10 px-6   pb-16 sm:pb-20 max-w-5xl">
-          <p className="text-xs sm:text-sm uppercase tracking-[0.35em] text-orange-300 mb-4 font-medium">
-            Est. 1999 · London, UK
-          </p>
-          <h1 className="font-serif text-6xl   text-white leading-none mb-6">
-            Crafting Legacies in Property
-          </h1>
-          <p className="text-white/75 text-base sm:text-lg max-w-xl leading-relaxed">
-            For over two decades, Orange Estate has been the trusted partner
-            of those who demand more from their property journey.
-          </p>
-        </div>
-
-        {/* Scroll hint */}
-        <div className="absolute bottom-8 right-8 sm:right-12 flex flex-col items-center gap-2 text-white/50">
-          <span className="text-[10px] uppercase tracking-[0.3em]">Scroll</span>
-          <div className="w-px h-12 bg-white/30 animate-pulse" />
-        </div>
-      </section>
-
+  <AboutHero heroRef={heroRef} heroImgRef={heroImgRef} heroTextRef={heroTextRef}/>
+  
       {/* ── STATS ──────────────────────────────────────────── */}
       <section ref={statsRef} className=" py-16 sm:py-20">
         <div className="max-w-6xl mx-auto px-6 sm:px-10 grid grid-cols-2 md:grid-cols-4 gap-10 text-center">
@@ -264,9 +232,9 @@ export default function AboutPage() {
         </div>
       </section>
 
-   <AboutMission />
+   <AboutMission missionRef={missionRef} />
 
-   <Values />
+   <Values valuesRef={valuesRef}/>
    
 
        <section className="py-20 sm:py-28 px-6 sm:px-12 lg:px-20 w-full mx-auto">
@@ -328,7 +296,7 @@ export default function AboutPage() {
         </div>
       </section>
 
- <Team />
+ <Team teamRef={teamRef}/>
 
       {/* ── CTA ────────────────────────────────────────────── */}
       <section ref={ctaRef} className="py-24 sm:py-32 px-6 text-center bg-white">
