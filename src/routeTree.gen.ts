@@ -13,8 +13,11 @@ import { Route as UserRouteRouteImport } from './routes/_user/route'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as UserIndexRouteImport } from './routes/_user/index'
 import { Route as UserContactRouteImport } from './routes/_user/contact'
+import { Route as UserBlogRouteImport } from './routes/_user/blog'
 import { Route as UserAboutRouteImport } from './routes/_user/about'
+import { Route as UserPropertiesIndexRouteImport } from './routes/_user/properties.index'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
+import { Route as UserPropertiesIdRouteImport } from './routes/_user/properties.$id'
 
 const UserRouteRoute = UserRouteRouteImport.update({
   id: '/_user',
@@ -35,9 +38,19 @@ const UserContactRoute = UserContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => UserRouteRoute,
 } as any)
+const UserBlogRoute = UserBlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
+  getParentRoute: () => UserRouteRoute,
+} as any)
 const UserAboutRoute = UserAboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => UserRouteRoute,
+} as any)
+const UserPropertiesIndexRoute = UserPropertiesIndexRouteImport.update({
+  id: '/properties/',
+  path: '/properties/',
   getParentRoute: () => UserRouteRoute,
 } as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
@@ -45,43 +58,76 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   path: '/api/auth/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const UserPropertiesIdRoute = UserPropertiesIdRouteImport.update({
+  id: '/properties/$id',
+  path: '/properties/$id',
+  getParentRoute: () => UserRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof UserIndexRoute
   '/about': typeof UserAboutRoute
+  '/blog': typeof UserBlogRoute
   '/contact': typeof UserContactRoute
   '/admin/': typeof AdminIndexRoute
+  '/properties/$id': typeof UserPropertiesIdRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/properties/': typeof UserPropertiesIndexRoute
 }
 export interface FileRoutesByTo {
   '/about': typeof UserAboutRoute
+  '/blog': typeof UserBlogRoute
   '/contact': typeof UserContactRoute
   '/': typeof UserIndexRoute
   '/admin': typeof AdminIndexRoute
+  '/properties/$id': typeof UserPropertiesIdRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/properties': typeof UserPropertiesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_user': typeof UserRouteRouteWithChildren
   '/_user/about': typeof UserAboutRoute
+  '/_user/blog': typeof UserBlogRoute
   '/_user/contact': typeof UserContactRoute
   '/_user/': typeof UserIndexRoute
   '/admin/': typeof AdminIndexRoute
+  '/_user/properties/$id': typeof UserPropertiesIdRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/_user/properties/': typeof UserPropertiesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/contact' | '/admin/' | '/api/auth/$'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/blog'
+    | '/contact'
+    | '/admin/'
+    | '/properties/$id'
+    | '/api/auth/$'
+    | '/properties/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/about' | '/contact' | '/' | '/admin' | '/api/auth/$'
+  to:
+    | '/about'
+    | '/blog'
+    | '/contact'
+    | '/'
+    | '/admin'
+    | '/properties/$id'
+    | '/api/auth/$'
+    | '/properties'
   id:
     | '__root__'
     | '/_user'
     | '/_user/about'
+    | '/_user/blog'
     | '/_user/contact'
     | '/_user/'
     | '/admin/'
+    | '/_user/properties/$id'
     | '/api/auth/$'
+    | '/_user/properties/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -120,11 +166,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UserContactRouteImport
       parentRoute: typeof UserRouteRoute
     }
+    '/_user/blog': {
+      id: '/_user/blog'
+      path: '/blog'
+      fullPath: '/blog'
+      preLoaderRoute: typeof UserBlogRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
     '/_user/about': {
       id: '/_user/about'
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof UserAboutRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
+    '/_user/properties/': {
+      id: '/_user/properties/'
+      path: '/properties'
+      fullPath: '/properties/'
+      preLoaderRoute: typeof UserPropertiesIndexRouteImport
       parentRoute: typeof UserRouteRoute
     }
     '/api/auth/$': {
@@ -134,19 +194,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAuthSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_user/properties/$id': {
+      id: '/_user/properties/$id'
+      path: '/properties/$id'
+      fullPath: '/properties/$id'
+      preLoaderRoute: typeof UserPropertiesIdRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
   }
 }
 
 interface UserRouteRouteChildren {
   UserAboutRoute: typeof UserAboutRoute
+  UserBlogRoute: typeof UserBlogRoute
   UserContactRoute: typeof UserContactRoute
   UserIndexRoute: typeof UserIndexRoute
+  UserPropertiesIdRoute: typeof UserPropertiesIdRoute
+  UserPropertiesIndexRoute: typeof UserPropertiesIndexRoute
 }
 
 const UserRouteRouteChildren: UserRouteRouteChildren = {
   UserAboutRoute: UserAboutRoute,
+  UserBlogRoute: UserBlogRoute,
   UserContactRoute: UserContactRoute,
   UserIndexRoute: UserIndexRoute,
+  UserPropertiesIdRoute: UserPropertiesIdRoute,
+  UserPropertiesIndexRoute: UserPropertiesIndexRoute,
 }
 
 const UserRouteRouteWithChildren = UserRouteRoute._addFileChildren(
