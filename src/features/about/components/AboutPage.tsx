@@ -209,7 +209,7 @@ export default function AboutPage() {
   }, []);
 
   return (
-    <main className="bg-white overflow-x-hidden">
+    <main className="bg-white overflow-x-hidden py-16">
 
       {/* ── HERO ───────────────────────────────────────────── */}
   <AboutHero heroRef={heroRef} heroImgRef={heroImgRef} heroTextRef={heroTextRef}/>

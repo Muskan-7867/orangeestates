@@ -4,21 +4,22 @@ import { Menu, X } from "lucide-react";
 
 
 export const navLinks = [
-  { label: "Home",       href: "/" },
+  { label: "Home", href: "/" },
   { label: "Properties", href: "/properties" },
-  { label: "About Us",   href: "/about" },
-  { label: "Contact",    href: "/contact" },
+  { label: "Blog", href: "/blog" },
+  { label: "About Us", href: "/about" },
+  { label: "Contact", href: "/contact" },
 ];
 
-export default function Navbar({setOpen, open}: {open: boolean, setOpen: React.Dispatch<React.SetStateAction<boolean>>}) {
+export default function Navbar({ setOpen, open }: { open: boolean, setOpen: React.Dispatch<React.SetStateAction<boolean>> }) {
 
   const location = useLocation();
 
 
 
-useEffect(() => {
-  document.body.style.overflow = open ? "hidden" : "";
-}, [open]);
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+  }, [open]);
 
   return (
     <>
@@ -31,9 +32,9 @@ useEffect(() => {
             <Link
               key={l.href}
               to={l.href}
-              className={`hover:text-primary transition-colors ${
-                location.pathname === l.href ? "text-primary font-medium" : ""
-              }`}
+              preload="intent"
+              className={`hover:text-primary transition-colors ${location.pathname === l.href ? "text-primary font-medium" : ""
+                }`}
             >
               {l.label}
             </Link>
@@ -55,24 +56,24 @@ useEffect(() => {
           </div>
         </Link>
 
-      
-          {/* Hamburger */}
-          <div className=" flex flex-1 justify-end items-center">
- <button
-          onClick={() => setOpen(!open)}
-          aria-label="Open menu"
-          className="text-white hover:opacity-70 transition-opacity"
-        >
-          <Menu size={22} />
-        </button>
-          </div>
-       
+
+        {/* Hamburger */}
+        <div className=" flex flex-1 justify-end items-center">
+          <button
+            onClick={() => setOpen(!open)}
+            aria-label="Open menu"
+            className="text-white hover:opacity-70 transition-opacity"
+          >
+            <Menu size={22} />
+          </button>
+        </div>
+
 
         {/* Mobile spacer (balances logo) */}
         <div className="w-6 md:hidden" />
       </nav>
 
-      
+
     </>
   );
 }

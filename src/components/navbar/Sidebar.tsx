@@ -5,7 +5,8 @@ import { Link } from "@tanstack/react-router"
 import { X } from "lucide-react"
 export const navLinks = [
   { label: "Home",       href: "/" },
-  { label: "Properties", href: "/products" },
+  { label: "Properties", href: "/properties" },
+  { label: "Blog",       href: "/blog" },
   { label: "About Us",   href: "/about" },
   { label: "Contact",    href: "/contact" },
 ];
