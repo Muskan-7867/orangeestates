@@ -102,7 +102,7 @@ export default function ContactPage() {
   };
 
   return (
-    <main className="bg-white overflow-x-hidden">
+    <main className="bg-white overflow-x-hidden py-16">
 
       {/* ── HERO ─────────────────────────────────────────── */}
       <section
