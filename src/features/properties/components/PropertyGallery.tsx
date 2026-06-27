@@ -130,32 +130,7 @@ export default function PropertyGallery({ property }: { property: any }) {
                     className="w-full h-[40vh] md:h-[70vh] object-cover  pointer-events-none select-none"
                   />
                   
-                  {/* Active Card Overlay Controls */}
-                  {isActive && (
-                    <>
-                      {/* Gentle shadow overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/35 pointer-events-none z-5 animate-fade-in" />
-                      
-                      {/* Info and Expand button */}
-                      <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-10">
-                        <span className="text-xs font-semibold tracking-wider bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10 text-white select-none">
-                          {originalIndex + 1} / {totalImages}
-                        </span>
-                        <motion.button
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setIsLightboxOpen(true);
-                          }}
-                          className="p-2.5 rounded-full bg-black/40 backdrop-blur-md border border-white/10 text-white hover:bg-black/60 transition-colors cursor-pointer"
-                          title="Expand Fullscreen"
-                        >
-                          <Maximize2 size={16} />
-                        </motion.button>
-                      </div>
-                    </>
-                  )}
+                
                 </motion.div>
               );
             })}
