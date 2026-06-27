@@ -48,10 +48,10 @@ const FooterContent = () => {
   ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 xl:gap-12">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 xl:gap-12 ">
 
       {/* Brand column */}
-      <AnimatedContainer className="sm:col-span-2 lg:col-span-1 space-y-5">
+      <AnimatedContainer className="sm:col-span-2 lg:col-span-1  space-y-5">
         <h2 className="text-2xl font-bold text-white">Orange Estate</h2>
         <p className="text-zinc-400 text-sm leading-relaxed">
           Your one-stop destination for quality products. We provide the best
