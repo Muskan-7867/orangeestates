@@ -13,13 +13,13 @@ export default function PropertyHeaderDesc({property}: {property: any}) {
       };
     
     return (
-                <div className="bg-white p-6 sm:p-8 border border-gray-100 ">
+                <div className="bg-white p-4 sm:p-8 border border-gray-100 ">
             <div className="flex justify-between items-start gap-4 flex-wrap">
               <div>
                 <span className="bg-primary/10 text-primary px-3 py-1 text-[10px] sm:text-xs tracking-wider uppercase font-semibold rounded-md">
                   Premium Listing
                 </span>
-                <h1 className="mt-4 font-serif text-2xl sm:text-4xl text-gray-900 leading-tight">
+                <h1 className="mt-4 font-serif text-xl sm:text-4xl text-gray-900 leading-tight">
                   {property.title}
                 </h1>
               </div>
