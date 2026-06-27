@@ -40,7 +40,7 @@ export default function BlogCard({
           </p>
         </div>
 
-        <div className="pt-6 mt-6 border-t flex justify-between text-[10px]">
+        <div className="pt-6 mt-6 border-t border-gray-200 flex justify-between text-[10px]">
           <span className="flex items-center gap-1">
             <Calendar size={12} />
             {post.date}

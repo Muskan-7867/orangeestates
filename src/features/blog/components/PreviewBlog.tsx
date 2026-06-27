@@ -25,7 +25,7 @@ export default function PreviewBlog({
               exit={{ scale: 0.95, y: 20 }}
               transition={{ type: "spring", damping: 25, stiffness: 250 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-white w-full max-w-4xl max-h-[85vh] overflow-y-auto scrollbar-hide relative rounded-lg border border-gray-100 flex flex-col"
+              className="bg-white w-full max-w-4xl max-h-[85vh] overflow-y-auto scrollbar-hide relative rounded-lg  flex flex-col"
             >
               {/* Header Image */}
               <div className="relative h-64 sm:h-96 w-full shrink-0">

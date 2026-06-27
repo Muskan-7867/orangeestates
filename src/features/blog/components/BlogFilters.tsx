@@ -23,9 +23,9 @@ export default function BlogFilters({
           <button
             key={category}
             onClick={() => setSelectedCategory(category)}
-            className={`rounded-sm border px-4 py-2 text-xs font-medium transition-colors ${
+            className={`rounded-sm  px-4 py-3.5 text-xs font-medium transition-colors ${
               selectedCategory === category
-                ? "bg-[#0c1e36] text-white border-[#0c1e36]"
+                ? "bg-primary text-white "
                 : "bg-white text-gray-700 hover:bg-gray-50"
             }`}
           >
@@ -45,7 +45,7 @@ export default function BlogFilters({
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="Search articles..."
-          className="h-11 w-full rounded-sm border pl-10 pr-4 text-sm outline-none transition focus:border-[#0c1e36]"
+          className="h-11 w-full rounded-sm bg-white pl-10 pr-4 text-sm outline-none transition "
         />
       </div>
     </div>
