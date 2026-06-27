@@ -1,48 +1,68 @@
 import { ArrowRight, Calendar, Clock } from "lucide-react";
 
-export default function LatestBlog({featuredPost, setSelectedPost }: any) {
-    return (
-        <>
-                <section className="max-w-7xl mx-auto px-6 sm:px-10 mb-16">
-          <div className="bg-white border border-gray-100 grid grid-cols-1 lg:grid-cols-12 gap-0 overflow-hidden  transition-shadow">
-            <div className="lg:col-span-7 h-[300px] sm:h-[450px] relative overflow-hidden">
-              <img
-                src={featuredPost.image}
-                alt={featuredPost.title}
-                className="w-full h-full object-cover hover:scale-[1.02] transition-transform duration-700"
-              />
-              <span className="absolute top-4 left-4 bg-primary text-white text-[9px] uppercase tracking-widest font-bold px-3 py-1.5 shadow-sm">
-                Featured Article
+export default function LatestBlog({
+  featuredPost,
+  setSelectedPost,
+}: any) {
+  return (
+    <section className="mx-auto mb-12 max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="overflow-hidden border border-gray-100 bg-white transition-shadow  lg:grid lg:grid-cols-12">
+        {/* Image */}
+        <div className="relative h-64 sm:h-80 md:h-[420px] lg:col-span-7  overflow-hidden">
+          <img
+            src={featuredPost.image}
+            alt={featuredPost.title}
+            className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+          />
+
+          <span className="absolute left-4 top-4 bg-primary px-3 py-1.5 text-[9px] font-bold uppercase tracking-widest text-white shadow-sm sm:text-[10px]">
+            Featured Article
+          </span>
+        </div>
+
+        {/* Content */}
+        <div className="flex min-h-[320px] flex-col justify-between p-5 sm:p-8 lg:col-span-5 lg:p-10">
+          <div className="space-y-4">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-primary">
+              {featuredPost.category}
+            </span>
+
+            <h2
+              onClick={() => setSelectedPost(featuredPost)}
+              className="cursor-pointer font-serif text-2xl leading-tight text-gray-900 transition-colors hover:text-primary sm:text-3xl"
+            >
+              {featuredPost.title}
+            </h2>
+
+            <p className="text-sm leading-relaxed text-gray-500 sm:text-base">
+              {featuredPost.excerpt}
+            </p>
+          </div>
+
+          {/* Footer */}
+          <div className="mt-8 flex flex-col gap-4 border-t border-gray-100 pt-6 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex flex-wrap gap-4 text-[11px] font-medium text-gray-400">
+              <span className="flex items-center gap-1">
+                <Calendar size={13} />
+                {featuredPost.date}
+              </span>
+
+              <span className="flex items-center gap-1">
+                <Clock size={13} />
+                {featuredPost.readTime}
               </span>
             </div>
 
-            <div className="lg:col-span-5 p-8 sm:p-12 flex flex-col justify-between h-full min-h-[350px]">
-              <div className="space-y-4">
-                <span className="text-[10px] text-primary uppercase font-bold tracking-wider">{featuredPost.category}</span>
-                <h2 className="font-serif text-2xl sm:text-3xl text-gray-900 leading-snug hover:text-primary transition-colors cursor-pointer" onClick={() => setSelectedPost(featuredPost)}>
-                  {featuredPost.title}
-                </h2>
-                <p className="text-gray-500 text-xs sm:text-sm leading-relaxed font-light">
-                  {featuredPost.excerpt}
-                </p>
-              </div>
-
-              <div className="pt-8 border-t border-gray-50 flex items-center justify-between mt-auto">
-                <div className="flex gap-4 text-[10px] text-gray-400 font-medium">
-                  <span className="flex items-center gap-1"><Calendar size={12} /> {featuredPost.date}</span>
-                  <span className="flex items-center gap-1"><Clock size={12} /> {featuredPost.readTime}</span>
-                </div>
-
-                <button
-                  onClick={() => setSelectedPost(featuredPost)}
-                  className="flex items-center gap-1 text-[11px] text-primary hover:text-black font-semibold uppercase tracking-wider transition-colors cursor-pointer"
-                >
-                  Read Article <ArrowRight size={14} />
-                </button>
-              </div>
-            </div>
+            <button
+              onClick={() => setSelectedPost(featuredPost)}
+              className="flex items-center justify-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-primary transition-colors hover:text-black sm:justify-start"
+            >
+              Read Article
+              <ArrowRight size={14} />
+            </button>
           </div>
-        </section>
-        </>
-    )
+        </div>
+      </div>
+    </section>
+  );
 }

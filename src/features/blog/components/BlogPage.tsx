@@ -120,7 +120,7 @@ export default function BlogPage() {
         <span className="bg-primary/10 text-primary px-3 py-1 text-[10px] tracking-wider uppercase font-semibold rounded-md">
           Orange Journal
         </span>
-        <h1 className="mt-4 font-serif text-3xl sm:text-5xl text-gray-900 leading-tight">
+        <h1 className="mt-4 font-serif text-3xl sm:text-5xl text-gray-900 leading-tight text-center">
           Estates & Design Journal
         </h1>
         <p className="mt-2 text-gray-500 text-sm max-w-xl text-center">
