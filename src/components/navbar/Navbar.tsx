@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef } from "react";
-import { Link, useLocation } from "@tanstack/react-router";
-import { Menu, X } from "lucide-react";
+import { useEffect } from "react";
+import { Link } from "@tanstack/react-router";
+import { Menu } from "lucide-react";
 
 
 export const navLinks = [
@@ -13,7 +13,6 @@ export const navLinks = [
 
 export default function Navbar({ setOpen, open }: { open: boolean, setOpen: React.Dispatch<React.SetStateAction<boolean>> }) {
 
-  const location = useLocation();
 
 
 
@@ -24,10 +23,10 @@ export default function Navbar({ setOpen, open }: { open: boolean, setOpen: Reac
   return (
     <>
       {/* ── Top bar ── */}
-      <nav className={`h-16 bg-black flex items-center justify-between px-6 sm:px-10  w-full  shadow-sm ${open ? "" : "fixed top-0 z-50"}`}>
+      <nav className={`h-16 bg-black flex items-center justify-between px-4 sm:px-10  w-full  shadow-sm ${open ? "" : "fixed top-0 z-50"}`}>
 
         {/* Desktop quick links */}
-        <div className="hidden md:flex flex-1 justify-start items-center gap-6 text-sm text-white">
+        {/* <div className="hidden md:flex flex-1 justify-start items-center gap-6 text-sm text-white">
           {navLinks.slice(1).map((l) => (
             <Link
               key={l.href}
@@ -39,15 +38,11 @@ export default function Navbar({ setOpen, open }: { open: boolean, setOpen: Reac
               {l.label}
             </Link>
           ))}
-        </div>
+        </div> */}
 
         {/* Logo */}
-        <Link to="/" className="flex  flex-1 justify-center items-center gap-4 text-white no-underline">
-          <div className="text-right leading-none">
-            <p className="text-[11px] tracking-widest uppercase">United</p>
-            <p className="text-[11px] tracking-widest uppercase">Kingdom</p>
-          </div>
-          <div className="h-10 w-px bg-gray-200" />
+        <Link to="/" className="flex  flex-1 justify-start items-center gap-4 text-white no-underline">
+
           <div>
             <p className="text-2xl font-serif leading-none">Orange</p>
             <p className="text-[8px] tracking-[3px] uppercase text-gray-400 mt-0.5">
