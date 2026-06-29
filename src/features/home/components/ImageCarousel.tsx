@@ -95,9 +95,6 @@ const ImageCarousel = () => {
               minHeight: '100px',
               margin: 0,
               borderRadius: 0,
-              borderWidth: '2px',
-              borderStyle: 'solid',
-              borderColor: activeIndex === index ? '#fff' : '#292929',
               cursor: 'pointer',
               backgroundColor: '#18181b',
               boxShadow: activeIndex === index
