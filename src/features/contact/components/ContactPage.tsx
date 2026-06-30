@@ -102,12 +102,12 @@ export default function ContactPage() {
   };
 
   return (
-    <main className="bg-white overflow-x-hidden py-16">
+    <main className="bg-white overflow-x-hidden ">
 
       {/* ── HERO ─────────────────────────────────────────── */}
       <section
         className="relative flex items-end overflow-hidden"
-        style={{ minHeight: "520px" }}
+        style={{ minHeight: "580px" }}
       >
         {/* Background image */}
         <div
