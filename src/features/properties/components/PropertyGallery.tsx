@@ -77,7 +77,7 @@ export default function PropertyGallery({ property }: { property: any }) {
   return (
     <section className="w-full p-2">
       {/* Breadcrumbs Navigation */}
-      <div className="w-full px-4 md:px-12 lg:px-24 py-4 flex items-center gap-2 text-xs md:text-sm text-gray-500 font-sans">
+      <div className="w-full px-4 md:px-12 lg:px-24 py-4 flex items-center justify-center gap-2 text-xs md:text-sm text-gray-500 font-sans">
         <Link to="/" className="hover:text-primary transition-colors">
           Home
         </Link>

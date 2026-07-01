@@ -21,7 +21,7 @@ export function PropertyCard({ property }: { property: (typeof properties)[0] })
   };
 
   return (
-    <article className="group bg-[#fafafa] relative flex flex-col h-full border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-300">
+    <article className="group bg-[#fafafa] relative flex flex-col h-full border border-gray-100 ">
       <div className="relative overflow-hidden">
         <Link to="/properties/$id" params={{ id: property.id }} className="block">
           <img

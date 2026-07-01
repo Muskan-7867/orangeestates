@@ -4,11 +4,13 @@ import { PropertyCard } from "#/components/ui/PropertyCard";
 import { properties } from "#/constants";
 import PropertyHero from "./PropertyHero";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import PropertyFilters from "./PropertyFilters";
 
 const ITEMS_PER_PAGE = 6;
 
 export default function PropertiesPage() {
   const [selectedCountry, setSelectedCountry] = useState("All");
+  const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
   const countries = [
@@ -20,7 +22,8 @@ export default function PropertiesPage() {
     "Australia",
   ];
 
-  const filteredProperties =
+  // 1. Filter by country
+  const filteredByCountry =
     selectedCountry === "All"
       ? properties
       : properties.filter((_, index) => {
@@ -29,6 +32,11 @@ export default function PropertiesPage() {
 
           return propertyCountry === selectedCountry;
         });
+
+  // 2. Filter by search query
+  const filteredProperties = filteredByCountry.filter((property) => {
+    return property.title.toLowerCase().includes(searchQuery.toLowerCase());
+  });
 
   const totalPages = Math.ceil(filteredProperties.length / ITEMS_PER_PAGE);
   const paginatedProperties = filteredProperties.slice(
@@ -62,24 +70,19 @@ export default function PropertiesPage() {
           </div>
 
           {/* Filter */}
-          <div className="mb-10 flex flex-wrap justify-center gap-3">
-            {countries.map((country) => (
-              <button
-                key={country}
-                onClick={() => {
-                  setSelectedCountry(country);
-                  setCurrentPage(1);
-                }}
-                className={`px-5 py-2 text-sm uppercase tracking-wider border transition-all duration-300 cursor-pointer ${
-                  selectedCountry === country
-                    ? "bg-primary text-white"
-                    : "bg-white text-gray-700 border-gray-300 hover:border-black"
-                }`}
-              >
-                {country}
-              </button>
-            ))}
-          </div>
+          <PropertyFilters
+            countries={countries}
+            selectedCountry={selectedCountry}
+            setSelectedCountry={(country) => {
+              setSelectedCountry(country);
+              setCurrentPage(1);
+            }}
+            searchQuery={searchQuery}
+            setSearchQuery={(query) => {
+              setSearchQuery(query);
+              setCurrentPage(1);
+            }}
+          />
 
           {/* Grid */}
           <div className="grid gap-8 sm:grid-cols-2 xl:grid-cols-3">
