@@ -143,7 +143,7 @@ export default function PremiumHero() {
     // motion.section lets us smoothly animate the background color
     <motion.section
       id="hero-carousel"
-      className="relative h-[55vh] sm:h-[85vh]  overflow-hidden text-white"
+      className="relative h-[55vh] sm:h-[85vh]  overflow-hidden text-white  sm:px-28"
       animate={{ backgroundColor: slide.accent }}
       transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
     >
@@ -339,7 +339,7 @@ export default function PremiumHero() {
 
       {/* ── Navigation ──────────────────────────────────────────────── */}
       <div className="absolute bottom-4 left-0 right-0 z-30">
-        <div className="flex w-full justify-between px-5 sm:px-6 md:px-10">
+        <div className="flex w-full justify-between px-5 sm:px-6 md:px-36">
 
           {/* Progress bars */}
           <div className="flex w-28 sm:w-36 gap-3">

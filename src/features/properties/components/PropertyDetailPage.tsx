@@ -17,7 +17,7 @@ export default function PropertyDetailPage() {
     .slice(0, 3);
 
   return (
-    <main className="min-h-screen bg-bg pb-24 mt-18">
+    <main className="min-h-screen bg-bg pb-24 pt-24 ">
       <PropertyGallery property={property} />
 
       {/* Property Details Layout */}

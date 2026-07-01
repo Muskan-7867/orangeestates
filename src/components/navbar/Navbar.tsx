@@ -5,6 +5,8 @@ import gsap from "gsap";
 import Logo from "../ui/Logo";
 import Menubar from "./MenuBar";
 import { useLocation } from "@tanstack/react-router";
+import MobileBottomNav from "./MobileBottomNav";
+import { FaWhatsapp } from "react-icons/fa";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP)
 
@@ -108,20 +110,30 @@ export default function Navbar({ setOpen, open }: { open: boolean, setOpen: Reac
   return (
     <>
       {/* ── Top bar ── */}
-      <nav ref={navbarRef} className={` w-full flex  items-center justify-between fixed top-6 z-50  px-4`}>
+      <nav ref={navbarRef} className={`w-full flex  items-center justify-between fixed top-6 z-50  px-2 sm:px-4`}>
 
 
 
         <Logo src={isScrolled ? "/blackestate.png" : "/estate.png"} />
 
-
+        {/* WhatsApp Icon Link for Mobile */}
+        <a
+          href="https://wa.me/919501755756?text=Hello!%20I%20am%20interested%20in%20Orange%20Estate%20properties%20and%20would%20like%20to%20get%20more%20information."
+          target="_blank"
+          rel="noopener noreferrer"
+          className="lg:hidden flex h-9 w-9 items-center justify-center rounded-full bg-[#25D366] text-white shadow hover:bg-[#20ba5a] active:scale-95 transition-all duration-300 cursor-pointer"
+          aria-label="Contact on WhatsApp"
+        >
+          <FaWhatsapp className="h-5.5 w-5.5" />
+        </a>
 
         <Menubar />
 
 
       </nav>
 
-
+      {/* ── Floating Mobile Navigation Bar ── */}
+      <MobileBottomNav />
     </>
   );
 }

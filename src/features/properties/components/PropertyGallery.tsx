@@ -2,6 +2,7 @@ import { cn } from "#/lib/utils";
 import { ChevronLeft, ChevronRight, Maximize2, X } from "lucide-react";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence, type Variants } from "motion/react";
+import { Link } from "@tanstack/react-router";
 
 const slideVariants: Variants = {
   enter: (direction: number) => ({
@@ -74,7 +75,22 @@ export default function PropertyGallery({ property }: { property: any }) {
   }, [activeImageIndex, isLightboxOpen, totalImages]);
 
   return (
-    <section className="w-full  p-2">
+    <section className="w-full p-2">
+      {/* Breadcrumbs Navigation */}
+      <div className="w-full px-4 md:px-12 lg:px-24 py-4 flex items-center gap-2 text-xs md:text-sm text-gray-500 font-sans">
+        <Link to="/" className="hover:text-primary transition-colors">
+          Home
+        </Link>
+        <span className="text-gray-400">/</span>
+        <Link to="/properties" className="hover:text-primary transition-colors">
+          Properties
+        </Link>
+        <span className="text-gray-400">/</span>
+        <span className="text-gray-800 font-medium truncate max-w-[200px] md:max-w-xs">
+          {property.title}
+        </span>
+      </div>
+
       {/* Carousel Container */}
       <div className="relative w-full overflow-hidden">
         

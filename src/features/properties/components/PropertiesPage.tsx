@@ -38,7 +38,7 @@ export default function PropertiesPage() {
 
   return (
     <main className="min-h-screen bg-bg">
-      <section className="py-12 lg:py-28">
+      <section className="py-28">
         <div className="w-full px-6 lg:px-18">
           {/* Header */}
           <div className=" flex flex-col items-center">
