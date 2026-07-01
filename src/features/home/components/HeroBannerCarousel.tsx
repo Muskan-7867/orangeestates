@@ -142,6 +142,7 @@ export default function PremiumHero() {
   return (
     // motion.section lets us smoothly animate the background color
     <motion.section
+      id="hero-carousel"
       className="relative h-[55vh] sm:h-[85vh]  overflow-hidden text-white"
       animate={{ backgroundColor: slide.accent }}
       transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
@@ -161,7 +162,7 @@ export default function PremiumHero() {
           <img
             src={slide.image}
             alt={slide.title}
-            className="h-full w-full object-cover"
+            className="h-full w-full object-cover border border-pink-300 "
           />
           <div className="absolute inset-0 z-10 bg-gradient-to-r from-black/70 via-black/20 to-transparent" />
         </motion.div>
@@ -181,7 +182,7 @@ export default function PremiumHero() {
       </AnimatePresence>
 
       {/* ── Content grid ────────────────────────────────────────────── */}
-      <div className="relative z-20 flex h-full   items-center">
+      <div className="relative z-20 flex h-full items-center">
         <div className="grid w-full grid-cols-1 gap-8 px-5 sm:px-8 md:grid-cols-2 md:pl-8 md:pr-0">
 
           {/* Text column */}

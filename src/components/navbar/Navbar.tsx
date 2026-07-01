@@ -1,10 +1,10 @@
-import { useEffect, useRef } from "react";
-import { Link } from "@tanstack/react-router";
-import { Menu } from "lucide-react";
-import { cn } from "#/lib/utils";
+import { useEffect, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import gsap from "gsap";
+import Logo from "../ui/Logo";
+import Menubar from "./MenuBar";
+import { useLocation } from "@tanstack/react-router";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP)
 
@@ -17,87 +17,106 @@ export const navLinks = [
   { label: "Contact", href: "/contact" },
 ];
 
+
+
 export default function Navbar({ setOpen, open }: { open: boolean, setOpen: React.Dispatch<React.SetStateAction<boolean>> }) {
-const navbarRef = useRef(null)
+  const navbarRef = useRef(null)
+  const location = useLocation()
+  const [isScrolled, setIsScrolled] = useState(false)
+
+  const pathname = location.pathname.replace(/\/$/, "") || "/"
+  const hasDarkHero = 
+    pathname === "/" || 
+    pathname === "/_user" || 
+    pathname === "/_user/" ||
+    pathname === "/about" || 
+    pathname === "/_user/about" ||
+    pathname === "/contact" || 
+    pathname === "/_user/contact";
+
+  useEffect(() => {
+    if (!hasDarkHero) {
+      setIsScrolled(true);
+      return;
+    }
+
+    const handleScroll = () => {
+      let threshold = 100;
+      if (pathname === "/" || pathname === "/_user" || pathname === "/_user/") {
+        threshold = window.innerHeight * 0.75; // past HeroBannerCarousel (h-[85vh])
+      } else if (pathname.includes("/about")) {
+        threshold = window.innerHeight * 0.6; // past AboutPage parallax hero (h-[70vh])
+      } else if (pathname.includes("/contact")) {
+        threshold = 300; // past contact page top section
+      }
+      setIsScrolled(window.scrollY > threshold);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [pathname, hasDarkHero]);
+
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
   }, [open]);
 
-useGSAP(() => {
-    let lastScroll = 0;
+  // useGSAP(() => {
+  //   let lastScroll = 0;
 
-    const trigger = ScrollTrigger.create({
-      start: 0,
-      end: "max",
+  //   const trigger = ScrollTrigger.create({
+  //     start: 0,
+  //     end: "max",
 
-      onUpdate(self) {
-        const current = self.scroll();
-        console.log("current", current)
+  //     onUpdate(self) {
+  //       const current = self.scroll();
 
-        // Ignore tiny movements
-        if (Math.abs(current - lastScroll) < 10) return;
+  //       // Ignore tiny movements
+  //       if (Math.abs(current - lastScroll) < 10) return;
 
-        if (current > lastScroll && current > 1200) {
-          // Scrolling down
-          gsap.to(navbarRef.current, {
-            y: -100,
-            duration: 0.35,
-            ease: "power2.out",
-            overwrite: true,
-          });
-        } else {
-          // Scrolling up
-          gsap.to(navbarRef.current, {
-            y: 0,
-            duration: 0.35,
-            ease: "power2.out",
-            overwrite: true,
-          });
-        }
+  //       if (current > lastScroll && current > 1200) {
+  //         // Scrolling down
+  //         gsap.to(navbarRef.current, {
+  //           y: -100,
+  //           duration: 0.35,
+  //           ease: "power2.out",
+  //           overwrite: true,
+  //         });
+  //       } else {
+  //         // Scrolling up
+  //         gsap.to(navbarRef.current, {
+  //           y: 0,
+  //           duration: 0.35,
+  //           ease: "power2.out",
+  //           overwrite: true,
+  //         });
+  //       }
 
-        lastScroll = current;
-      },
-    });
+  //       lastScroll = current;
+  //     },
+  //   });
 
-    return () => {
-      trigger.kill();
-    };
-  }, []);
+  //   return () => {
+  //     trigger.kill();
+  //   };
+  // }, []);
 
   return (
     <>
       {/* ── Top bar ── */}
-      <nav ref={navbarRef} className={`h-16 w-full    ${open ? "" : "fixed top-0 z-50 px-4 py-2"}`}>
+      <nav ref={navbarRef} className={` w-full flex  items-center justify-between fixed top-6 z-50  px-4`}>
 
 
-        <div className={cn(`flex items-center justify-between bg-black/70 backdrop-blur-md h-full w-full p-4 rounded-xl overflow-hidden `)}>
 
-          {/* Logo */}
-          <Link to="/" className="flex  flex-1 justify-start items-center gap-4 text-white no-underline">
-
-            <div>
-              <p className="text-2xl font-serif leading-none">Orange</p>
-              <p className="text-[8px] tracking-[3px] uppercase text-gray-400 mt-0.5">
-                Real Estate
-              </p>
-            </div>
-          </Link>
+        <Logo src={isScrolled ? "/blackestate.png" : "/estate.png"} />
 
 
-          {/* Hamburger */}
-          <div className=" flex flex-1 justify-end items-center">
-            <button
-              onClick={() => setOpen(!open)}
-              aria-label="Open menu"
-              className="text-white hover:opacity-70 transition-opacity"
-            >
-              <Menu size={22} />
-            </button>
-          </div>
-        </div>
 
-
+        <Menubar />
 
 
       </nav>
@@ -106,3 +125,4 @@ useGSAP(() => {
     </>
   );
 }
+

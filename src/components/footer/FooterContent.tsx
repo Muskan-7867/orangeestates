@@ -52,7 +52,7 @@ const FooterContent = () => {
 
       {/* Brand column */}
       <AnimatedContainer className="sm:col-span-2 lg:col-span-1  space-y-5">
-        <h2 className="text-2xl font-bold text-white">Orange Estate</h2>
+        <img src="/estate.png" alt="logo" className="h-20 w-auto"/>
         <p className="text-zinc-400 text-sm leading-relaxed">
           Your one-stop destination for quality products. We provide the best
           shopping experience with a wide range of items to choose from.

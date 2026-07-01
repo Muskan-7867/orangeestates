@@ -9,7 +9,7 @@
 /* ── Orange Brand Tokens ──────────────────────────────────────── */
 :root {
   /* Primary (orange) */
-  --primary:          #f97316; /* orange-500 */
+  --primary:          #f57b23; /* orange-500 */
   --primary-light:    #fb923c; /* orange-400 */
   --primary-dark:     #ea580c; /* orange-600 */
   --primary-deeper:   #c2410c; /* orange-700 */
@@ -189,4 +189,8 @@ body::after {
 	backdrop-filter: blur(var(--blur));
 	-webkit-mask-image: var(--mask);
 	mask-image: var(--mask);
+}
+
+.shadow {
+  box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
 }
