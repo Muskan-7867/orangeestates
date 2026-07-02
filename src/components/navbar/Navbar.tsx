@@ -11,17 +11,10 @@ import { FaWhatsapp } from "react-icons/fa";
 gsap.registerPlugin(ScrollTrigger, useGSAP)
 
 
-export const navLinks = [
-  { label: "Home", href: "/" },
-  { label: "Properties", href: "/properties" },
-  { label: "Blog", href: "/blog" },
-  { label: "About Us", href: "/about" },
-  { label: "Contact", href: "/contact" },
-];
 
 
 
-export default function Navbar({ setOpen, open }: { open: boolean, setOpen: React.Dispatch<React.SetStateAction<boolean>> }) {
+export default function Navbar({ open }: { open: boolean, setOpen: React.Dispatch<React.SetStateAction<boolean>> }) {
   const navbarRef = useRef(null)
   const location = useLocation()
   const [isScrolled, setIsScrolled] = useState(false)
@@ -67,54 +60,84 @@ export default function Navbar({ setOpen, open }: { open: boolean, setOpen: Reac
     document.body.style.overflow = open ? "hidden" : "";
   }, [open]);
 
-  // useGSAP(() => {
-  //   let lastScroll = 0;
+  useGSAP(() => {
+    let lastScroll = 0;
 
-  //   const trigger = ScrollTrigger.create({
-  //     start: 0,
-  //     end: "max",
+    const getThreshold = () => {
+      const path = window.location.pathname.replace(/\/$/, "") || "/";
+      if (path === "/" || path === "/_user" || path === "/_user/") {
+        return window.innerHeight * 1;
+      } else if (path.includes("/about")) {
+        return window.innerHeight * 0.6;
+      } else if (path.includes("/contact")) {
+        return 300;
+      }
+      return 100;
+    };
 
-  //     onUpdate(self) {
-  //       const current = self.scroll();
+    const trigger = ScrollTrigger.create({
+      start: 0,
+      end: "max",
 
-  //       // Ignore tiny movements
-  //       if (Math.abs(current - lastScroll) < 10) return;
+      onUpdate(self) {
+        const current = self.scroll();
+        const threshold = getThreshold();
 
-  //       if (current > lastScroll && current > 1200) {
-  //         // Scrolling down
-  //         gsap.to(navbarRef.current, {
-  //           y: -100,
-  //           duration: 0.35,
-  //           ease: "power2.out",
-  //           overwrite: true,
-  //         });
-  //       } else {
-  //         // Scrolling up
-  //         gsap.to(navbarRef.current, {
-  //           y: 0,
-  //           duration: 0.35,
-  //           ease: "power2.out",
-  //           overwrite: true,
-  //         });
-  //       }
+        // Ignore tiny movements
+        if (Math.abs(current - lastScroll) < 10) return;
 
-  //       lastScroll = current;
-  //     },
-  //   });
+        if (current < threshold) {
+          // Near the top / hero area: soft gradient so hero content shows through
+          gsap.to(navbarRef.current, {
+            y: 0,
+            duration: 0.35,
+            ease: "power2.out",
+            overwrite: true,
+            backgroundColor: "transparent",
+            backgroundImage: "linear-gradient(to bottom, rgba(255,255,255,0.55), transparent)",
+            boxShadow: "none",
+          });
+        } else if (current > lastScroll) {
+          // Scrolling down past hero: solid white so logo is always visible
+          gsap.to(navbarRef.current, {
+            y: 0,
+            duration: 0.35,
+            ease: "power2.out",
+            overwrite: true,
+            backgroundColor: "#ffffff",
+            backgroundImage: "none",
+            boxShadow: "0 1px 8px rgba(0,0,0,0.08)",
+          });
+        } else {
+          // Scrolling up past hero: solid white so logo is always visible
+          gsap.to(navbarRef.current, {
+            y: 0,
+            duration: 0.35,
+            ease: "power2.out",
+            overwrite: true,
+            backgroundColor: "#ffffff",
+            backgroundImage: "none",
+            boxShadow: "0 1px 8px rgba(0,0,0,0.08)",
+          });
+        }
 
-  //   return () => {
-  //     trigger.kill();
-  //   };
-  // }, []);
+        lastScroll = current;
+      },
+    });
+
+    return () => {
+      trigger.kill();
+    };
+  }, [pathname]);
 
   return (
     <>
       {/* ── Top bar ── */}
-      <nav ref={navbarRef} className={`w-full flex  items-center justify-between fixed top-6 z-50  px-2 sm:px-4`}>
+      <nav ref={navbarRef} className={`w-full flex  items-center justify-between fixed top-0 z-50 py-2 px-2 sm:px-4`}>
 
 
 
-        <Logo src={isScrolled ? "/blackestate.png" : "/estate.png"} />
+        <Logo  src={isScrolled ? "/blackestate.png" : "/estate.png"} />
 
         {/* WhatsApp Icon Link for Mobile */}
         <a

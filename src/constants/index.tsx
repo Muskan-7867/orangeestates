@@ -21,6 +21,13 @@ export const navLinks = [
   }
 ]
 
+export const socialLinks = [
+  { title: "Instagram", href: "https://instagram.com" },
+  { title: "LinkedIn", href: "https://linkedin.com" },
+  { title: "Twitter", href: "https://x.com" },
+  { title: "Facebook", href: "https://facebook.com" },
+];
+
 
 export const properties = [
   {
