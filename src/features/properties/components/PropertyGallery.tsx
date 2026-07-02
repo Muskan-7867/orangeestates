@@ -130,7 +130,7 @@ export default function PropertyGallery({ property }: { property: any }) {
                   key={idx}
                   onClick={() => selectImage(originalIndex)}
                   className={cn(
-                    "relative flex-shrink-0 cursor-pointer overflow-hidden select-none transition-shadow duration-300",
+                    "relative shrink-0 cursor-pointer overflow-hidden select-none transition-shadow duration-300",
                     isActive ? "ring-1 ring-black/5" : ""
                   )}
                   style={{ width: "74%" }}
@@ -324,7 +324,7 @@ export default function PropertyGallery({ property }: { property: any }) {
                 <button
                   key={idx}
                   onClick={() => selectImage(idx)}
-                  className="relative flex-shrink-0 w-16 h-12 rounded-lg overflow-hidden border border-white/10 cursor-pointer"
+                  className="relative shrink-0 w-16 h-12 rounded-lg overflow-hidden border border-white/10 cursor-pointer"
                 >
                   {/* Blur placeholder */}
                   <div

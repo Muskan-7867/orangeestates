@@ -131,12 +131,12 @@ export default function ContactPage() {
           />
         </div>
         {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/30 via-primary/20 to-primary/10" />
-  
+        <div className="absolute inset-0 bg-linear-to-r from-primary/30 via-primary/20 to-primary/10" />
+
 
         {/* Content */}
         <div ref={heroRef} className="relative z-10 max-w-7xl  w-full px-6 sm:px-12 lg:px-20 pt-32 pb-20">
-          
+
           <h1 className="font-serif text-4xl   text-white leading-tight mb-6">
             We'd Love to<br />Hear From You
           </h1>
@@ -144,7 +144,7 @@ export default function ContactPage() {
             Whether you're searching for your dream home, listing a property,
             or simply exploring your options — our team is here to help.
           </p>
-       
+
         </div>
       </section>
 
@@ -298,7 +298,7 @@ export default function ContactPage() {
                 { icon: Clock, label: "Hours", value: "Monday – Friday, 9:00 – 18:00" },
               ].map(({ icon: Icon, label, value }) => (
                 <div key={label} className="flex items-start gap-4">
-                  <div className="flex-shrink-0 flex items-center justify-center w-10 h-10 rounded-full bg-orange-50 text-primary mt-0.5">
+                  <div className="shrink-0 flex items-center justify-center w-10 h-10 rounded-full bg-orange-50 text-primary mt-0.5">
                     <Icon size={16} strokeWidth={1.5} />
                   </div>
                   <div>
@@ -347,7 +347,7 @@ export default function ContactPage() {
                 Visit any of our three offices or get in touch with your nearest team directly.
               </p>
             </div>
-            <div className="mt-5 h-px bg-gradient-to-r from-primary/40 via-primary/10 to-transparent" />
+            <div className="mt-5 h-px bg-linear-to-r from-primary/40 via-primary/10 to-transparent" />
           </div>
 
           {/* Office cards */}
@@ -376,7 +376,7 @@ export default function ContactPage() {
                     className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
                   {/* overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0B2A57]/80 via-[#0B2A57]/20 to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-t from-[#0B2A57]/80 via-[#0B2A57]/20 to-transparent" />
                   {/* City label */}
                   <div className="absolute bottom-4 left-5">
                     <p className="text-[10px] uppercase tracking-[0.3em] text-primary/90 mb-0.5">{office.country}</p>
@@ -392,23 +392,23 @@ export default function ContactPage() {
                 <div className="p-6">
                   <ul className="space-y-3.5 text-sm text-gray-600">
                     <li className="flex items-start gap-3">
-                      <MapPin size={14} className="text-primary flex-shrink-0 mt-0.5" />
+                      <MapPin size={14} className="text-primary shrink-0 mt-0.5" />
                       <span className="leading-snug">{office.address}</span>
                     </li>
                     <li className="flex items-center gap-3">
-                      <Phone size={14} className="text-primary flex-shrink-0" />
+                      <Phone size={14} className="text-primary shrink-0" />
                       <a href={`tel:${office.phone}`} className="hover:text-primary transition-colors">
                         {office.phone}
                       </a>
                     </li>
                     <li className="flex items-center gap-3">
-                      <Mail size={14} className="text-primary flex-shrink-0" />
+                      <Mail size={14} className="text-primary shrink-0" />
                       <a href={`mailto:${office.email}`} className="hover:text-primary transition-colors break-all">
                         {office.email}
                       </a>
                     </li>
                     <li className="flex items-center gap-3">
-                      <Clock size={14} className="text-primary flex-shrink-0" />
+                      <Clock size={14} className="text-primary shrink-0" />
                       <span>{office.hours}</span>
                     </li>
                   </ul>
@@ -429,7 +429,7 @@ export default function ContactPage() {
             ))}
           </div>
 
-       
+
         </div>
       </section>
 

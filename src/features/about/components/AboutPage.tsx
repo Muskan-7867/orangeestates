@@ -245,7 +245,7 @@ export default function AboutPage() {
             <BlurImage
               src="/about-team.jpg"
               alt="Our team"
-              className="w-full h-[420px] object-cover rounded-sm shadow-xl"
+              className="w-full h-105 object-cover rounded-sm shadow-xl"
             />
             {/* Floating badge */}
             <div className="absolute -bottom-5 -left-5 bg-[#0B2A57] text-white px-6 py-4 shadow-xl">

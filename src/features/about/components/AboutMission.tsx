@@ -48,7 +48,7 @@ export default function AboutMission({ missionRef}: {missionRef: RefObject<HTMLD
           {/* Right image */}
           <div className="relative">
             {/* Image with blur placeholder */}
-            <div className="relative w-full h-[420px] overflow-hidden rounded-sm shadow-xl">
+            <div className="relative w-full h-105 overflow-hidden rounded-sm shadow-xl">
               <div
                 className="absolute inset-0"
                 style={{

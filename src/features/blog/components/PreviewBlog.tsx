@@ -17,7 +17,7 @@ export default function PreviewBlog({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setSelectedPost(null)}
-            className="fixed inset-0 z-[10000] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 mt-12"
+            className="fixed inset-0 z-10000 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 mt-12"
           >
             <motion.div data-lenis-prevent
               initial={{ scale: 0.95, y: 20 }}
@@ -45,7 +45,7 @@ export default function PreviewBlog({
                   alt={selectedPost.title}
                   className="absolute inset-0 w-full h-full object-cover rounded-t-lg"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent" />
 
                 {/* Close Button */}
                 <button

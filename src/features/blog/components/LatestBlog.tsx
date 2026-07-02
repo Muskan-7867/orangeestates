@@ -32,7 +32,7 @@ export default function LatestBlog({
         </div>
 
         {/* Content */}
-        <div className="flex min-h-[320px] flex-col justify-between p-5 sm:p-8 lg:col-span-5 lg:p-10">
+        <div className="flex min-h-80 flex-col justify-between p-5 sm:p-8 lg:col-span-5 lg:p-10">
           <div className="space-y-4">
             <span className="text-[10px] font-bold uppercase tracking-wider text-primary">
               {featuredPost.category}

@@ -86,11 +86,10 @@ function MarqueeRow({
   const doubled = React.useMemo(() => [...data, ...data], [data]);
   return (
     <div className="relative w-full mx-auto max-w-7xl overflow-hidden isolation-isolate">
-      <div className="pointer-events-none absolute left-0 top-0 h-full w-24 md:w-32 z-10 bg-gradient-to-r from-bg to-transparent " />
+      <div className="pointer-events-none absolute left-0 top-0 h-full w-24 md:w-32 z-10 bg-linear-to-r from-bg to-transparent " />
       <div
-        className={`flex transform-gpu min-w-[200%] ${
-          reverse ? "pt-5 pb-10" : "pt-10 pb-5"
-        }`}
+        className={`flex transform-gpu min-w-[200%] ${reverse ? "pt-5 pb-10" : "pt-10 pb-5"
+          }`}
         style={{
           animation: `marqueeScroll ${speed}s linear infinite`,
           animationDirection: reverse ? "reverse" : "normal",
@@ -106,13 +105,13 @@ function MarqueeRow({
 }
 
 export default function Testimonials
-({
-  row1 = DEFAULT_DATA,
-  row2 = DEFAULT_DATA,
-}: {
-  row1?: CardT[];
-  row2?: CardT[];
-}) {
+  ({
+    row1 = DEFAULT_DATA,
+    row2 = DEFAULT_DATA,
+  }: {
+    row1?: CardT[];
+    row2?: CardT[];
+  }) {
   return (
     <>
       <style>{`

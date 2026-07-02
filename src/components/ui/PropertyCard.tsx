@@ -34,7 +34,7 @@ function PropertyCardImage({ src, alt }: { src: string; alt: string }) {
   const blurUrl = getBlurImageUrl(src);
 
   return (
-    <div className="relative h-55 sm:h-[300px] w-full overflow-hidden">
+    <div className="relative h-55 sm:h-75 w-full overflow-hidden">
       {blurUrl && (
         <div
           className="absolute inset-0 pointer-events-none"
@@ -170,7 +170,7 @@ export function PropertyCard({ property }: { property: (typeof properties)[0] })
         </Link>
 
         {/* Details */}
-        <div className="mt-2 sm:mt-4 grid grid-cols-2 gap-x-2 gap-y-1 text-xs sm:flex sm:items-center sm:gap-5 sm:text-sm text-gray-600 mt-auto">
+        <div className=" sm:mt-4 grid grid-cols-2 gap-x-2 gap-y-1 text-xs sm:flex sm:items-center sm:gap-5 sm:text-sm text-gray-600 mt-auto">
           <span>{property.beds} Beds</span>
           <span>{property.baths} Baths</span>
           <span className="col-span-2 sm:hidden">{property.area}</span>
