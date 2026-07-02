@@ -5,7 +5,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import {
   Award,
- 
+
   Home,
   MapPin,
 
@@ -93,8 +93,8 @@ export default function AboutPage() {
                   v >= 1000
                     ? `${(v / 1000).toFixed(1)}k`
                     : Number.isInteger(target.value)
-                    ? Math.round(v).toString()
-                    : v.toFixed(1);
+                      ? Math.round(v).toString()
+                      : v.toFixed(1);
                 el.textContent =
                   (target.prefix ?? "") + formatted + target.suffix;
               },
@@ -210,11 +210,11 @@ export default function AboutPage() {
   }, []);
 
   return (
-    <main className="bg-white overflow-hidden ">
+    <main className="bg-bg overflow-hidden ">
 
       {/* ── HERO ───────────────────────────────────────────── */}
-  <AboutHero heroRef={heroRef} heroImgRef={heroImgRef} heroTextRef={heroTextRef}/>
-  
+      <AboutHero heroRef={heroRef} heroImgRef={heroImgRef} heroTextRef={heroTextRef} />
+
       {/* ── STATS ──────────────────────────────────────────── */}
       <section ref={statsRef} className=" py-16 sm:py-20">
         <div className="max-w-6xl mx-auto px-6 sm:px-10 grid grid-cols-2 md:grid-cols-4 gap-10 text-center">
@@ -233,14 +233,14 @@ export default function AboutPage() {
         </div>
       </section>
 
-   <AboutMission missionRef={missionRef} />
+      <AboutMission missionRef={missionRef} />
 
-   <Values valuesRef={valuesRef}/>
-   
+      <Values valuesRef={valuesRef} />
 
-       <section className="py-20 sm:py-28 px-6 sm:px-12 lg:px-20 w-full mx-auto">
+
+      <section className="py-20 sm:py-28 px-6 sm:px-12 lg:px-20 w-full mx-auto">
         <div ref={missionRef} className="grid lg:grid-cols-2 gap-12 items-center">
-               {/* Right image */}
+          {/* Right image */}
           <div className="relative">
             <BlurImage
               src="/about-team.jpg"
@@ -293,14 +293,14 @@ export default function AboutPage() {
             </div>
           </div>
 
-     
+
         </div>
       </section>
 
- <Team teamRef={teamRef}/>
+      <Team teamRef={teamRef} />
 
       {/* ── CTA ────────────────────────────────────────────── */}
-      <section ref={ctaRef} className="py-24 sm:py-32 px-6 text-center bg-white">
+      <section ref={ctaRef} className="py-24 sm:py-32 px-6 text-center ">
         <p className="text-xs uppercase tracking-[0.35em] text-orange-500 mb-5">
           Start Your Journey
         </p>

@@ -32,7 +32,7 @@ export default function Values({ valuesRef}: {valuesRef:RefObject<HTMLDivElement
 
 
 
-    <section className="bg-[#fff7ed] py-20 sm:py-28">
+    <section className="bg-bg py-20 sm:py-28">
         <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-20">
             <div className="text-center mb-14">
                 <p className="text-xs uppercase tracking-[0.35em] text-orange-500 mb-4">
@@ -43,15 +43,15 @@ export default function Values({ valuesRef}: {valuesRef:RefObject<HTMLDivElement
                 </h2>
             </div>
 
-            <div ref={valuesRef} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div ref={valuesRef} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-2">
                 {values.map((v) => {
                     const Icon = v.icon;
                     return (
                         <div
                             key={v.title}
-                            className="value-card bg-white p-7 border  border-gray-100 hover:-translate-y-1 transition-all duration-300 group"
+                            className=" bg-white p-7 border  border-gray-100  transition-all duration-300 "
                         >
-                            <div className="flex items-center justify-center w-11 h-11 rounded-xl bg-orange-50 text-orange-500 mb-5 group-hover:bg-orange-500 group-hover:text-white transition-colors duration-300 mx-auto">
+                            <div className="flex items-center justify-center w-11 h-11 rounded-xl bg-orange-50 text-orange-500 mb-5  transition-colors duration-300 mx-auto">
                                 <div className="w-full h-full flex justify-center items-center">
                                     <Icon size={20} strokeWidth={1.5} />
 
