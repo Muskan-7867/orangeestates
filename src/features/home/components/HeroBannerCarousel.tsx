@@ -365,13 +365,13 @@ export default function PremiumHero() {
           <div className="flex gap-3 sm:gap-4">
             <button
               onClick={() => paginate(-1)}
-              className="flex h-8 w-8 items-center justify-center rounded-full border border-white/20 bg-white/10 backdrop-blur transition hover:bg-white hover:text-black"
+              className="flex h-8 w-8 items-center justify-center rounded-full border border-white/20 bg-white/10 backdrop-blur transition hover:bg-white hover:text-black cursor-pointer"
             >
               <ArrowLeft size={16} />
             </button>
             <button
               onClick={() => paginate(1)}
-              className="flex h-8 w-8 items-center justify-center rounded-full border border-white/20 bg-white/10 backdrop-blur transition hover:bg-white hover:text-black"
+              className="flex h-8 w-8 items-center justify-center rounded-full border border-white/20 bg-white/10 backdrop-blur transition hover:bg-white hover:text-black  cursor-pointer"
             >
               <ArrowRight size={16} />
             </button>

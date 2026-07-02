@@ -20,19 +20,20 @@ const FooterContent = () => {
     {
       label: "Links",
       links: [
-        { title: "Home", href: "/" },
-        { title: "Products", href: "/products" },
+        // { title: "Home", href: "/" },
+        { title: "Properties", href: "/properties" },
+        { title: "Blog", href: "/blog" },
         { title: "About Us", href: "/about" },
         { title: "Contact Us", href: "/contact" }
       ]
     },
     {
-  label: "Products",
+  label: "Properties",
   links: [
-    { title: "Home & Office Storage", href: "/products?category=office-storage" },
-    { title: "Health", href: "/products?category=health" },
-    { title: "Electronics", href: "/products?category=electronics" },
-    { title: "Fashion", href: "/products?category=fashion" }
+    { title: "Plots", href: "/products?category=office-storage" },
+    { title: "Builder Floors", href: "/products?category=health" },
+    { title: "Villas", href: "/products?category=electronics" },
+    { title: "Commercial", href: "/products?category=fashion" }
   ]
 }
 
