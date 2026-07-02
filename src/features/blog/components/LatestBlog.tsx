@@ -8,11 +8,22 @@ export default function LatestBlog({
     <section className="mx-auto mb-12 max-w-7xl px-4 sm:px-6 lg:px-8">
       <div className="overflow-hidden border border-gray-100 bg-white transition-shadow  lg:grid lg:grid-cols-12">
         {/* Image */}
-        <div className="relative h-64 sm:h-80 md:h-[420px] lg:col-span-7  overflow-hidden">
+        <div className="relative h-64 sm:h-80 md:h-105 lg:col-span-7 overflow-hidden">
+          {/* Blur placeholder */}
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `url(${featuredPost.blurUrl})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              filter: "blur(12px)",
+              transform: "scale(1.1)",
+            }}
+          />
           <img
             src={featuredPost.image}
             alt={featuredPost.title}
-            className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+            className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 hover:scale-105"
           />
 
           <span className="absolute left-4 top-4 bg-primary px-3 py-1.5 text-[9px] font-bold uppercase tracking-widest text-white shadow-sm sm:text-[10px]">

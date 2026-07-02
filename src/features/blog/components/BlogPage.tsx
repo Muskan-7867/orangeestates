@@ -17,6 +17,7 @@ interface BlogPost {
   author: string;
   readTime: string;
   image: string;
+  blurUrl: string;
 }
 
 const blogPosts: BlogPost[] = [
@@ -29,6 +30,7 @@ const blogPosts: BlogPost[] = [
     author: "Alexander Mercer",
     readTime: "5 min read",
     image: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&q=80",
+    blurUrl: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=20&q=10",
     content: [
       "In the heart of London, penthouses represent the absolute pinnacle of luxury living. Over the past decade, the demand for these top-tier residences has driven an architectural revolution. Traditional layouts have given way to soaring floor-to-ceiling glass windows, wide-open double-height ceilings, and expansive wraparound terraces that offer panoramic views of the River Thames and London skyline.",
       "In prestigious enclaves like Chelsea and Mayfair, developers are partnering with world-class interior designers to create custom interior palettes. These bespoke designs utilize rare marbles, exotic hardwoods, and handcrafted metal details to craft spaces that are both modern and classic.",
@@ -44,6 +46,7 @@ const blogPosts: BlogPost[] = [
     author: "Sophia Vance",
     readTime: "4 min read",
     image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80",
+    blurUrl: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=20&q=10",
     content: [
       "The concept of luxury has transitioned from ornate display to minimalist serenity. Today's modern homeowner seeks a sanctuary that calms the senses and celebrates pure craftsmanship. This design philosophy, known as 'quiet luxury' or 'warm minimalism,' focuses on light, space, and a deep connection to natural materials.",
       "Textured plasters, light oak floorboards, and raw linen fabrics are replacing heavy wallcoverings and dark varnished woods. The color palette is neutral, drawing inspiration from clay, sand, stone, and forest greens. These organic tones maximize natural sunlight, making apartments feel larger and more open.",
@@ -59,6 +62,7 @@ const blogPosts: BlogPost[] = [
     author: "Elena Rostova",
     readTime: "7 min read",
     image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&q=80",
+    blurUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=20&q=10",
     content: [
       "London remains a global safe haven for capital and prime real estate. For international buyers, the London market offers long-term stability, excellent educational institutions, and a cosmopolitan culture. However, purchasing property in the UK involves distinct legal, tax, and regulatory steps that buyers must understand.",
       "The main cost considerations are the Stamp Duty Land Tax (SDLT), which includes a surcharge for non-UK residents, and annual council tax. Working with specialized property lawyers and tax advisors is essential to ensure structure efficiency and compliance.",
@@ -74,6 +78,7 @@ const blogPosts: BlogPost[] = [
     author: "Julian Thorne",
     readTime: "6 min read",
     image: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&q=80",
+    blurUrl: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=20&q=10",
     content: [
       "As two of London's most coveted boroughs, Kensington and Chelsea are frequently compared by prospective buyers. While they share beautiful Victorian architecture and top-tier local security, each neighborhood offers a unique lifestyle and investment outlook.",
       "Kensington is characterized by grand embassy buildings, royal parks (such as Kensington Gardens), and cultural hubs like the Royal Albert Hall. It tends to attract families seeking spacious townhouses and proximity to prestigious local schools.",
@@ -89,6 +94,7 @@ const blogPosts: BlogPost[] = [
     author: "Marcus Vance",
     readTime: "4 min read",
     image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80",
+    blurUrl: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=20&q=10",
     content: [
       "Luxury living is increasingly defined by ease and automation. The modern smart home is no longer a collection of separate apps, but a unified ecosystem that anticipates the resident's needs.",
       "Seamless integrations allow lighting sequences to change automatically based on the time of day, audio to follow you from room to room, and climate controls to optimize energy usage while maintaining ideal comfort levels.",

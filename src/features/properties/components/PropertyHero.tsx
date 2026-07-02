@@ -1,4 +1,6 @@
 
+import { useState } from "react";
+
 const images = [
   {
     src: "https://adamxrealty.com/_next/image?url=https%3A%2F%2Fcdn.omenterprisesgroup.in%2Fuploads%2Fadamx%2FStudio%20%20Damac%20Maison%20The%20Distinction-images-1.jpg-e0df8bcc-0fff-4d7b-85e0-634b561630eb.webp&w=640&q=75",
@@ -23,6 +25,48 @@ const images = [
   },
 ];
 
+
+interface BlurImageProps {
+  src: string;
+  alt?: string;
+  className?: string;
+  draggable?: boolean;
+}
+
+function BlurImage({
+  src,
+  alt = "",
+  className = "",
+  draggable = false,
+}: BlurImageProps) {
+  const [loaded, setLoaded] = useState(false);
+
+  return (
+    <div className="relative w-full h-full overflow-hidden">
+      {/* Blurred placeholder */}
+      <img
+        src={src}
+        alt=""
+        aria-hidden
+        className={`absolute inset-0 w-full h-full object-cover scale-110 blur-2xl brightness-75 transition-opacity duration-500 ${
+          loaded ? "opacity-0" : "opacity-100"
+        }`}
+        draggable={false}
+      />
+
+      {/* Actual image */}
+      <img
+        src={src}
+        alt={alt}
+        draggable={draggable}
+        onLoad={() => setLoaded(true)}
+        className={`${className} transition-opacity duration-700 ${
+          loaded ? "opacity-100" : "opacity-0"
+        }`}
+      />
+    </div>
+  );
+}
 export default function PropertyHero() {
   const getImageClassName = (index: number) => {
     // 1. Center image (index 3)
@@ -67,7 +111,7 @@ export default function PropertyHero() {
             const className = getImageClassName(index);
             return (
               <div key={index} className={className}>
-                <img
+                <BlurImage
                   src={image.src}
                   alt=""
                   className="h-full w-full object-cover select-none"
@@ -94,11 +138,12 @@ export default function PropertyHero() {
               key={index}
               className="aspect-[3/4] rounded-2xl overflow-hidden shadow-md border border-white/5"
             >
-              <img
-                src={image.src}
-                alt=""
-                className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-              />
+               <BlurImage
+                  src={image.src}
+                  alt=""
+                  className="h-full w-full object-cover select-none"
+                  draggable={false}
+                />
             </div>
           ))}
         </div>

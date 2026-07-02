@@ -1,39 +1,87 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { FaCampground, FaFire, FaTint, FaHotTub, FaHiking } from 'react-icons/fa';
+
+function CarouselImage({ src, blurSrc, isActive }: { src: string; blurSrc: string; isActive: boolean }) {
+  const [loaded, setLoaded] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  useEffect(() => {
+    if (imgRef.current?.complete && imgRef.current?.naturalWidth > 0) {
+      setLoaded(true);
+    } else {
+      setLoaded(false);
+    }
+  }, [src]);
+
+  return (
+    <>
+      {src && (
+        <img
+          ref={imgRef}
+          src={src}
+          alt=""
+          onLoad={() => setLoaded(true)}
+          className="w-full h-full object-cover transition-all duration-700 ease-in-out"
+          style={{
+            transform: isActive ? 'scale(1)' : 'scale(1.2)',
+            opacity: loaded ? 1 : 0,
+          }}
+        />
+      )}
+      {/* Blur placeholder on top */}
+      <div
+        className="absolute inset-0 pointer-events-none transition-opacity duration-500"
+        style={{
+          backgroundImage: `url('${blurSrc}')`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          filter: "blur(12px)",
+          transform: isActive ? 'scale(1)' : 'scale(1.2)',
+          opacity: loaded ? 0 : 1,
+        }}
+      />
+    </>
+  );
+}
 
 const ImageCarousel = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [animatedOptions, setAnimatedOptions] = useState<number[]>([]);
-  
+
   const options = [
     {
       title: "Luxury Tent",
       description: "Cozy glamping under the stars",
       image: "https://viandco.co.uk/admin/uploads/properties/18/1771893777_17_ChatGPTImageFeb23202611_09_21PM.png",
+      blurImage: "https://viandco.co.uk/admin/uploads/properties/18/1771893777_17_ChatGPTImageFeb23202611_09_21PM.png",
       icon: <FaCampground size={24} className="text-white" />
     },
     {
       title: "Campfire Feast",
       description: "Gourmet s'mores & stories",
       image: "https://t3.ftcdn.net/jpg/18/84/88/74/360_F_1884887446_DdLeZ4G9eBsMjS7y9EIr6Q2DFXRMqkSj.jpg",
+      blurImage: "https://t3.ftcdn.net/jpg/18/84/88/74/360_F_1884887446_DdLeZ4G9eBsMjS7y9EIr6Q2DFXRMqkSj.jpg",
       icon: <FaFire size={24} className="text-white" />
     },
     {
       title: "Lakeside Retreat",
       description: "Private dock & canoe rides",
       image: "https://sothebysrealty.co.uk/cdn-cgi/image/format=auto,height=1000,fit=cover,quality=75/https://sothebys-assets.s3.eu-west-2.amazonaws.com/c5a6a467-aaf5-4434-9bf0-daced25370fe.jpg",
+      blurImage: "https://sothebysrealty.co.uk/cdn-cgi/image/format=auto,height=20,fit=cover,quality=10/https://sothebys-assets.s3.eu-west-2.amazonaws.com/c5a6a467-aaf5-4434-9bf0-daced25370fe.jpg",
       icon: <FaTint size={24} className="text-white" />
     },
     {
       title: "Mountain Spa",
       description: "Outdoor sauna & hot tub",
       image: "https://sothebysrealty.co.uk/cdn-cgi/image/format=auto,width=1280,fit=cover,quality=75/https://my-dubai-real-estate.s3.eu-north-1.amazonaws.com/Listing_s3/img_5477.jpg.jpeg",
+      blurImage: "https://sothebysrealty.co.uk/cdn-cgi/image/format=auto,width=20,fit=cover,quality=10/https://my-dubai-real-estate.s3.eu-north-1.amazonaws.com/Listing_s3/img_5477.jpg.jpeg",
       icon: <FaHotTub size={24} className="text-white" />
     },
     {
       title: "Guided Adventure",
       description: "Expert-led nature tours",
       image: "https://sothebysrealty.co.uk/cdn-cgi/image/format=auto,width=1280,fit=cover,quality=75/https://my-dubai-real-estate.s3.eu-north-1.amazonaws.com/Listing_s3/pqmigah0z.jpg.jpeg",
+      blurImage: "https://sothebysrealty.co.uk/cdn-cgi/image/format=auto,width=20,fit=cover,quality=10/https://my-dubai-real-estate.s3.eu-north-1.amazonaws.com/Listing_s3/pqmigah0z.jpg.jpeg",
       icon: <FaHiking size={24} className="text-white" />
     }
   ];
@@ -46,14 +94,14 @@ const ImageCarousel = () => {
 
   useEffect(() => {
     const timers: ReturnType<typeof setTimeout>[] = [];
-    
+
     options.forEach((_, i) => {
       const timer = setTimeout(() => {
         setAnimatedOptions(prev => [...prev, i]);
       }, 180 * i);
       timers.push(timer);
     });
-    
+
     return () => {
       timers.forEach(timer => clearTimeout(timer));
     };
@@ -85,9 +133,6 @@ const ImageCarousel = () => {
               ${activeIndex === index ? 'active' : ''}
             `}
             style={{
-              backgroundImage: `url('${option.image}')`,
-              backgroundSize: activeIndex === index ? 'auto 100%' : 'auto 120%',
-              backgroundPosition: 'center',
               backfaceVisibility: 'hidden',
               opacity: animatedOptions.includes(index) ? 1 : 0,
               transform: animatedOptions.includes(index) ? 'translateX(0)' : 'translateX(-60px)',
@@ -107,10 +152,18 @@ const ImageCarousel = () => {
               justifyContent: 'flex-end',
               position: 'relative',
               overflow: 'hidden',
-              willChange: 'flex-grow, box-shadow, background-size, background-position'
+              willChange: 'flex-grow, box-shadow'
             }}
             onClick={() => handleOptionClick(index)}
           >
+            {/* Background Image Container */}
+            <div className="absolute inset-0 z-0 pointer-events-none">
+              <CarouselImage
+                src={option.image}
+                blurSrc={option.blurImage}
+                isActive={activeIndex === index}
+              />
+            </div>
             {/* Shadow effect */}
             <div
               className="shadow absolute left-0 right-0 pointer-events-none transition-all duration-700 ease-in-out"
@@ -149,7 +202,7 @@ const ImageCarousel = () => {
                 </div>
               </div>
             </div>
-            
+
           </div>
         ))}
       </div>

@@ -2,8 +2,63 @@
 
 import type { properties } from "#/constants";
 import { ChevronLeft, ChevronRight, Heart } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "@tanstack/react-router";
+
+function getBlurImageUrl(url: string) {
+  if (url.includes("unsplash.com")) {
+    try {
+      const urlObj = new URL(url);
+      urlObj.searchParams.set("w", "20");
+      urlObj.searchParams.set("q", "10");
+      return urlObj.toString();
+    } catch {
+      return url;
+    }
+  }
+  return url;
+}
+
+function PropertyCardImage({ src, alt }: { src: string; alt: string }) {
+  const [loaded, setLoaded] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  useEffect(() => {
+    if (imgRef.current?.complete) {
+      setLoaded(true);
+    } else {
+      setLoaded(false);
+    }
+  }, [src]);
+
+  const blurUrl = getBlurImageUrl(src);
+
+  return (
+    <div className="relative h-55 sm:h-[300px] w-full overflow-hidden">
+      {blurUrl && (
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage: `url(${blurUrl})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            filter: "blur(12px)",
+            transform: "scale(1.05)",
+          }}
+        />
+      )}
+      <img
+        ref={imgRef}
+        src={src}
+        alt={alt}
+        onLoad={() => setLoaded(true)}
+        className={`h-full w-full object-cover transition duration-700 group-hover:scale-105 cursor-pointer absolute inset-0 ${
+          loaded ? "opacity-100" : "opacity-0"
+        }`}
+      />
+    </div>
+  );
+}
 
 export function PropertyCard({ property }: { property: (typeof properties)[0] }) {
   const [current, setCurrent] = useState(0);
@@ -24,10 +79,9 @@ export function PropertyCard({ property }: { property: (typeof properties)[0] })
     <article className="group bg-[#fafafa] relative flex flex-col h-full border border-gray-100 ">
       <div className="relative overflow-hidden">
         <Link to="/properties/$id" params={{ id: property.id }} className="block">
-          <img
-            src={property.images[current]}
+          <PropertyCardImage
+            src={property.images[current].url}
             alt={property.title}
-            className="h-[220px] sm:h-[300px] w-full object-cover transition duration-700 group-hover:scale-105 cursor-pointer"
           />
         </Link>
 

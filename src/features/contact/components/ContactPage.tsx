@@ -14,6 +14,8 @@ import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const HERO_BLUR_URL = "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=20&q=10";
+
 const offices = [
   {
     city: "London",
@@ -23,6 +25,7 @@ const offices = [
     email: "london@orangeestate.co.uk",
     hours: "Mon – Fri: 9:00 – 18:00",
     image: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=800&q=80",
+    blurUrl: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=20&q=10",
   },
   {
     city: "Manchester",
@@ -32,6 +35,7 @@ const offices = [
     email: "manchester@orangeestate.co.uk",
     hours: "Mon – Fri: 9:00 – 17:30",
     image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+    blurUrl: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=20&q=10",
   },
   {
     city: "Edinburgh",
@@ -41,6 +45,7 @@ const offices = [
     email: "edinburgh@orangeestate.co.uk",
     hours: "Mon – Fri: 9:00 – 17:00",
     image: "https://images.unsplash.com/photo-1569681157374-92a0f9f7c30c?w=800&q=80",
+    blurUrl: "https://images.unsplash.com/photo-1569681157374-92a0f9f7c30c?w=20&q=10",
   },
 ];
 
@@ -109,11 +114,22 @@ export default function ContactPage() {
         className="relative flex items-end overflow-hidden"
         style={{ minHeight: "580px" }}
       >
-        {/* Background image */}
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: "url('/contact-hero.jpg')" }}
-        />
+        {/* Background image with blur placeholder */}
+        <div className="absolute inset-0">
+          <div
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: `url(${HERO_BLUR_URL})`,
+              filter: "blur(12px)",
+              transform: "scale(1.1)",
+            }}
+          />
+          <img
+            src="/contact-hero.jpg"
+            alt="Contact hero background"
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+        </div>
         {/* Gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-primary/30 via-primary/20 to-primary/10" />
   
@@ -343,10 +359,21 @@ export default function ContactPage() {
               >
                 {/* City image */}
                 <div className="relative h-48 overflow-hidden">
+                  {/* Blur placeholder */}
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      backgroundImage: `url(${office.blurUrl})`,
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                      filter: "blur(12px)",
+                      transform: "scale(1.1)",
+                    }}
+                  />
                   <img
                     src={office.image}
                     alt={`${office.city} skyline`}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
                   {/* overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0B2A57]/80 via-[#0B2A57]/20 to-transparent" />

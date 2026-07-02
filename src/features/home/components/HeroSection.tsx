@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import BlurImage from "#/components/ui/BlurImage";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -39,7 +40,7 @@ export default function HeroSection() {
         ref={image}
         className="h-[40vh] md:h-[80vh] overflow-hidden rounded-2xl w-full"
       >
-        <img
+        <BlurImage
           className="object-cover h-full w-full"
           src="https://images.unsplash.com/photo-1506744038136-46273834b3fb"
         />

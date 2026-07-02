@@ -15,10 +15,21 @@ export default function BlogCard({
         className="relative h-56 overflow-hidden cursor-pointer"
         onClick={() => onOpen(post)}
       >
+        {/* Blur placeholder */}
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `url(${post.blurUrl})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            filter: "blur(12px)",
+            transform: "scale(1.1)",
+          }}
+        />
         <img
           src={post.image}
           alt={post.title}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+          className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
         />
 
         <span className="absolute bottom-4 left-4 bg-white text-[9px] uppercase tracking-widest font-bold px-3 py-1 border">
@@ -26,7 +37,7 @@ export default function BlogCard({
         </span>
       </div>
 
-      <div className="p-6 flex flex-col flex-grow">
+      <div className="p-6 flex flex-col grow">
         <div className="space-y-3">
           <h3
             onClick={() => onOpen(post)}

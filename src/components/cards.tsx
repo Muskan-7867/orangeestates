@@ -1,5 +1,7 @@
 
 
+import BlurImage from "#/components/ui/BlurImage";
+
 export default function Example() {
   return (
     <>
@@ -21,7 +23,7 @@ export default function Example() {
         {/* Карточки */}
         <div className="mt-10 flex flex-wrap justify-center gap-8">
           <div className="max-w-72 w-full hover:-translate-y-0.5 transition duration-300">
-            <img
+            <BlurImage
               className="rounded-xl"
               src="https://images.unsplash.com/photo-1590650516494-0c8e4a4dd67e?w=1200&h=800&auto=format&fit=crop&q=60"
               alt=""
@@ -33,7 +35,7 @@ export default function Example() {
           </div>
 
           <div className="max-w-72 w-full hover:-translate-y-0.5 transition duration-300">
-            <img
+            <BlurImage
               className="rounded-xl"
               src="https://images.unsplash.com/photo-1714974528646-ea024a3db7a7?w=1200&h=800&auto=format&fit=crop&q=60"
               alt=""
@@ -45,7 +47,7 @@ export default function Example() {
           </div>
 
           <div className="max-w-72 w-full hover:-translate-y-0.5 transition duration-300">
-            <img
+            <BlurImage
               className="rounded-xl"
               src="https://images.unsplash.com/photo-1713947501966-34897f21162e?w=1200&h=800&auto=format&fit=crop&q=60"
               alt=""

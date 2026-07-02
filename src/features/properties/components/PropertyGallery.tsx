@@ -93,7 +93,7 @@ export default function PropertyGallery({ property }: { property: any }) {
 
       {/* Carousel Container */}
       <div className="relative w-full overflow-hidden">
-        
+
         {/* Navigation Gestures Detector & Sliding Track */}
         <motion.div
           onPanEnd={(_, info) => {
@@ -117,7 +117,7 @@ export default function PropertyGallery({ property }: { property: any }) {
               property.images[totalImages - 1],
               ...property.images,
               property.images[0]
-            ].map((img: string, idx: number) => {
+            ].map((img: { url: string; blurUrl: string }, idx: number) => {
               const isActive = idx === activeImageIndex + 1;
               const originalIndex = idx === 0
                 ? totalImages - 1
@@ -140,13 +140,24 @@ export default function PropertyGallery({ property }: { property: any }) {
                   }}
                   transition={{ type: "spring", stiffness: 220, damping: 26 }}
                 >
-                  <img
-                    src={img}
-                    alt={`${property.title} - View ${originalIndex + 1}`}
-                    className="w-full h-[40vh] md:h-[70vh] object-cover  pointer-events-none select-none"
+                  {/* Blur placeholder */}
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      backgroundImage: `url(${img.blurUrl})`,
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                      filter: "blur(12px)",
+                      transform: "scale(1.1)",
+                    }}
                   />
-                  
-                
+                  <img
+                    src={img.url}
+                    alt={`${property.title} - View ${originalIndex + 1}`}
+                    className="absolute inset-0 w-full h-[40vh] md:h-[70vh] object-cover pointer-events-none select-none"
+                  />
+                  {/* Spacer to maintain height */}
+                  <div className="w-full h-[40vh] md:h-[70vh]" />
                 </motion.div>
               );
             })}
@@ -164,7 +175,7 @@ export default function PropertyGallery({ property }: { property: any }) {
           >
             <ChevronLeft size={20} />
           </motion.button>
-          
+
           <motion.button
             whileHover={{ scale: 1.1, backgroundColor: "rgba(0, 0, 0, 0.5)" }}
             whileTap={{ scale: 0.9 }}
@@ -177,21 +188,32 @@ export default function PropertyGallery({ property }: { property: any }) {
         </div>
       </div>
 
-   
+
 
       {/* Interactive Thumbnails Track */}
       <div className="flex items-center justify-center gap-3 mt-4 overflow-x-auto py-2 px-1 scrollbar-hide max-w-full">
-        {property.images.map((img: string, idx: number) => (
+        {property.images.map((img: { url: string; blurUrl: string }, idx: number) => (
           <button
             key={idx}
             onClick={() => selectImage(idx)}
-            className="relative flex-shrink-0 w-24 h-16 rounded-xl overflow-hidden border border-black/5 hover:border-black/10 focus:outline-none cursor-pointer transition-all duration-300"
+            className="relative shrink-0 w-24 h-16 rounded-xl overflow-hidden border border-black/5 hover:border-black/10 focus:outline-none cursor-pointer transition-all duration-300"
           >
+            {/* Blur placeholder */}
+            <div
+              className="absolute inset-0"
+              style={{
+                backgroundImage: `url(${img.blurUrl})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                filter: "blur(8px)",
+                transform: "scale(1.1)",
+              }}
+            />
             <img
-              src={img}
+              src={img.url}
               alt=""
               className={cn(
-                "w-full h-full object-cover transition-all duration-500",
+                "absolute inset-0 w-full h-full object-cover transition-all duration-500",
                 activeImageIndex === idx ? "opacity-100 scale-105" : "opacity-60 hover:opacity-85"
               )}
             />
@@ -254,10 +276,22 @@ export default function PropertyGallery({ property }: { property: any }) {
                   }}
                   className="absolute inset-0 flex items-center justify-center cursor-grab active:cursor-grabbing touch-pan-y"
                 >
+                  {/* Blur placeholder */}
+                  <div
+                    className="absolute inset-0 rounded-xl"
+                    style={{
+                      backgroundImage: `url(${property.images[activeImageIndex].blurUrl})`,
+                      backgroundSize: "contain",
+                      backgroundPosition: "center",
+                      backgroundRepeat: "no-repeat",
+                      filter: "blur(16px)",
+                      transform: "scale(1.05)",
+                    }}
+                  />
                   <img
-                    src={property.images[activeImageIndex]}
+                    src={property.images[activeImageIndex].url}
                     alt=""
-                    className="max-w-full max-h-full object-contain rounded-xl select-none pointer-events-none shadow-2xl"
+                    className="relative max-w-full max-h-full object-contain rounded-xl select-none pointer-events-none shadow-2xl"
                   />
                 </motion.div>
               </AnimatePresence>
@@ -272,7 +306,7 @@ export default function PropertyGallery({ property }: { property: any }) {
               >
                 <ChevronLeft size={24} />
               </motion.button>
-              
+
               <motion.button
                 whileHover={{ scale: 1.1, backgroundColor: "rgba(255, 255, 255, 0.2)" }}
                 whileTap={{ scale: 0.9 }}
@@ -286,17 +320,28 @@ export default function PropertyGallery({ property }: { property: any }) {
 
             {/* Lightbox Bottom Thumbnail List */}
             <div className="flex gap-2.5 mt-8 overflow-x-auto max-w-full px-6 py-2 scrollbar-hide">
-              {property.images.map((img: string, idx: number) => (
+              {property.images.map((img: { url: string; blurUrl: string }, idx: number) => (
                 <button
                   key={idx}
                   onClick={() => selectImage(idx)}
                   className="relative flex-shrink-0 w-16 h-12 rounded-lg overflow-hidden border border-white/10 cursor-pointer"
                 >
+                  {/* Blur placeholder */}
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      backgroundImage: `url(${img.blurUrl})`,
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                      filter: "blur(6px)",
+                      transform: "scale(1.1)",
+                    }}
+                  />
                   <img
-                    src={img}
+                    src={img.url}
                     alt=""
                     className={cn(
-                      "w-full h-full object-cover transition-opacity duration-300",
+                      "absolute inset-0 w-full h-full object-cover transition-opacity duration-300",
                       idx === activeImageIndex ? "opacity-100" : "opacity-40 hover:opacity-60"
                     )}
                   />

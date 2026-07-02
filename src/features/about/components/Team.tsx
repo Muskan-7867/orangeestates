@@ -1,5 +1,6 @@
 import { Users } from "lucide-react";
 import type { RefObject } from "react";
+import BlurImage from "#/components/ui/BlurImage";
 
 
 const team = [
@@ -39,7 +40,7 @@ export default function Team({teamRef}: {teamRef:RefObject<HTMLDivElement | null
             {team.map((person) => (
               <div key={person.name} className="team-card group relative overflow-hidden">
                 <div className="overflow-hidden h-80">
-                  <img
+                  <BlurImage
                     src={person.img}
                     alt={person.name}
                     className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"

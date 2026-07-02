@@ -1,4 +1,50 @@
 import { ChartColumnIncreasing, KeyRound, Landmark, Scale } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+
+function WhyChooseUsImage() {
+    const [loaded, setLoaded] = useState(false);
+    const imgRef = useRef<HTMLImageElement>(null);
+        const blurSrc = "https://sothebysrealty.co.uk/cdn-cgi/image/format=auto,width=600,height=500,fit=cover,quality=10/https://uk-media.s3.amazonaws.com/Listing_s3/UK-S-07678_img_4243hero.jpg.jpeg";
+    const mainSrc = "https://sothebysrealty.co.uk/cdn-cgi/image/format=auto,width=600,height=500,fit=cover,quality=75/https://uk-media.s3.amazonaws.com/Listing_s3/UK-S-07678_img_4243hero.jpg.jpeg";
+
+    useEffect(() => {
+        if (imgRef.current?.complete && imgRef.current?.naturalWidth > 0) {
+            setLoaded(true);
+        } else {
+            setLoaded(false);
+        }
+    }, [mainSrc]);
+
+
+
+    return (
+        <>
+            {mainSrc && (
+                <img
+                    ref={imgRef}
+                    src={mainSrc}
+                    alt="Luxury UK property"
+                    onLoad={() => setLoaded(true)}
+                    className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+                        loaded ? "opacity-100" : "opacity-0"
+                    }`}
+                />
+            )}
+            {/* Blur placeholder on top */}
+            <div
+                className="absolute inset-0 pointer-events-none transition-opacity duration-500"
+                style={{
+                    backgroundImage: `url('${blurSrc}')`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    filter: "blur(12px)",
+                    transform: "scale(1.05)",
+                    opacity: loaded ? 0 : 1,
+                }}
+            />
+        </>
+    );
+}
 
 const reasons = [
     {
@@ -57,11 +103,7 @@ export default function WhyChooseUs() {
                 <div className="mt-8 sm:mt-12 lg:mt-16 grid gap-6 lg:grid-cols-2 items-stretch">
                     {/* Left — image + stats overlay */}
                     <div className="relative  overflow-hidden min-h-[260px] sm:min-h-[360px] lg:min-h-[500px]">
-                        <img
-                            src="https://sothebysrealty.co.uk/cdn-cgi/image/format=auto,width=600,height=500,fit=cover,quality=75/https://uk-media.s3.amazonaws.com/Listing_s3/UK-S-07678_img_4243hero.jpg.jpeg"
-                            alt="Luxury UK property"
-                            className="absolute inset-0 w-full h-full object-cover"
-                        />
+                        <WhyChooseUsImage />
                     </div>
 
                     {/* Right — reason cards */}

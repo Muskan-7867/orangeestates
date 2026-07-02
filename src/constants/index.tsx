@@ -33,12 +33,11 @@ export const properties = [
   {
     id: "1",
     images: [
-    
-      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1200&q=80",
-      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80",
-        "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1200&q=80",
-      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80",
-      "https://sothebysrealty.co.uk/cdn-cgi/image/format=auto,width=600,height=500,fit=cover,quality=75/https://uk-media.s3.amazonaws.com/Listing_s3/UK-S-07678_img_4243hero.jpg.jpeg"
+      { url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=20&q=10" },
+      { url: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=20&q=10" },
+      { url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=20&q=10" },
+      { url: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=20&q=10" },
+      { url: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=20&q=10" },
     ],
     title: "Peninsula Heights, Albert Embankment, London",
     beds: 4,
@@ -49,9 +48,9 @@ export const properties = [
   {
     id: "2",
     images: [
-      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1200&q=80",
-      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&q=80",
-      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80",
+      { url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=20&q=10" },
+      { url: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=20&q=10" },
+      { url: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=20&q=10" },
     ],
     title: "Hanover Square, Mayfair, London",
     beds: 3,
@@ -62,9 +61,9 @@ export const properties = [
   {
     id: "3",
     images: [
-      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80",
-      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&q=80",
-      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80",
+      { url: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=20&q=10" },
+      { url: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=20&q=10" },
+      { url: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=20&q=10" },
     ],
     title: "Craven Hill Gardens, Bayswater, London",
     beds: 4,
@@ -75,9 +74,9 @@ export const properties = [
   {
     id: "4",
     images: [
-      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&q=80",
-      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1200&q=80",
-      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80",
+      { url: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=20&q=10" },
+      { url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=20&q=10" },
+      { url: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=20&q=10" },
     ],
     title: "Peninsula Heights, Albert Embankment, London (Duplicate)",
     beds: 4,
@@ -88,9 +87,9 @@ export const properties = [
   {
     id: "5",
     images: [
-      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1200&q=80",
-      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&q=80",
-      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80",
+      { url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=20&q=10" },
+      { url: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=20&q=10" },
+      { url: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=20&q=10" },
     ],
     title: "Hanover Square, Mayfair, London (Duplicate)",
     beds: 3,
@@ -101,9 +100,9 @@ export const properties = [
   {
     id: "6",
     images: [
-      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80",
-      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&q=80",
-      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80",
+      { url: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=20&q=10" },
+      { url: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=20&q=10" },
+      { url: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=20&q=10" },
     ],
     title: "Craven Hill Gardens, Bayswater, London (Duplicate)",
     beds: 4,

@@ -29,10 +29,21 @@ export default function PreviewBlog({
             >
               {/* Header Image */}
               <div className="relative h-64 sm:h-96 w-full shrink-0">
+                {/* Blur placeholder */}
+                <div
+                  className="absolute inset-0 rounded-t-lg"
+                  style={{
+                    backgroundImage: `url(${selectedPost.blurUrl})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    filter: "blur(12px)",
+                    transform: "scale(1.1)",
+                  }}
+                />
                 <img
                   src={selectedPost.image}
                   alt={selectedPost.title}
-                  className="w-full h-full object-cover"
+                  className="absolute inset-0 w-full h-full object-cover rounded-t-lg"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
 

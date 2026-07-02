@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import BlurImage from "#/components/ui/BlurImage";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
@@ -241,7 +242,7 @@ export default function AboutPage() {
         <div ref={missionRef} className="grid lg:grid-cols-2 gap-12 items-center">
                {/* Right image */}
           <div className="relative">
-            <img
+            <BlurImage
               src="/about-team.jpg"
               alt="Our team"
               className="w-full h-[420px] object-cover rounded-sm shadow-xl"

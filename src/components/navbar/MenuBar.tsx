@@ -74,7 +74,7 @@ export default function Menubar() {
         <div className="hidden lg:block relative">
 
             {/* ── Menu / Close pill button ── */}
-            <div onClick={() => setIsActive(!isActive)} className="h-8 w-[100px] rounded-full cursor-pointer overflow-hidden">
+            <div onClick={() => setIsActive(!isActive)} className="h-8 w-25 rounded-full cursor-pointer overflow-hidden">
                 <motion.div
                     animate={{ top: isActive ? "-100%" : "0%" }}
                     transition={{ duration: 0.5, ease: "easeInOut" }}
@@ -136,7 +136,7 @@ export default function Menubar() {
 
 function Text({ label }: { label: string }) {
     return (
-        <div className="relative h-full w-full flex items-center justify-center perspective-[500px] overflow-hidden">
+        <div className="relative h-full w-full flex items-center justify-center perspective-normal overflow-hidden">
             <motion.div
                 whileHover={{ rotateX: 90 }}
                 transition={{

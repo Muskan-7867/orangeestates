@@ -14,7 +14,7 @@ export default function PropertyLocation({ property }: { property: any }) {
 
             <div
                 onClick={() => setOpenMap(true)}
-                className="relative w-full h-[220px] bg-gray-50 overflow-hidden group border border-gray-100 cursor-pointer"
+                className="relative w-full h-55 bg-gray-50 overflow-hidden group border border-gray-100 cursor-pointer"
             >
                 <iframe
                     title="Property Location Map"

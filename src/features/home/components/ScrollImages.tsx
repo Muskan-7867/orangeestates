@@ -6,14 +6,38 @@ import { useRef } from "react";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 const images = [
-    { src: "https://images.unsplash.com/photo-1506744038136-46273834b3fb" },
-    { src: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914" },
-    { src: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750" },
-    { src: "https://images.unsplash.com/photo-1570129477492-45c003edd2be" },
-    { src: "https://images.unsplash.com/photo-1506744038136-46273834b3fb" },
-    { src: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914" },
-    { src: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750" },
-    { src: "https://images.unsplash.com/photo-1570129477492-45c003edd2be" },
+    {
+        src: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=600",
+        blurSrc: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=20&q=10",
+    },
+    {
+        src: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?q=80&w=600",
+        blurSrc: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=20&q=10",
+    },
+    {
+        src: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=600",
+        blurSrc: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=20&q=10",
+    },
+    {
+        src: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?q=80&w=600",
+        blurSrc: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=20&q=10",
+    },
+    {
+        src: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=600",
+        blurSrc: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=20&q=10",
+    },
+    {
+        src: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?q=80&w=600",
+        blurSrc: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=20&q=10",
+    },
+    {
+        src: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=600",
+        blurSrc: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=20&q=10",
+    },
+    {
+        src: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?q=80&w=600",
+        blurSrc: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=20&q=10",
+    },
 ];
 
 const blurLayers = [
@@ -52,18 +76,20 @@ export default function ScrollImages() {
         });
 
         // Text animation
-        gsap.from(contentRef.current?.children, {
-            y: 100,
-            opacity: 0,
-            duration: 1,
-            stagger: 0.20,
-            ease: "power4.out",
-            scrollTrigger: {
-                trigger: sectionref.current,
-                start: "top 70%",
-                toggleActions: "play none none reverse",
-            },
-        });
+        if (contentRef.current?.children) {
+            gsap.from(contentRef.current.children, {
+                y: 100,
+                opacity: 0,
+                duration: 1,
+                stagger: 0.20,
+                ease: "power4.out",
+                scrollTrigger: {
+                    trigger: sectionref.current,
+                    start: "top 70%",
+                    toggleActions: "play none none reverse",
+                },
+            });
+        }
     });
 
     return (
@@ -76,7 +102,7 @@ export default function ScrollImages() {
                 {/* Left overlay */}
                 <div className="absolute left-0 top-0 h-full w-[65%] z-20 flex items-center px-28">
                     {/* Dark gradient */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-bg via-bg/20 to-transparent" />
+                    <div className="absolute inset-0 bg-linear-to-r from-bg via-bg/20 to-transparent" />
 
                     {/* Progressive blur */}
                     <div className="smooth-blur">
@@ -118,7 +144,6 @@ export default function ScrollImages() {
                     </div>
                 </div>
 
-                {/* Scrolling images strip */}
                 <div
                     ref={imagesref}
                     className="flex gap-4 h-full w-full py-24 items-center "
@@ -127,17 +152,28 @@ export default function ScrollImages() {
                         <div
                             key={index}
                             className={cn(
-                                "w-[250px] h-[400px] shrink-0 overflow-hidden",
+                                "w-62.5 h-100 shrink-0 overflow-hidden relative bg-neutral-100",
                                 index % 2 === 0 ? "translate-y-12" : "-translate-y-12",
                                 index === 0 ? "ml-200" : ""
                             )}
                         >
+                            {/* Blur placeholder */}
+                            <div
+                                className="absolute inset-0 pointer-events-none"
+                                style={{
+                                    backgroundImage: `url(${image.blurSrc})`,
+                                    backgroundSize: "cover",
+                                    backgroundPosition: "center",
+                                    filter: "blur(12px)",
+                                    transform: "scale(1.1)",
+                                }}
+                            />
                             <img
                                 src={image.src}
                                 alt={`House ${index + 1}`}
-                                className="w-full h-full object-cover"
+                                className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500"
                             />
-                            <div className="absolute inset-x-0 bottom-0 h-4/12 bg-gradient-to-b from-transparent to-black/80 flex items-end p-4">
+                            <div className="absolute inset-x-0 bottom-0 h-4/12 bg-linear-to-b from-transparent to-black/80 flex items-end p-4">
                                 <div>
                                     <h4 className="text-white text-xl font-medium italic">
                                         Signal Bloom
@@ -201,16 +237,27 @@ export default function ScrollImages() {
                         {images.map((image, index) => (
                             <div
                                 key={index}
-                                className="relative w-[200px] h-[270px] shrink-0 overflow-hidden "
+                                className="relative w-50 h-67.5 shrink-0 overflow-hidden bg-neutral-100"
                                 style={{ scrollSnapAlign: "start" }}
                             >
+                                {/* Blur placeholder */}
+                                <div
+                                    className="absolute inset-0 pointer-events-none"
+                                    style={{
+                                        backgroundImage: `url(${image.blurSrc})`,
+                                        backgroundSize: "cover",
+                                        backgroundPosition: "center",
+                                        filter: "blur(12px)",
+                                        transform: "scale(1.1)",
+                                    }}
+                                />
                                 <img
                                     src={image.src}
                                     alt={`House ${index + 1}`}
-                                    className="w-full h-full object-cover pointer-events-none"
+                                    className="absolute inset-0 w-full h-full object-cover pointer-events-none transition-opacity duration-500"
                                     draggable={false}
                                 />
-                                <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-b from-transparent to-black/70 flex items-end p-3">
+                                <div className="absolute inset-x-0 bottom-0 h-1/3 bg-linear-to-b from-transparent to-black/70 flex items-end p-3">
                                     <div>
                                         <h4 className="text-white text-sm font-medium italic">
                                             Signal Bloom

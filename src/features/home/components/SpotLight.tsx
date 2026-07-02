@@ -1,27 +1,34 @@
 "use client";
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "motion/react";
 
 const properties = [
-    {
-        title: "A Landmark Art Deco Estate on St George's Hill",
-        location: "Weybridge, Surrey",
-        image:
-            "https://images.unsplash.com/photo-1511818966892-d7d671e672a2?q=80&w=2000&auto=format&fit=crop",
-    },
+
     {
         title: "Luxury Penthouse in London",
         location: "London, England",
         image:
             "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2000&auto=format&fit=crop",
+        blurImage:
+            "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=20&q=10",
+    },
+    {
+        title: "A Landmark Art Deco Estate on St George's Hill",
+        location: "Weybridge, Surrey",
+        image:
+            "https://images.unsplash.com/photo-1511818966892-d7d671e672a2?q=80&w=2000&auto=format&fit=crop",
+        blurImage:
+            "https://images.unsplash.com/photo-1511818966892-d7d671e672a2?w=20&q=10",
     },
     {
         title: "Modern Countryside House",
         location: "Surrey, England",
         image:
             "https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=2000&auto=format&fit=crop",
+        blurImage:
+            "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=20&q=10",
     },
 ];
 
@@ -49,25 +56,63 @@ export default function Spotlight() {
         ]);
     };
 
-const variants = {
-  enter: (direction: number) => ({
-    x: direction > 0 ? "30%" : "-30%",
-    scale: 1.15,
-    opacity: 0,
-  }),
+    const variants = {
+        enter: (direction: number) => ({
+            x: direction > 0 ? "30%" : "-30%",
+            scale: 1.15,
+            opacity: 0,
+        }),
 
-  center: {
-    x: 0,
-    scale: 1,
-    opacity: 1,
-  },
+        center: {
+            x: 0,
+            scale: 1,
+            opacity: 1,
+        },
 
-  exit: (direction: number) => ({
-    x: direction > 0 ? "-30%" : "30%",
-    scale: 0.9,
-    opacity: 0,
-  }),
-};
+        exit: (direction: number) => ({
+            x: direction > 0 ? "-30%" : "30%",
+            scale: 0.9,
+            opacity: 0,
+        }),
+    };
+
+    function SpotlightImage({ src, blurSrc }: { src: string; blurSrc: string }) {
+        const [loaded, setLoaded] = useState(false);
+        const imgRef = useRef<HTMLImageElement>(null);
+
+        useEffect(() => {
+            if (imgRef.current?.complete && imgRef.current?.naturalWidth > 0) {
+                setLoaded(true);
+            } else {
+                setLoaded(false);
+            }
+        }, [src]);
+
+        return (
+            <>
+                <img
+                    ref={imgRef}
+                    src={src}
+                    onLoad={() => setLoaded(true)}
+                    className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${
+                        loaded ? "opacity-100" : "opacity-0"
+                    }`}
+                />
+                {/* Blur placeholder on top */}
+                <div
+                    className="absolute inset-0 pointer-events-none transition-opacity duration-500"
+                    style={{
+                        backgroundImage: `url(${blurSrc})`,
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                        filter: "blur(12px)",
+                        transform: "scale(1.1)",
+                        opacity: loaded ? 0 : 1,
+                    }}
+                />
+            </>
+        );
+    }
 
     return (
         <section className="py-10">
@@ -85,7 +130,7 @@ const variants = {
                     </h2>
 
                     <div className="hidden gap-8 text-xs tracking-wide text-gray-500 md:flex">
-                        {tabs.map((tab, index) => (
+                        {tabs.map((tab, index) => ( 
                             <button
                                 key={tab}
                                 className={`transition ${index === 0
@@ -102,7 +147,7 @@ const variants = {
                 {/* Image */}
                 <div className="relative h-[250px] sm:h-[380px] md:h-[500px] overflow-hidden">
                     <AnimatePresence initial={false} custom={direction}>
-                        <motion.img
+                        <motion.div
                             key={active}
                             custom={direction}
                             variants={variants}
@@ -113,9 +158,13 @@ const variants = {
                                 duration: 0.7,
                                 ease: [0.76, 0, 0.24, 1],
                             }}
-                            src={properties[active].image}
-                            className="absolute inset-0 h-full w-full object-cover"
-                        />
+                            className="absolute inset-0 h-full w-full"
+                        >
+                            <SpotlightImage
+                                src={properties[active].image}
+                                blurSrc={properties[active].blurImage}
+                            />
+                        </motion.div>
                     </AnimatePresence>
 
                     {/* Left Button */}

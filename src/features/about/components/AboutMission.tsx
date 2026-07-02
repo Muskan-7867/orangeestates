@@ -1,6 +1,9 @@
 import { Award, Home, MapPin, TrendingUp } from "lucide-react";
 import { type RefObject } from "react";
 
+const BLUR_URL = "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=20&q=10";
+
+
 export default function AboutMission({ missionRef}: {missionRef: RefObject<HTMLDivElement | null>}) {
     
   return (
@@ -44,11 +47,24 @@ export default function AboutMission({ missionRef}: {missionRef: RefObject<HTMLD
 
           {/* Right image */}
           <div className="relative">
-            <img
-              src="/about-team.jpg"
-              alt="Our team"
-              className="w-full h-[420px] object-cover rounded-sm shadow-xl"
-            />
+            {/* Image with blur placeholder */}
+            <div className="relative w-full h-[420px] overflow-hidden rounded-sm shadow-xl">
+              <div
+                className="absolute inset-0"
+                style={{
+                  backgroundImage: `url(${BLUR_URL})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  filter: "blur(12px)",
+                  transform: "scale(1.1)",
+                }}
+              />
+              <img
+                src="/about-team.jpg"
+                alt="Our team"
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+            </div>
             {/* Floating badge */}
             <div className="absolute -bottom-5 -left-5 bg-[#0B2A57] text-white px-6 py-4 shadow-xl">
               <p className="font-serif text-2xl text-orange-400">25+</p>

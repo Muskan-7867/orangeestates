@@ -1,5 +1,7 @@
 import {  type RefObject } from "react";
 
+const BLUR_URL = "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=20&q=10";
+
 export default function AboutHero({
     heroRef,
     heroImgRef,
@@ -17,10 +19,21 @@ export default function AboutHero({
               >
                 {/* Parallax image */}
                 <div ref={heroImgRef} className="absolute inset-0 scale-110">
+                  {/* Blur placeholder */}
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      backgroundImage: `url(${BLUR_URL})`,
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                      filter: "blur(12px)",
+                      transform: "scale(1.1)",
+                    }}
+                  />
                   <img
                     src="/about-hero.jpg"
                     alt="Orange Estate luxury property"
-                    className="w-full h-full object-cover"
+                    className="absolute inset-0 w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
                 </div>

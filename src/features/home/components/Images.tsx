@@ -4,59 +4,73 @@ import { motion } from "motion/react";
 
 const images = [
     {
-        url: "https://www.knightfrank.co.uk/site-assets/image-library/homepage-property-carousel-thumbnails/new-homes_kf_cat-link.webp?width=166&rmode=crop&quality=80",
+        url: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?q=80&w=400",
+        blurUrl: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=20&q=10",
         name: "New homes",
     },
     {
-        url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
+        url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=400",
+        blurUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=20&q=10",
         name: "Coastal",
     },
     {
-        url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
+        url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=400",
+        blurUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=20&q=10",
         name: "London commute",
     },
     {
-        url: "https://images.unsplash.com/photo-1568605114967-8130f3a36994",
+        url: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=400",
+        blurUrl: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=20&q=10",
         name: "Lateral living",
     },
     {
-        url: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85",
+        url: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=400",
+        blurUrl: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=20&q=10",
         name: "With land",
     },
     {
-        url: "https://www.knightfrank.co.uk/site-assets/image-library/homepage-property-carousel-thumbnails/new-homes_kf_cat-link.webp?width=166&rmode=crop&quality=80",
+        url: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?q=80&w=400",
+        blurUrl: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=20&q=10",
         name: "New homes",
     },
     {
-        url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
+        url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=400",
+        blurUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=20&q=10",
         name: "Coastal",
     },
     {
-        url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
+        url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=400",
+        blurUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=20&q=10",
         name: "London commute",
     },
     {
-        url: "https://images.unsplash.com/photo-1568605114967-8130f3a36994",
+        url: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=400",
+        blurUrl: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=20&q=10",
         name: "Lateral living",
     },
     {
-        url: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85",
+        url: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=400",
+        blurUrl: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=20&q=10",
         name: "With land",
     },
     {
-        url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
+        url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=400",
+        blurUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=20&q=10",
         name: "Coastal",
     },
     {
-        url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
+        url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=400",
+        blurUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=20&q=10",
         name: "London commute",
     },
     {
-        url: "https://images.unsplash.com/photo-1568605114967-8130f3a36994",
+        url: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=400",
+        blurUrl: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=20&q=10",
         name: "Lateral living",
     },
     {
-        url: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85",
+        url: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=400",
+        blurUrl: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=20&q=10",
         name: "With land",
     },
 ];
@@ -129,7 +143,7 @@ export default function Images() {
                             key={index}
                             ref={(el) => { cardRefs.current[index] = el; }}
                             data-index={index}
-                            className="flex-shrink-0 w-[170px] text-center cursor-pointer"
+                            className="shrink-0 w-42.5 text-center cursor-pointer"
                             initial={{ opacity: 0, y: 20, scale: 0.9 }}
                             whileInView={{
                                 opacity: 1,
@@ -146,21 +160,32 @@ export default function Images() {
                             whileHover={{ y: -8, scale: 1.05 }}
                         >
                             {/* Image container */}
-                            <div className="overflow-hidden rounded-xl w-full h-[98px] relative">
+                            <div className="overflow-hidden rounded-xl w-full h-24.5 relative bg-neutral-100">
+                                {/* Blur placeholder */}
+                                <div
+                                    className="absolute inset-0"
+                                    style={{
+                                        backgroundImage: `url(${image.blurUrl})`,
+                                        backgroundSize: "cover",
+                                        backgroundPosition: "center",
+                                        filter: "blur(12px)",
+                                        transform: "scale(1.1)",
+                                    }}
+                                />
                                 <motion.img
                                     src={image.url}
                                     alt={image.name}
-                                    className="w-full h-full object-cover"
+                                    className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500"
                                     // Smooth scale pulse when scroll direction changes
                                     animate={
                                         scrollDir && visibleIndices.has(index)
                                             ? {
-                                                  scale: [1, 1.08, 1],
-                                                  transition: {
-                                                      duration: 0.5,
-                                                      ease: "easeInOut",
-                                                  },
-                                              }
+                                                scale: [1, 1.08, 1],
+                                                transition: {
+                                                    duration: 0.5,
+                                                    ease: "easeInOut",
+                                                },
+                                            }
                                             : { scale: 1 }
                                     }
                                     whileHover={{
@@ -173,7 +198,7 @@ export default function Images() {
                                 />
                                 {/* Gradient overlay on hover */}
                                 <motion.div
-                                    className="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent pointer-events-none"
+                                    className="absolute inset-0 bg-linear-to-t from-black/25 to-transparent pointer-events-none z-10"
                                     initial={{ opacity: 0 }}
                                     whileHover={{ opacity: 1 }}
                                     transition={{ duration: 0.3 }}
@@ -193,7 +218,7 @@ export default function Images() {
                             {/* Animated underline on hover */}
                             <div className="flex justify-center mt-1">
                                 <motion.div
-                                    className="h-[2px] bg-black rounded-full"
+                                    className="h-0.5 bg-black rounded-full"
                                     initial={{ width: 0 }}
                                     whileHover={{ width: 28 }}
                                     transition={{
@@ -240,7 +265,7 @@ export default function Images() {
                     </motion.button>
                 </div>
             </div>
-            
+
         </section>
     );
 }

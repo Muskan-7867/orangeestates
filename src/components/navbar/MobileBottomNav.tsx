@@ -1,5 +1,5 @@
 import { Link, useLocation } from "@tanstack/react-router";
-import { Home, Building2, BookOpen, Info, MessageSquare } from "lucide-react";
+import {  Building2, BookOpen, Info, MessageSquare } from "lucide-react";
 import { motion } from "motion/react";
 
 const mobileLinks = [
@@ -15,7 +15,7 @@ export default function MobileBottomNav() {
   const currentPath = location.pathname.replace(/\/$/, "") || "/";
 
   return (
-    <div className="lg:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-32px)] max-w-[420px]">
+    <div className="lg:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-32px)] max-w-105">
       <div className="flex items-center justify-between px-3 py-2 bg-white/80 border border-white backdrop-blur-lg rounded-full shadow-[0_8px_32px_0_rgba(0,0,0,0.08)]">
         {mobileLinks.map((link) => {
           const Icon = link.icon;

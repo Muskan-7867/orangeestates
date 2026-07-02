@@ -1,22 +1,60 @@
+import {
+  Building2,
+  Users,
+  Globe,
+  CalendarDays,
+} from "lucide-react";
+
+const features = [
+  {
+    icon: Building2,
+    value: "1100",
+    label: "Offices Worldwide",
+  },
+  {
+    icon: Users,
+    value: "25,000",
+    label: "Sales Associates",
+  },
+  {
+    icon: Globe,
+    value: "200",
+    label: "Countries & Territories",
+  },
+  {
+    icon: CalendarDays,
+    value: "85",
+    label: "Years in Business",
+  },
+];
+
 export default function Features() {
-    return (
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-4 my-18 px-6 sm:px-16 md:px-24 lg:px-36">
-            <div className="text-center">
-                <h1 className="text-2xl sm:text-3xl font-medium">1100</h1>
-                <p className="text-[#9B9393] text-sm sm:text-base">Offices Worldwide</p>
+  return (
+    <section className="my-20 px-6 sm:px-16 md:px-24 lg:px-36">
+      <div className="grid grid-cols-2 md:grid-cols-4 ">
+        {features.map((feature) => {
+          const Icon = feature.icon;
+
+          return (
+            <div
+              key={feature.label}
+              className="flex flex-col items-center text-center group"
+            >
+              <div className=" flex h-16 w-16 items-center justify-center rounded-full bg-neutral-100 transition-all duration-300  ">
+                <Icon size={26} strokeWidth={1.5} />
+              </div>
+
+              <h2 className="text-3xl font-semibold text-neutral-900">
+                {feature.value}
+              </h2>
+
+              <p className="mt-2 text-sm sm:text-base text-neutral-500">
+                {feature.label}
+              </p>
             </div>
-            <div className="text-center">
-                <h1 className="text-2xl sm:text-3xl font-medium">25,000</h1>
-                <p className="text-[#9B9393] text-sm sm:text-base">Sales Associates</p>
-            </div>
-            <div className="text-center">
-                <h1 className="text-2xl sm:text-3xl font-medium">200</h1>
-                <p className="text-[#9B9393] text-sm sm:text-base">Countries & Territories</p>
-            </div>
-            <div className="text-center">
-                <h1 className="text-2xl sm:text-3xl font-medium">85</h1>
-                <p className="text-[#9B9393] text-sm sm:text-base">Years in Business</p>
-            </div>
-        </div>
-    )
+          );
+        })}
+      </div>
+    </section>
+  );
 }

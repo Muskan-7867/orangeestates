@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import BlurImage from "#/components/ui/BlurImage";
 
 type CardT = {
   image: string;
@@ -58,7 +59,7 @@ const VerifyIcon = () => (
 const Card = ({ card }: { card: CardT }) => (
   <div className="p-4 rounded-lg mx-4  transition-all duration-200 w-72 shrink-0 bg-white">
     <div className="flex gap-2">
-      <img className="size-11 rounded-full" src={card.image} alt={card.name} />
+      <BlurImage className="size-11 rounded-full" src={card.image} alt={card.name} />
       <div className="flex flex-col">
         <div className="flex items-center gap-1">
           <p className="font-medium">{card.name}</p>

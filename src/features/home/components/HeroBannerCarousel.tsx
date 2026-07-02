@@ -11,6 +11,7 @@ interface Slide {
   subtitle: string;
   description: string;
   image: string;
+  blurImage: string;
   accent: string;
   cta: string;
 }
@@ -24,6 +25,9 @@ const slides: Slide[] = [
       "Designed to elevate contemporary interiors through sculptural forms, natural materials, and timeless craftsmanship.",
     image:
       "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1400",
+    blurImage:
+      "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=20&q=10",
+
     accent: "#F3EFE8",
     cta: "Discover Collection",
   },
@@ -35,6 +39,9 @@ const slides: Slide[] = [
       "Refined silhouettes and tactile materials create a balanced atmosphere between architecture and design.",
     image:
       "https://images.unsplash.com/photo-1494526585095-c41746248156?q=80&w=1400",
+    blurImage:
+      "https://images.unsplash.com/photo-1494526585095-c41746248156?w=20&q=10",
+
     accent: "#ECE7E1",
     cta: "View Pieces",
   },
@@ -46,6 +53,9 @@ const slides: Slide[] = [
       "A curated collection of objects and spaces inspired by contemporary editorial aesthetics.",
     image:
       "https://images.unsplash.com/photo-1484154218962-a197022b5858?q=80&w=1400",
+    blurImage:
+      "https://images.unsplash.com/photo-1484154218962-a197022b5858?w=20&q=10",
+
     accent: "#EAE4DB",
     cta: "Explore More",
   },
@@ -132,6 +142,7 @@ export default function PremiumHero() {
   const slide = slides[index];
   const nextSlide = slides[(index + 1) % slides.length];
   const thirdSlide = slides[(index + 2) % slides.length];
+
   const paginate = (dir: number) => {
     setIndex(([prev]) => {
       const next = (prev + dir + slides.length) % slides.length;
@@ -159,12 +170,24 @@ export default function PremiumHero() {
           style={{ willChange: "opacity, transform" }}
         >
           <div className="absolute inset-0 bg-black/15 z-10" />
+          {/* Blur placeholder — tiny image scaled up with CSS blur */}
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `url(${slide.blurImage})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              filter: "blur(20px)",
+              transform: "scale(1.1)",
+            }}
+          />
+          {/* Full-res image fades in on top once loaded */}
           <img
             src={slide.image}
             alt={slide.title}
-            className="h-full w-full object-cover border border-pink-300 "
+            className="absolute inset-0 h-full w-full object-cover transition-opacity duration-700"
           />
-          <div className="absolute inset-0 z-10 bg-gradient-to-r from-black/70 via-black/20 to-transparent" />
+          <div className="absolute inset-0 z-10 bg-linear-to-r from-black/70 via-black/20 to-transparent" />
         </motion.div>
       </AnimatePresence>
 
@@ -247,7 +270,7 @@ export default function PremiumHero() {
           <div className="relative hidden md:flex items-center justify-end pr-16" style={{ perspective: 1000 }}>
             {/* Third slide preview */}
             <motion.div
-              className="absolute right-0 top-1/2 h-[160px] w-[120px]
+              className="absolute right-0 top-1/2 h-40 w-30
                -translate-y-1/2 overflow-hidden rounded-[25px]
                opacity-60"
               animate={{
@@ -256,13 +279,23 @@ export default function PremiumHero() {
               }}
               transition={{ duration: 0.8 }}
             >
+              <div
+                className="absolute inset-0"
+                style={{
+                  backgroundImage: `url(${thirdSlide.blurImage})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  filter: "blur(20px)",
+                  transform: "scale(1.1)",
+                }}
+              />
               <img
                 src={thirdSlide.image}
                 alt={thirdSlide.title}
-                className="h-full w-full object-cover"
+                className="absolute inset-0 h-full w-full object-cover transition-opacity duration-500"
               />
 
-              <div className="absolute inset-0 bg-black/25" />
+              <div className="absolute inset-0 bg-black/25 z-10" />
             </motion.div>
 
             <AnimatePresence mode="wait" custom={direction}>
@@ -273,7 +306,7 @@ export default function PremiumHero() {
                 initial="enter"
                 animate="center"
                 exit="exit"
-                className="relative z-10 h-[200px] w-[180px]
+                className="relative z-10 h-50 w-45
                  overflow-hidden rounded-[35px]
                 "
               // style={{ willChange: "transform, opacity" }}
@@ -281,7 +314,7 @@ export default function PremiumHero() {
                 {/* Float animation lives on a stable inner wrapper so it
                     doesn't restart when imageVariants finishes */}
                 <motion.div
-                  className="h-full w-full"
+                  className="h-full w-full relative"
                   animate={{ y: [0, -12, 0] }}
                   transition={{
                     duration: 6,
@@ -290,10 +323,20 @@ export default function PremiumHero() {
                     repeatType: "loop",
                   }}
                 >
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      backgroundImage: `url(${nextSlide.blurImage})`,
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                      filter: "blur(20px)",
+                      transform: "scale(1.1)",
+                    }}
+                  />
                   <img
                     src={nextSlide.image}
                     alt={nextSlide.title}
-                    className="h-full w-full object-cover scale-[1.06]"
+                    className="absolute inset-0 h-full w-full object-cover scale-[1.06] transition-opacity duration-500"
                   />
                 </motion.div>
               </motion.div>
@@ -307,12 +350,26 @@ export default function PremiumHero() {
       <div className="md:hidden absolute bottom-14 right-4 z-20" style={{ perspective: 800 }}>
         {/* Third slide peek */}
         <motion.div
-          className="absolute right-0 bottom-0 h-[110px] w-[80px] overflow-hidden rounded-[18px] opacity-60"
+          className="absolute right-0 bottom-0 h-27.5 w-20 overflow-hidden rounded-[18px] opacity-60"
           animate={{ x: 0, scale: 0.9 }}
           transition={{ duration: 0.8 }}
         >
-          <img src={thirdSlide.image} alt={thirdSlide.title} className="h-full w-full object-cover" />
-          <div className="absolute inset-0 bg-black/25" />
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `url(${thirdSlide.blurImage})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              filter: "blur(20px)",
+              transform: "scale(1.1)",
+            }}
+          />
+          <img
+            src={thirdSlide.image}
+            alt={thirdSlide.title}
+            className="absolute inset-0 h-full w-full object-cover transition-opacity duration-500"
+          />
+          <div className="absolute inset-0 bg-black/25 z-10" />
         </motion.div>
 
         {/* Main animated card */}
@@ -324,14 +381,28 @@ export default function PremiumHero() {
             initial="enter"
             animate="center"
             exit="exit"
-            className="relative z-10 h-[140px] w-[110px] overflow-hidden rounded-[22px]"
+            className="relative z-10 h-35 w-27.5 overflow-hidden rounded-[22px]"
           >
             <motion.div
-              className="h-full w-full"
+              className="h-full w-full relative"
               animate={{ y: [0, -8, 0] }}
               transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", repeatType: "loop" }}
             >
-              <img src={nextSlide.image} alt={nextSlide.title} className="h-full w-full object-cover scale-[1.06]" />
+              <div
+                className="absolute inset-0"
+                style={{
+                  backgroundImage: `url(${nextSlide.blurImage})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  filter: "blur(20px)",
+                  transform: "scale(1.1)",
+                }}
+              />
+              <img
+                src={nextSlide.image}
+                alt={nextSlide.title}
+                className="absolute inset-0 h-full w-full object-cover scale-[1.06] transition-opacity duration-500"
+              />
             </motion.div>
           </motion.div>
         </AnimatePresence>
@@ -349,7 +420,7 @@ export default function PremiumHero() {
                 onClick={() => setIndex([i, i > index ? 1 : -1])}
                 className="group flex-1"
               >
-                <div className="h-[2px] w-full overflow-hidden bg-white/20">
+                <div className="h-0.5 w-full overflow-hidden bg-white/20">
                   <motion.div
                     className="h-full bg-white"
                     initial={false}
