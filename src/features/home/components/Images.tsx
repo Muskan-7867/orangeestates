@@ -240,6 +240,7 @@ export default function Images() {
                     </motion.button>
                 </div>
             </div>
+            
         </section>
     );
 }
