@@ -4,12 +4,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import {
-  Award,
-
-  Home,
-  MapPin,
-
-  TrendingUp,
+  Award, Home, MapPin, TrendingUp,
 } from "lucide-react";
 import AboutMission from "./AboutMission";
 import Values from "./Values";
@@ -26,8 +21,6 @@ const stats = [
   { value: 12000, suffix: "+", label: "Happy Clients" },
   { value: 40, suffix: "", label: "Offices Across UK" },
 ];
-
-
 
 /* ─── COMPONENT ─────────────────────────────────────────────────────── */
 
