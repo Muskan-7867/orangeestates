@@ -10,6 +10,7 @@ import CTA from '#/features/home/components/CTA'
 import ImageCarousel from '#/features/home/components/ImageCarousel'
 import { FaqsSection } from '#/features/home/components/FaqsSection'
 import Testimonials from '#/features/home/components/Testimonials'
+import { ArcCarousel } from '#/components/ui/ArcCarosel'
 
 export const Route = createFileRoute('/_user/')({
   component: RouteComponent,
@@ -18,21 +19,43 @@ export const Route = createFileRoute('/_user/')({
 function RouteComponent() {
   return <div className='bg-bg'>
     <>
-    
-          <HeroBannerCarousel />
-          {/* <HeroSection /> */}
-          <Images />
-          <Features />
-          <ScrollImages />
-          <Spotlight />
-          <PropertyGrid />
-          <WhyChooseUs />
-          <ImageCarousel />
-          <Testimonials />
-          <FaqsSection />
-          <CTA />
-    
-    
-        </>
+
+      <HeroBannerCarousel />
+      {/* <HeroSection /> */}
+      <Images />
+      <Features />
+      <ScrollImages />
+      <Spotlight />
+      <PropertyGrid />
+      <WhyChooseUs />
+      <ImageCarousel />
+      <Testimonials />
+
+      <FaqsSection />
+
+      
+ 
+      {/* <CTA /> */}
+
+
+                     <ArcCarousel items={[
+              { src: '/7.jpg', alt: 'Dunes at dusk', label: 'Evening Dunes' },
+              { src: '/8.jpg', alt: 'Coastline from above', label: 'Coastline' },
+              { src: '/4.jpg', alt: 'Ridges at dawn', label: 'Ridgelines' },
+                  { src: '/7.jpg', alt: 'Dunes at dusk', label: 'Evening Dunes' },
+              { src: '/8.jpg', alt: 'Coastline from above', label: 'Coastline' },
+              { src: '/4.jpg', alt: 'Ridges at dawn', label: 'Ridgelines' },
+                  { src: '/7.jpg', alt: 'Dunes at dusk', label: 'Evening Dunes' },
+              { src: '/8.jpg', alt: 'Coastline from above', label: 'Coastline' },
+              { src: '/4.jpg', alt: 'Ridges at dawn', label: 'Ridgelines' },
+                  { src: '/8.jpg', alt: 'Coastline from above', label: 'Coastline' },
+              { src: '/4.jpg', alt: 'Ridges at dawn', label: 'Ridgelines' },
+                  { src: '/7.jpg', alt: 'Dunes at dusk', label: 'Evening Dunes' },
+              { src: '/8.jpg', alt: 'Coastline from above', label: 'Coastline' },
+              { src: '/4.jpg', alt: 'Ridges at dawn', label: 'Ridgelines' },
+            ]}
+            />
+
+    </>
   </div>
 }
