@@ -24,9 +24,9 @@ const slides: Slide[] = [
     description:
       "Designed to elevate contemporary interiors through sculptural forms, natural materials, and timeless craftsmanship.",
     image:
-      "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1400",
+      "/4.jpg",
     blurImage:
-      "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=20&q=10",
+      "https://robbreport.com/wp-content/uploads/2023/04/Studley-Royal-House-.jpg?w=1000&q=10",
 
     accent: "#F3EFE8",
     cta: "Discover Collection",
@@ -37,8 +37,9 @@ const slides: Slide[] = [
     subtitle: "NEW SEASON",
     description:
       "Refined silhouettes and tactile materials create a balanced atmosphere between architecture and design.",
-    image:
-      "https://images.unsplash.com/photo-1494526585095-c41746248156?q=80&w=1400",
+    // image:
+    //   "https://images.unsplash.com/photo-1632860644196-e1e464596ea3?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    image: "/5.jpg",
     blurImage:
       "https://images.unsplash.com/photo-1494526585095-c41746248156?w=20&q=10",
 
@@ -51,8 +52,9 @@ const slides: Slide[] = [
     subtitle: "CURATED INTERIORS",
     description:
       "A curated collection of objects and spaces inspired by contemporary editorial aesthetics.",
-    image:
-      "https://images.unsplash.com/photo-1484154218962-a197022b5858?q=80&w=1400",
+    // image:
+    //   "https://as1.ftcdn.net/v2/jpg/20/73/37/00/1000_F_2073370087_qAFZo1zBMYp42tipfSqBPjEQeTaICBr6.jpg",
+    image: "/6.jpg",
     blurImage:
       "https://images.unsplash.com/photo-1484154218962-a197022b5858?w=20&q=10",
 
@@ -154,7 +156,7 @@ export default function PremiumHero() {
     // motion.section lets us smoothly animate the background color
     <motion.section
       id="hero-carousel"
-      className="relative h-[55vh] sm:h-[85vh]  overflow-hidden text-white  sm:px-28"
+      className="relative h-[55vh] sm:h-[90vh]  overflow-hidden text-white  sm:px-28"
       animate={{ backgroundColor: slide.accent }}
       transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
     >
@@ -188,19 +190,6 @@ export default function PremiumHero() {
             className="absolute inset-0 h-full w-full object-cover transition-opacity duration-700"
           />
           <div className="absolute inset-0 z-10 bg-linear-to-r from-black/70 via-black/20 to-transparent" />
-        </motion.div>
-      </AnimatePresence>
-
-      {/* ── Decorative number ───────────────────────────────────────── */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={"num-" + index}
-          className="absolute right-4 top-4 z-20 text-[80px] font-light text-white/10 sm:right-10 sm:top-10 sm:text-[120px] md:text-[180px] select-none"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }}
-          exit={{ opacity: 0, y: -20, transition: { duration: 0.35 } }}
-        >
-          {String(index + 1).padStart(2, "0")}
         </motion.div>
       </AnimatePresence>
 

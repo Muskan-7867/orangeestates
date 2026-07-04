@@ -10,23 +10,19 @@ import { FaWhatsapp } from "react-icons/fa";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP)
 
-
-
-
-
 export default function Navbar({ open }: { open: boolean, setOpen: React.Dispatch<React.SetStateAction<boolean>> }) {
   const navbarRef = useRef(null)
   const location = useLocation()
   const [isScrolled, setIsScrolled] = useState(false)
 
   const pathname = location.pathname.replace(/\/$/, "") || "/"
-  const hasDarkHero = 
-    pathname === "/" || 
-    pathname === "/_user" || 
+  const hasDarkHero =
+    pathname === "/" ||
+    pathname === "/_user" ||
     pathname === "/_user/" ||
-    pathname === "/about" || 
+    pathname === "/about" ||
     pathname === "/_user/about" ||
-    pathname === "/contact" || 
+    pathname === "/contact" ||
     pathname === "/_user/contact";
 
   useEffect(() => {
@@ -84,7 +80,7 @@ export default function Navbar({ open }: { open: boolean, setOpen: React.Dispatc
         const threshold = getThreshold();
 
         // Ignore tiny movements
-        if (Math.abs(current - lastScroll) < 10) return;
+        if (Math.abs(current - lastScroll) < 50) return;
 
         if (current < threshold) {
           // Near the top / hero area: soft gradient so hero content shows through
@@ -93,9 +89,7 @@ export default function Navbar({ open }: { open: boolean, setOpen: React.Dispatc
             duration: 0.35,
             ease: "power2.out",
             overwrite: true,
-            backgroundColor: "transparent",
-            backgroundImage: "linear-gradient(to bottom, rgba(255,255,255,0.55), transparent)",
-            boxShadow: "none",
+
           });
         } else if (current > lastScroll) {
           // Scrolling down past hero: solid white so logo is always visible
@@ -104,9 +98,7 @@ export default function Navbar({ open }: { open: boolean, setOpen: React.Dispatc
             duration: 0.35,
             ease: "power2.out",
             overwrite: true,
-            backgroundColor: "#ffffff",
-            backgroundImage: "none",
-            boxShadow: "0 1px 8px rgba(0,0,0,0.08)",
+
           });
         } else {
           // Scrolling up past hero: solid white so logo is always visible
@@ -115,9 +107,6 @@ export default function Navbar({ open }: { open: boolean, setOpen: React.Dispatc
             duration: 0.35,
             ease: "power2.out",
             overwrite: true,
-            backgroundColor: "#ffffff",
-            backgroundImage: "none",
-            boxShadow: "0 1px 8px rgba(0,0,0,0.08)",
           });
         }
 
@@ -133,11 +122,11 @@ export default function Navbar({ open }: { open: boolean, setOpen: React.Dispatc
   return (
     <>
       {/* ── Top bar ── */}
-      <nav ref={navbarRef} className={`w-full flex  items-center justify-between fixed top-0 z-50 py-2 px-2 sm:px-4`}>
+      <nav ref={navbarRef} className={`w-full flex  items-center justify-between fixed top-0 z-50 py-2 px-2 sm:px-34`}>
 
 
 
-        <Logo  src={isScrolled ? "/blackestate.png" : "/estate.png"} />
+        <Logo src={isScrolled ? "/blackestate.png" : "/estate.png"} />
 
         {/* WhatsApp Icon Link for Mobile */}
         <a
