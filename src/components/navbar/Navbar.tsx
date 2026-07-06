@@ -8,6 +8,7 @@ import { useLocation } from "@tanstack/react-router";
 import MobileBottomNav from "./MobileBottomNav";
 import { FaWhatsapp } from "react-icons/fa";
 import SearchBar from "./SearchBar";
+import FloatingSearchBar from "./FloatingSearchBar";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP)
 
@@ -134,7 +135,7 @@ export default function Navbar({ open }: { open: boolean, setOpen: React.Dispatc
   return (
     <>
       {/* ── Top bar ── */}
-      <nav ref={navbarRef} className={`w-full flex  items-center justify-between fixed top-0 z-50 py-2 px-2 sm:px-34`}>
+      <nav ref={navbarRef} className={`w-full flex items-center justify-between fixed top-0 z-50 py-2 px-2 sm:px-34`}>
 
 
 
@@ -160,6 +161,10 @@ export default function Navbar({ open }: { open: boolean, setOpen: React.Dispatc
 
       {/* ── Floating Mobile Navigation Bar ── */}
       <MobileBottomNav />
+
+      {/* ── Floating Desktop Search Bar (appears after hero) ── */}
+      <FloatingSearchBar />
+
     </>
   );
 }
