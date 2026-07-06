@@ -7,6 +7,7 @@ import Menubar from "./MenuBar";
 import { useLocation } from "@tanstack/react-router";
 import MobileBottomNav from "./MobileBottomNav";
 import { FaWhatsapp } from "react-icons/fa";
+import SearchBar from "./SearchBar";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP)
 
@@ -71,6 +72,16 @@ export default function Navbar({ open }: { open: boolean, setOpen: React.Dispatc
       return 100;
     };
 
+    // ── Set correct initial state on first load / page refresh ──
+    const initThreshold = getThreshold();
+    if (window.scrollY < initThreshold) {
+      gsap.set(navbarRef.current, { clearProps: "background" });
+    } else {
+      gsap.set(navbarRef.current, {
+        background: "linear-gradient(to bottom, #f5f5f7 0%, transparent)",
+      });
+    }
+
     const trigger = ScrollTrigger.create({
       start: 0,
       end: "max",
@@ -83,30 +94,31 @@ export default function Navbar({ open }: { open: boolean, setOpen: React.Dispatc
         if (Math.abs(current - lastScroll) < 50) return;
 
         if (current < threshold) {
-          // Near the top / hero area: soft gradient so hero content shows through
+          // Near the top / hero area: fully clear inline background
           gsap.to(navbarRef.current, {
             y: 0,
             duration: 0.35,
             ease: "power2.out",
             overwrite: true,
-
+            clearProps: "background",
           });
         } else if (current > lastScroll) {
-          // Scrolling down past hero: solid white so logo is always visible
+          // Scrolling DOWN past hero: apply gradient
           gsap.to(navbarRef.current, {
             y: 0,
             duration: 0.35,
             ease: "power2.out",
             overwrite: true,
-
+            background: "linear-gradient(to bottom, #f5f5f7 0%, transparent)",
           });
         } else {
-          // Scrolling up past hero: solid white so logo is always visible
+          // Scrolling UP past hero: remove gradient so hero is visible again
           gsap.to(navbarRef.current, {
             y: 0,
             duration: 0.35,
             ease: "power2.out",
             overwrite: true,
+            clearProps: "background",
           });
         }
 
@@ -126,7 +138,9 @@ export default function Navbar({ open }: { open: boolean, setOpen: React.Dispatc
 
 
 
-        <Logo src={isScrolled ? "/blackestate.png" : "/estate.png"} />
+        <Logo src={isScrolled ? "/oe-logo-dark.png" : "/oe-logo-light.png"} />
+
+        <SearchBar />
 
         {/* WhatsApp Icon Link for Mobile */}
         <a
