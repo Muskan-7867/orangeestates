@@ -33,28 +33,28 @@ function RouteComponent() {
 
       <FaqsSection />
 
-      
- 
+
+
       {/* <CTA /> */}
 
 
-                     <ArcCarousel items={[
-              { src: '/7.jpg', alt: 'Dunes at dusk', label: 'Evening Dunes' },
-              { src: '/8.jpg', alt: 'Coastline from above', label: 'Coastline' },
-              { src: '/4.jpg', alt: 'Ridges at dawn', label: 'Ridgelines' },
-                  { src: '/7.jpg', alt: 'Dunes at dusk', label: 'Evening Dunes' },
-              { src: '/8.jpg', alt: 'Coastline from above', label: 'Coastline' },
-              { src: '/4.jpg', alt: 'Ridges at dawn', label: 'Ridgelines' },
-                  { src: '/7.jpg', alt: 'Dunes at dusk', label: 'Evening Dunes' },
-              { src: '/8.jpg', alt: 'Coastline from above', label: 'Coastline' },
-              { src: '/4.jpg', alt: 'Ridges at dawn', label: 'Ridgelines' },
-                  { src: '/8.jpg', alt: 'Coastline from above', label: 'Coastline' },
-              { src: '/4.jpg', alt: 'Ridges at dawn', label: 'Ridgelines' },
-                  { src: '/7.jpg', alt: 'Dunes at dusk', label: 'Evening Dunes' },
-              { src: '/8.jpg', alt: 'Coastline from above', label: 'Coastline' },
-              { src: '/4.jpg', alt: 'Ridges at dawn', label: 'Ridgelines' },
-            ]}
-            />
+      <ArcCarousel items={[
+        { src: '/7.jpg', alt: 'Dunes at dusk', label: 'Evening Dunes' },
+        { src: '/8.jpg', alt: 'Coastline from above', label: 'Coastline' },
+        { src: '/4.jpg', alt: 'Ridges at dawn', label: 'Ridgelines' },
+        { src: '/7.jpg', alt: 'Dunes at dusk', label: 'Evening Dunes' },
+        { src: '/8.jpg', alt: 'Coastline from above', label: 'Coastline' },
+        { src: '/4.jpg', alt: 'Ridges at dawn', label: 'Ridgelines' },
+        { src: '/7.jpg', alt: 'Dunes at dusk', label: 'Evening Dunes' },
+        { src: '/8.jpg', alt: 'Coastline from above', label: 'Coastline' },
+        { src: '/4.jpg', alt: 'Ridges at dawn', label: 'Ridgelines' },
+        { src: '/8.jpg', alt: 'Coastline from above', label: 'Coastline' },
+        { src: '/4.jpg', alt: 'Ridges at dawn', label: 'Ridgelines' },
+        { src: '/7.jpg', alt: 'Dunes at dusk', label: 'Evening Dunes' },
+        { src: '/8.jpg', alt: 'Coastline from above', label: 'Coastline' },
+        { src: '/4.jpg', alt: 'Ridges at dawn', label: 'Ridgelines' },
+      ]}
+      />
 
     </>
   </div>
