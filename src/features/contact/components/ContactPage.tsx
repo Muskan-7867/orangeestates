@@ -62,14 +62,14 @@ export default function ContactPage() {
     return () => ctx.revert();
   }, []);
 
- 
+
 
   return (
     <main className="bg-bg overflow-x-hidden ">
 
       {/* ── HERO ─────────────────────────────────────────── */}
       <section
-        className="relative flex items-end overflow-hidden"
+        className="relative flex items-end overflow-hidden px-2 sm:px-16 "
         style={{ minHeight: "580px" }}
       >
         {/* Background image with blur placeholder */}
@@ -107,7 +107,7 @@ export default function ContactPage() {
       </section>
 
       {/* ── FORM + MAP GRID ──────────────────────────────── */}
-      <section className="py-16 sm:py-24 px-6 sm:px-12 lg:px-20 w-full mx-auto">
+      <section className="py-16 sm:py-24 px-6 sm:px-12 lg:px-34">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
 
           {/* ── Contact Form ── */}
@@ -134,7 +134,7 @@ export default function ContactPage() {
                 </button>
               </div>
             ) : (
-                 <ContactForm formRef={formRef} setSubmitted={setSubmitted}/>
+              <ContactForm formRef={formRef} setSubmitted={setSubmitted} />
             )}
           </div>
 

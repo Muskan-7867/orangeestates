@@ -200,7 +200,7 @@ const goTo = React.useCallback(
       aria-label={label}
       style={{ '--arc-accent': accent } as React.CSSProperties}
       className={cn(
-        'relative w-full max-w-full  text-neutral-900 dark:text-white',
+        'hidden lg:block relative w-full max-w-full  text-neutral-900 dark:text-white',
         className,
       )}
     >
