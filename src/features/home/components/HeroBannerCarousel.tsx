@@ -217,7 +217,7 @@ export default function PremiumHero() {
                 {/* Title */}
                 <div className="overflow-hidden">
                   <motion.h1
-                    className="max-w-xl font-serif text-4xl leading-none sm:text-5xl md:text-6xl"
+                    className="max-w-xl font-serif text-4xl leading-none sm:text-5xl md:text-6xl mb-2"
                     initial={{ y: "115%", opacity: 0 }}
                     animate={textEnter(0.1)}
                     exit={textExit(0.05)}

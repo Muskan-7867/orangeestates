@@ -120,8 +120,8 @@ export default function ScrollImages() {
                     </div>
 
                     {/* Content */}
-                    <div ref={contentRef} className="relative max-w-3xl px-20 z-10 ">
-                        <h1 className="mt-6 text-7xl  leading-[0.95] tracking-tight text-primary font-serif">
+                    <div ref={contentRef} className="relative max-w-3xl px-6 z-10 ">
+                        <h1 className="mt-6 text-7xl leading-[0.95] tracking-tight text-primary font-serif">
                             Find your
                             <br />
                             dream home.
