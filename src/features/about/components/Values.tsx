@@ -33,7 +33,7 @@ export default function Values({ valuesRef}: {valuesRef:RefObject<HTMLDivElement
 
 
     <section className="bg-bg py-20 sm:py-28">
-        <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-20">
+        <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-32">
             <div className="text-center mb-14">
                 <p className="text-xs uppercase tracking-[0.35em] text-orange-500 mb-4">
                     Our Values

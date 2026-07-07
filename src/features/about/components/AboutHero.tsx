@@ -15,7 +15,7 @@ export default function AboutHero({
     return (
             <section
                 ref={heroRef}
-                className="relative h-[70vh] flex items-end overflow-hidden"
+                className="relative h-[70vh] flex items-end overflow-hidden px-2 sm:px-28"
               >
                 {/* Parallax image */}
                 <div ref={heroImgRef} className="absolute inset-0 scale-110">

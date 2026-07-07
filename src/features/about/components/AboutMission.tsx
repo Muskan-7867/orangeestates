@@ -7,7 +7,7 @@ const BLUR_URL = "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w
 export default function AboutMission({ missionRef}: {missionRef: RefObject<HTMLDivElement | null>}) {
     
   return (
-      <section className="py-20 sm:py-28 px-6 sm:px-12 lg:px-20 w-full mx-auto">
+      <section className="py-20 sm:py-28 px-2 sm:px-12 lg:px-32">
         <div ref={missionRef} className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left text */}
           <div>

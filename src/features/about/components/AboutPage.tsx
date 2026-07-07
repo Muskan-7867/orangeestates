@@ -231,7 +231,7 @@ export default function AboutPage() {
       <Values valuesRef={valuesRef} />
 
 
-      <section className="py-20 sm:py-28 px-6 sm:px-12 lg:px-20 w-full mx-auto">
+      <section className="py-20 sm:py-28 px-6 sm:px-12 lg:px-32 w-full mx-auto">
         <div ref={missionRef} className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Right image */}
           <div className="relative">
@@ -312,7 +312,7 @@ export default function AboutPage() {
             Contact Us
           </a>
           <a
-            href="/products"
+            href="/properties"
             className="border border-primary px-10 py-4 text-sm tracking-wide  transition-colors duration-300"
           >
             Browse Properties
