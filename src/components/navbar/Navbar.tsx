@@ -36,9 +36,9 @@ export default function Navbar({ open }: { open: boolean, setOpen: React.Dispatc
     const handleScroll = () => {
       let threshold = 100;
       if (pathname === "/" || pathname === "/_user" || pathname === "/_user/") {
-        threshold = window.innerHeight * 0.75; // past HeroBannerCarousel (h-[85vh])
+        threshold = window.innerHeight * 0.35; // past HeroBannerCarousel (h-[85vh])
       } else if (pathname.includes("/about")) {
-        threshold = window.innerHeight * 0.6; // past AboutPage parallax hero (h-[70vh])
+        threshold = window.innerHeight * 0.3; // past AboutPage parallax hero (h-[70vh])
       } else if (pathname.includes("/contact")) {
         threshold = 300; // past contact page top section
       }
@@ -91,6 +91,7 @@ export default function Navbar({ open }: { open: boolean, setOpen: React.Dispatc
         const current = self.scroll();
         const threshold = getThreshold();
 
+
         // Ignore tiny movements
         if (Math.abs(current - lastScroll) < 50) return;
 
@@ -111,6 +112,10 @@ export default function Navbar({ open }: { open: boolean, setOpen: React.Dispatc
             ease: "power2.out",
             overwrite: true,
             background: "linear-gradient(to bottom, #f5f5f7 0%, transparent)",
+            backdropFilter: "blur 2px",
+            mask: "linear-gradient(rgba(22, 180, 93, 0) 10 %, #3C1DEB 20 %, #169B4E 40 %, rgba(63, 167, 31, 0.71) 50 %)"
+
+
           });
         } else {
           // Scrolling UP past hero: remove gradient so hero is visible again
@@ -136,6 +141,8 @@ export default function Navbar({ open }: { open: boolean, setOpen: React.Dispatc
     <>
       {/* ── Top bar ── */}
       <nav ref={navbarRef} className={`w-full flex items-center justify-between fixed top-0 z-50 py-2 px-2 sm:px-34`}>
+        {/* Progressive blur backdrop — only active after user scrolls */}
+        <div className={`navbar-progressive-blur${isScrolled ? " active" : ""}`} aria-hidden="true" />
 
 
 
