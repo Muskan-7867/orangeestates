@@ -36,7 +36,7 @@ export default function Navbar({ open }: { open: boolean, setOpen: React.Dispatc
     const handleScroll = () => {
       let threshold = 100;
       if (pathname === "/" || pathname === "/_user" || pathname === "/_user/") {
-        threshold = window.innerHeight * 0.35; // past HeroBannerCarousel (h-[85vh])
+        threshold = window.innerHeight * 0.25; // past HeroBannerCarousel (h-[85vh])
       } else if (pathname.includes("/about")) {
         threshold = window.innerHeight * 0.3; // past AboutPage parallax hero (h-[70vh])
       } else if (pathname.includes("/contact")) {

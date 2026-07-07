@@ -71,10 +71,10 @@ export default function Menubar() {
     };
 
     return (
-        <div className="hidden lg:block relative">
+        <div className="hidden lg:block relative z-18">
 
             {/* ── Menu / Close pill button ── */}
-            <div onClick={() => setIsActive(!isActive)} className="h-8 w-25 rounded-full cursor-pointer overflow-hidden shadow-2xl">
+            <div onClick={() => setIsActive(!isActive)} className="h-8 w-25 rounded-full cursor-pointer overflow-hidden ">
                 <motion.div
                     animate={{ top: isActive ? "-100%" : "0%" }}
                     transition={{ duration: 0.5, ease: "easeInOut" }}
