@@ -207,5 +207,99 @@ body::after {
 
 .shadow1 {
   box-shadow: rgba(7, 7, 7, 0.080) 0px 15px 40px
- 
+}
+
+/* ── Progressive Blur for Navbar ─────────────────────────────── */
+.progressive-blur {
+  position: relative;
+}
+
+.progressive-blur::before,
+.progressive-blur::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Layer 1: light blur covering upper 60% */
+.progressive-blur::before {
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 70%);
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 70%);
+}
+
+/* Layer 2: heavier blur at the very top, fading out sooner */
+.progressive-blur::after {
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 20%, rgba(0,0,0,0) 50%);
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 20%, rgba(0,0,0,0) 50%);
+}
+
+/* ── Navbar progressive-blur overlay ─────────────────────────── */
+/* Hidden by default; activates (fades in) once user has scrolled */
+.navbar-progressive-blur {
+  position: absolute;
+  inset: 0;
+  /* Extend below the nav so the blur fades out past its edge */
+  bottom: -60px;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.navbar-progressive-blur::before,
+.navbar-progressive-blur::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  /* Exit (scroll up): slow dissolve so it feels natural */
+  transition: opacity 0.7s ease-out;
+}
+
+/* Entry (scroll down): snappier so blur appears promptly */
+.navbar-progressive-blur.active::before,
+.navbar-progressive-blur.active::after {
+  opacity: 1;
+  transition: opacity 0.3s ease-in;
+}
+
+/* Layer 1 — light ambient blur, covers nav height + fade */
+.navbar-progressive-blur::before {
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgba(0,0,0,1) 0%,
+    rgba(0,0,0,1) 50%,
+    rgba(0,0,0,0) 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0,0,0,1) 0%,
+    rgba(0,0,0,1) 50%,
+    rgba(0,0,0,0) 100%
+  );
+}
+
+/* Layer 2 — moderate blur concentrated at the very top */
+.navbar-progressive-blur::after {
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgba(0,0,0,1) 0%,
+    rgba(0,0,0,0.7) 30%,
+    rgba(0,0,0,0) 65%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0,0,0,1) 0%,
+    rgba(0,0,0,0.7) 30%,
+    rgba(0,0,0,0) 65%
+  );
 }
