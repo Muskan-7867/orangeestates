@@ -2,7 +2,7 @@ import { cn } from "#/lib/utils";
 import { Link, useLocation } from "@tanstack/react-router";
 import { Building2, BookOpen, Info, MessageSquare, Home, Search, HomeIcon } from "lucide-react";
 import { AnimatePresence, delay, motion } from "motion/react";
-import { Activity, useRef, useState } from "react";
+import { Activity, useEffect, useRef, useState } from "react";
 
 const mobileLinks = [
   { label: "Home", href: "/", icon: Home },
@@ -17,11 +17,42 @@ export default function MobileBottomNav() {
   const location = useLocation();
   const currentPath = location.pathname.replace(/\/$/, "") || "/";
   const [isSearchIconClick, setIsSearchedClick] = useState(false);
-  const inputRef = useRef<HTMLDivElement | null>(null)
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const bottomNavRef = useRef<HTMLDivElement>(null);
+
+ useEffect(() => {
+  if (isSearchIconClick) {
+    requestAnimationFrame(() => {
+      inputRef.current?.focus();
+    });
+  }
+}, [isSearchIconClick]);
+
+  useEffect(() => {
+  if (!window.visualViewport) return;
+
+  const handleViewport = () => {
+    const keyboardHeight =
+      window.innerHeight - window.visualViewport!.height;
+
+    if (bottomNavRef.current) {
+      bottomNavRef.current.style.bottom =
+        keyboardHeight > 0 ? `${keyboardHeight + 12}px` : "0px";
+    }
+  };
+
+  window.visualViewport.addEventListener("resize", handleViewport);
+  window.visualViewport.addEventListener("scroll", handleViewport);
+
+  return () => {
+    window.visualViewport?.removeEventListener("resize", handleViewport);
+    window.visualViewport?.removeEventListener("scroll", handleViewport);
+  };
+}, []);
 
   return (
     <AnimatePresence mode="wait">
-      <div className="lg:hidden fixed bottom-0  left-0 right-0 px-2 pb-6 z-50   bg-linear-to-b from-transparent to-white  flex flex-row gap-1">
+      <div  ref={bottomNavRef} className="lg:hidden fixed bottom-0  left-0 right-0 px-2 pb-6 z-50   bg-linear-to-b from-transparent to-white  flex flex-row gap-1">
         {
           isSearchIconClick && (
             <motion.button
@@ -125,8 +156,9 @@ export default function MobileBottomNav() {
           flex justify-center items-center`, isSearchIconClick ? "w-full" : "w-12")}>
           <Activity mode={isSearchIconClick ? "visible" : "hidden"} >
             <input
+              ref={inputRef}
               placeholder="search.."
-              className="h-12 w-full p-2 " />
+              className="h-12 w-full px-3 bg-transparent outline-none border-none focus:outline-none focus:ring-0" />
           </Activity>
 
 
