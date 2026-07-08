@@ -210,7 +210,7 @@ export default function AboutPage() {
 
       {/* ── STATS ──────────────────────────────────────────── */}
       <section ref={statsRef} className=" py-16 sm:py-20">
-        <div className="max-w-6xl mx-auto px-6 sm:px-10 grid grid-cols-2 md:grid-cols-4 gap-10 text-center">
+        <div className="max-w-6xl mx-auto px-4 sm:px-10 grid grid-cols-2 md:grid-cols-4 gap-10 text-center">
           {stats.map((s, i) => (
             <div key={i} className="flex flex-col items-center gap-2">
               <span
@@ -231,7 +231,7 @@ export default function AboutPage() {
       <Values valuesRef={valuesRef} />
 
 
-      <section className="py-20 sm:py-28 px-6 sm:px-12 lg:px-32 w-full mx-auto">
+      <section className="py-20 sm:py-28 px-4  sm:px-12 lg:px-32 w-full mx-auto">
         <div ref={missionRef} className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Right image */}
           <div className="relative">
