@@ -38,7 +38,7 @@ export default function OurOffices({officesRef}: {
 }){
   
     return (
-            <section className="py-16 sm:py-24 px-6 sm:px-12 lg:px-20 ">
+            <section className="py-16 sm:py-24 px-4 sm:px-12 lg:px-20 ">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="mb-14">

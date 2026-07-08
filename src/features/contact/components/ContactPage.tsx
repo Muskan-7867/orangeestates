@@ -69,7 +69,7 @@ export default function ContactPage() {
 
       {/* ── HERO ─────────────────────────────────────────── */}
       <section
-        className="relative flex items-end overflow-hidden px-2 sm:px-16 "
+        className="relative flex items-end overflow-hidden px-4 sm:px-16 "
         style={{ minHeight: "580px" }}
       >
         {/* Background image with blur placeholder */}
@@ -93,7 +93,7 @@ export default function ContactPage() {
 
 
         {/* Content */}
-        <div ref={heroRef} className="relative z-10 max-w-7xl  w-full px-6 sm:px-12 lg:px-20 pt-32 pb-20">
+        <div ref={heroRef} className="relative z-10 max-w-7xl  w-full px-4 sm:px-12 lg:px-20 pt-32 pb-20">
 
           <h1 className="font-serif text-4xl   text-white leading-tight mb-6">
             We'd Love to<br />Hear From You
@@ -107,7 +107,7 @@ export default function ContactPage() {
       </section>
 
       {/* ── FORM + MAP GRID ──────────────────────────────── */}
-      <section className="py-16 sm:py-24 px-6 sm:px-12 lg:px-34">
+      <section className="py-16 sm:py-24 px-4 sm:px-12 lg:px-34">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
 
           {/* ── Contact Form ── */}
