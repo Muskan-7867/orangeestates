@@ -1,7 +1,7 @@
 import { cn } from "#/lib/utils";
 import { Link, useLocation } from "@tanstack/react-router";
-import { Building2, BookOpen, Info, MessageSquare, Home, Search, HomeIcon } from "lucide-react";
-import { AnimatePresence, delay, motion } from "motion/react";
+import { Building2, BookOpen, Info, Home, Search, HomeIcon } from "lucide-react";
+import { AnimatePresence,  motion } from "motion/react";
 import { Activity, useEffect, useRef, useState } from "react";
 
 const mobileLinks = [
