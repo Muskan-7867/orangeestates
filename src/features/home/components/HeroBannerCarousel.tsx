@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import type { Variants } from "motion/react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -152,13 +152,50 @@ export default function PremiumHero() {
     });
   };
 
+  // ─── Swipe / drag handling (mouse + touch) ───────────────────────────────
+  const dragStart = useRef<number | null>(null);
+  const isDragging = useRef(false);
+  const SWIPE_THRESHOLD = 50;
+
+  const onDragStart = (clientX: number) => {
+    dragStart.current = clientX;
+    isDragging.current = false;
+  };
+
+  const onDragEnd = (clientX: number) => {
+    if (dragStart.current === null) return;
+    const delta = dragStart.current - clientX;
+    if (Math.abs(delta) > SWIPE_THRESHOLD) {
+      isDragging.current = true;
+      paginate(delta > 0 ? 1 : -1);
+    }
+    dragStart.current = null;
+  };
+
+  // Mouse handlers
+  const handleMouseDown = (e: React.MouseEvent) => onDragStart(e.clientX);
+  const handleMouseUp   = (e: React.MouseEvent) => onDragEnd(e.clientX);
+  const handleMouseLeave = () => { dragStart.current = null; };
+
+  // Touch handlers
+  const handleTouchStart = (e: React.TouchEvent) => onDragStart(e.touches[0].clientX);
+  const handleTouchEnd   = (e: React.TouchEvent) => onDragEnd(e.changedTouches[0].clientX);
+
   return (
     // motion.section lets us smoothly animate the background color
     <motion.section
       id="hero-carousel"
-      className="relative h-[55vh] sm:h-[90vh]  overflow-hidden text-white  sm:px-28"
+      className="relative h-[55vh] sm:h-[90vh]  overflow-hidden text-white  sm:px-28 select-none"
       animate={{ backgroundColor: slide.accent }}
       transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+      // Mouse drag
+      onMouseDown={handleMouseDown}
+      onMouseUp={handleMouseUp}
+      onMouseLeave={handleMouseLeave}
+      // Touch swipe
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+      style={{ cursor: "grab" }}
     >
       {/* ── Background image layer ──────────────────────────────────── */}
       <AnimatePresence mode="sync" custom={direction}>
