@@ -1,6 +1,6 @@
 import { cn } from "#/lib/utils";
 import { ChevronLeft, ChevronRight, Maximize2, X } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, type Variants } from "motion/react";
 import { Link } from "@tanstack/react-router";
 
@@ -38,7 +38,44 @@ export default function PropertyGallery({ property }: { property: any }) {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [direction, setDirection] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
   const totalImages = property.images.length;
+
+  // Mouse drag-to-swipe state
+  const dragStartX = useRef<number | null>(null);
+  const dragMoved = useRef(false);
+  const SWIPE_THRESHOLD = 60;
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    dragStartX.current = e.clientX;
+    dragMoved.current = false;
+    setIsDragging(true);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (dragStartX.current === null) return;
+    if (Math.abs(e.clientX - dragStartX.current) > 5) {
+      dragMoved.current = true;
+    }
+  };
+
+  const handleMouseUp = (e: React.MouseEvent) => {
+    if (dragStartX.current === null) return;
+    const delta = e.clientX - dragStartX.current;
+    if (dragMoved.current) {
+      if (delta < -SWIPE_THRESHOLD) handleNext();
+      else if (delta > SWIPE_THRESHOLD) handlePrev();
+    }
+    dragStartX.current = null;
+    dragMoved.current = false;
+    setIsDragging(false);
+  };
+
+  const handleMouseLeave = () => {
+    dragStartX.current = null;
+    dragMoved.current = false;
+    setIsDragging(false);
+  };
 
   const handlePrev = () => {
     setDirection(-1);
@@ -104,7 +141,12 @@ export default function PropertyGallery({ property }: { property: any }) {
               handlePrev();
             }
           }}
-          className="w-full h-[45vh] md:h-[70vh] flex items-center overflow-hidden"
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseLeave}
+          className="w-full h-[45vh] md:h-[70vh] flex items-center overflow-hidden select-none"
+          style={{ cursor: isDragging ? "grabbing" : "grab" }}
         >
           <motion.div
             className="flex items-center   w-full h-full"
@@ -128,9 +170,12 @@ export default function PropertyGallery({ property }: { property: any }) {
               return (
                 <motion.div
                   key={idx}
-                  onClick={() => selectImage(originalIndex)}
+                  onClick={() => {
+                    // Only fire click when it wasn't a drag
+                    if (!dragMoved.current) selectImage(originalIndex);
+                  }}
                   className={cn(
-                    "relative shrink-0 cursor-pointer overflow-hidden select-none transition-shadow duration-300",
+                    "relative shrink-0 overflow-hidden select-none transition-shadow duration-300",
                     isActive ? "ring-1 ring-black/5" : ""
                   )}
                   style={{ width: "74%" }}
@@ -165,15 +210,15 @@ export default function PropertyGallery({ property }: { property: any }) {
         </motion.div>
 
         {/* Left & Right Chevron Navigation overlaying the edges */}
-        <div className="absolute inset-x-4 top-1/2 -translate-y-1/2 flex justify-between z-10 pointer-events-none">
+        {/* <div className="absolute inset-x-4 top-1/2 -translate-y-1/2 flex justify-between z-10 pointer-events-none">
           <motion.button
             whileHover={{ scale: 1.1, backgroundColor: "rgba(0, 0, 0, 0.5)" }}
             whileTap={{ scale: 0.9 }}
             onClick={handlePrev}
-            className="p-3 rounded-full bg-black/30 backdrop-blur-md border border-white/10 text-white pointer-events-auto transition-colors cursor-pointer"
+            className="p-2 rounded-full   border border-white/10 text-white pointer-events-auto transition-colors cursor-pointer"
             aria-label="Previous Image"
           >
-            <ChevronLeft size={20} />
+            <ChevronLeft size={16} />
           </motion.button>
 
           <motion.button
@@ -185,7 +230,7 @@ export default function PropertyGallery({ property }: { property: any }) {
           >
             <ChevronRight size={20} />
           </motion.button>
-        </div>
+        </div> */}
       </div>
 
 
@@ -355,6 +400,7 @@ export default function PropertyGallery({ property }: { property: any }) {
                 </button>
               ))}
             </div>
+            
           </motion.div>
         )}
       </AnimatePresence>

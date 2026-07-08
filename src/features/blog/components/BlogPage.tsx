@@ -122,7 +122,7 @@ export default function BlogPage() {
   return (
     <main className="min-h-screen bg-bg py-28">
       {/* Header Section */}
-      <section className="max-w-7xl mx-auto px-6 sm:px-10 mb-12 flex flex-col justify-center items-center">
+      <section className="max-w-7xl mx-auto px-4 sm:px-10 mb-12 flex flex-col justify-center items-center">
         <span className="bg-primary/10 text-primary px-3 py-1 text-[10px] tracking-wider uppercase font-semibold rounded-md">
           Orange Journal
         </span>

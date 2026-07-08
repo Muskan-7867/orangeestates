@@ -4,7 +4,7 @@ import { properties } from "#/constants";
 export default function PropertyGrid() {
   return (
     <section className="py-10 lg:py-24">
-      <div className="mx-auto max-w-[1800px] px-2 sm:px-10 flex flex-col items-center ">
+      <div className="mx-auto max-w-[1800px] px-4 sm:px-10 flex flex-col items-center ">
         {/* Section Header */}
         <div className="mb-8 md:mb-14 max-w-5xl flex flex-col items-center px-4 text-center">
           <p className="mb-4 text-sm uppercase tracking-[0.3em] text-gray-500">

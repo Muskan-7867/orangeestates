@@ -116,7 +116,7 @@ export default function Spotlight() {
 
     return (
         <section className="py-10">
-            <div className="w-full px-2 md:px-18">
+            <div className="w-full px-4 md:px-18">
                 <div className="text-xl mb-6 md:mb-10 font-serif flex flex-col justify-center items-center text-center px-2">
                     <h1 className="text-2xl sm:text-4xl font-serif text-primary">Global Reach, Local Expertise</h1>
                     <p className="mt-2 text-sm text-gray-400 max-w-md">

@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const images = [
   {
@@ -38,8 +38,18 @@ function BlurImage({
   alt = "",
   className = "",
   draggable = false,
+  
 }: BlurImageProps) {
   const [loaded, setLoaded] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  // Fix: if the image is already cached, onLoad won't fire.
+  // Check img.complete right after mount to handle cached images.
+  useEffect(() => {
+    if (imgRef.current?.complete) {
+      setLoaded(true);
+    }
+  }, []);
 
   return (
     <div className="relative w-full h-full overflow-hidden">
@@ -56,6 +66,7 @@ function BlurImage({
 
       {/* Actual image */}
       <img
+        ref={imgRef}
         src={src}
         alt={alt}
         draggable={draggable}

@@ -126,7 +126,7 @@ export default function Images() {
     }, []);
 
     return (
-        <section className="py-6 px-2 sm:p-8">
+        <section className="py-6 px-4 sm:p-8">
             <div
                 ref={scrollRef}
                 className="overflow-x-auto scrollbar-hide scroll-smooth"
