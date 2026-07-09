@@ -106,7 +106,7 @@ export default function PropertyBookingForm({ property, onClose }: { property: a
             whileHover={{ scale: 1.01 }}
             whileTap={{ scale: 0.98 }}
             type="submit"
-            className="w-full bg-[#0c1e36] hover:bg-[#152e4f] text-white py-3.5 rounded-lg text-xs font-semibold tracking-wider uppercase transition-colors shadow-md cursor-pointer mt-4"
+            className="w-full bg-primary text-white py-3.5 rounded-lg text-xs font-semibold tracking-wider uppercase transition-colors cursor-pointer mt-4"
           >
             Request Booking
           </motion.button>
