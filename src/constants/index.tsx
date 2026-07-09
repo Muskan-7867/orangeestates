@@ -32,6 +32,7 @@ export const socialLinks = [
 export const properties = [
   {
     id: "1",
+    slug: "peninsula-heights-albert-embankment-london",
     images: [
       { url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=20&q=10" },
       { url: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=20&q=10" },
@@ -47,6 +48,7 @@ export const properties = [
   },
   {
     id: "2",
+    slug: "hanover-square-mayfair-london",
     images: [
       { url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=20&q=10" },
       { url: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=20&q=10" },
@@ -60,6 +62,7 @@ export const properties = [
   },
   {
     id: "3",
+    slug: "craven-hill-gardens-bayswater-london",
     images: [
       { url: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=20&q=10" },
       { url: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=20&q=10" },
@@ -73,6 +76,7 @@ export const properties = [
   },
   {
     id: "4",
+    slug: "peninsula-heights-albert-embankment-london-2",
     images: [
       { url: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=20&q=10" },
       { url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=20&q=10" },
@@ -86,6 +90,7 @@ export const properties = [
   },
   {
     id: "5",
+    slug: "hanover-square-mayfair-london-2",
     images: [
       { url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=20&q=10" },
       { url: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=20&q=10" },
@@ -99,6 +104,7 @@ export const properties = [
   },
   {
     id: "6",
+    slug: "craven-hill-gardens-bayswater-london-2",
     images: [
       { url: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=20&q=10" },
       { url: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=20&q=10" },

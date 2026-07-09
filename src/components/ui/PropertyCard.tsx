@@ -78,7 +78,7 @@ export function PropertyCard({ property }: { property: (typeof properties)[0] })
   return (
     <article className="group bg-[#fafafa] relative flex flex-col h-full border border-gray-100 ">
       <div className="relative overflow-hidden">
-        <Link to="/properties/$id" params={{ id: property.id }} className="block">
+        <Link to="/properties/$slug" params={{ slug: property.slug }} className="block">
           <PropertyCardImage
             src={property.images[current].url}
             alt={property.title}
@@ -152,7 +152,7 @@ export function PropertyCard({ property }: { property: (typeof properties)[0] })
 
       {/* Content */}
       <div className="p-3 sm:p-4 flex-1 flex flex-col">
-        <Link to="/properties/$id" params={{ id: property.id }} className="block group-hover:text-primary">
+        <Link to="/properties/$slug" params={{ slug: property.slug }} className="block group-hover:text-primary">
           {/* Tags */}
           <div className="flex gap-1.5 sm:gap-2">
             <span className="bg-gray-200 px-2 py-0.5 sm:px-3 sm:py-1 text-[10px] sm:text-[11px] tracking-wider text-gray-800 font-medium">

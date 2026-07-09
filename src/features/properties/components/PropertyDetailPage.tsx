@@ -6,10 +6,10 @@ import PropertyDetails from "./PropertyDetails";
 import RelatedProperties from "./RelatedProperties";
 
 export default function PropertyDetailPage() {
-  const { id } = useParams({ from: "/_user/properties/$id" });
+  const { slug } = useParams({ from: "/_user/properties/$slug" });
 
-  // Find property by id
-  const property = properties.find((p) => p.id === id) || properties[0];
+  // Find property by slug
+  const property = properties.find((p) => p.slug === slug) || properties[0];
 
   // Get related properties (excluding current)
   const relatedProperties = properties
