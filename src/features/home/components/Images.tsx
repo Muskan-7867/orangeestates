@@ -245,7 +245,7 @@ export default function Images() {
                             stiffness: 400,
                             damping: 17,
                         }}
-                        className="w-8 h-8 bg-white rounded-full border border-neutral-200 flex items-center justify-center cursor-pointer shadow-sm hover:shadow-md"
+                        className="w-8 h-8  rounded-full border border-neutral-200 flex items-center justify-center cursor-pointer "
                     >
                         <ChevronLeft size={20} />
                     </motion.button>
@@ -259,7 +259,7 @@ export default function Images() {
                             stiffness: 400,
                             damping: 17,
                         }}
-                        className="w-8 h-8 bg-white rounded-full border border-neutral-200 flex items-center justify-center cursor-pointer shadow-sm hover:shadow-md"
+                        className="w-8 h-8 rounded-full border border-neutral-200 flex items-center justify-center cursor-pointer "
                     >
                         <ChevronRight size={20} />
                     </motion.button>

@@ -3,7 +3,7 @@
 import { useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import type { Variants } from "motion/react";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 
 interface Slide {
   id: number;
@@ -174,12 +174,12 @@ export default function PremiumHero() {
 
   // Mouse handlers
   const handleMouseDown = (e: React.MouseEvent) => onDragStart(e.clientX);
-  const handleMouseUp   = (e: React.MouseEvent) => onDragEnd(e.clientX);
+  const handleMouseUp = (e: React.MouseEvent) => onDragEnd(e.clientX);
   const handleMouseLeave = () => { dragStart.current = null; };
 
   // Touch handlers
   const handleTouchStart = (e: React.TouchEvent) => onDragStart(e.touches[0].clientX);
-  const handleTouchEnd   = (e: React.TouchEvent) => onDragEnd(e.changedTouches[0].clientX);
+  const handleTouchEnd = (e: React.TouchEvent) => onDragEnd(e.changedTouches[0].clientX);
 
   return (
     // motion.section lets us smoothly animate the background color
@@ -435,44 +435,47 @@ export default function PremiumHero() {
       </div>
 
       {/* ── Navigation ──────────────────────────────────────────────── */}
-      <div className="absolute bottom-4 left-0 right-0 z-30">
-        <div className="flex w-full justify-between px-5 sm:px-6 md:px-36">
+      <div className="absolute bottom-2 left-0 right-0 z-30 flex justify-center">
+        <div className="flex items-center gap-3  bg-black/50 px-3 py-1 backdrop-blur-md">
 
-          {/* Progress bars */}
-          <div className="flex w-28 sm:w-36 gap-3">
+          {/* Prev */}
+          <button
+            onClick={() => paginate(-1)}
+            className="flex h-7 w-7 items-center justify-center text-white/70 hover:text-white transition-colors cursor-pointer"
+            aria-label="Previous slide"
+          >
+            <ChevronLeft size={16} />
+          </button>
+
+          {/* Dot indicators */}
+          <div className="flex items-center gap-1.5">
             {slides.map((item, i) => (
               <button
                 key={item.id}
                 onClick={() => setIndex([i, i > index ? 1 : -1])}
-                className="group flex-1"
+                aria-label={`Go to slide ${i + 1}`}
+                className="cursor-pointer"
               >
-                <div className="h-0.5 w-full overflow-hidden bg-white/20">
-                  <motion.div
-                    className="h-full bg-white"
-                    initial={false}
-                    animate={{ width: i === index ? "100%" : "0%" }}
-                    transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-                  />
-                </div>
+                <motion.div
+                  animate={{
+                    width: i === index ? 24 : 6,
+                    backgroundColor: i === index ? "#ffffff" : "rgba(255,255,255,0.45)",
+                  }}
+                  transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                  className="h-1.5 rounded-full"
+                />
               </button>
             ))}
           </div>
 
-          {/* Arrow buttons */}
-          <div className="flex gap-3 sm:gap-4">
-            <button
-              onClick={() => paginate(-1)}
-              className="flex h-8 w-8 items-center justify-center rounded-full border border-white/20 bg-white/10 backdrop-blur transition hover:bg-white hover:text-black cursor-pointer"
-            >
-              <ArrowLeft size={16} />
-            </button>
-            <button
-              onClick={() => paginate(1)}
-              className="flex h-8 w-8 items-center justify-center rounded-full border border-white/20 bg-white/10 backdrop-blur transition hover:bg-white hover:text-black  cursor-pointer"
-            >
-              <ArrowRight size={16} />
-            </button>
-          </div>
+          {/* Next */}
+          <button
+            onClick={() => paginate(1)}
+            className="flex h-7 w-7 items-center justify-center text-white/70 hover:text-white transition-colors cursor-pointer"
+            aria-label="Next slide"
+          >
+            <ChevronRight size={16} />
+          </button>
 
         </div>
       </div>
