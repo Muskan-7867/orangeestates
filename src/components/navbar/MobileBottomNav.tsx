@@ -1,7 +1,7 @@
 import { cn } from "#/lib/utils";
 import { Link, useLocation } from "@tanstack/react-router";
 import { Building2, BookOpen, Info, Home, Search, HomeIcon } from "lucide-react";
-import { AnimatePresence,  motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { Activity, useEffect, useRef, useState } from "react";
 
 const mobileLinks = [
@@ -20,39 +20,40 @@ export default function MobileBottomNav() {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const bottomNavRef = useRef<HTMLDivElement>(null);
 
- useEffect(() => {
-  if (isSearchIconClick) {
-    requestAnimationFrame(() => {
-      inputRef.current?.focus();
-    });
-  }
-}, [isSearchIconClick]);
+  useEffect(() => {
+    if (isSearchIconClick) {
+      requestAnimationFrame(() => {
+        inputRef.current?.focus();
+      });
+    }
+  }, [isSearchIconClick]);
 
   useEffect(() => {
-  if (!window.visualViewport) return;
+    if (!window.visualViewport) return;
 
-  const handleViewport = () => {
-    const keyboardHeight =
-      window.innerHeight - window.visualViewport!.height;
+    const handleViewport = () => {
+      const vv = window.visualViewport!;
+      // offsetTop accounts for the viewport scrolling up when keyboard appears
+      const keyboardHeight = window.innerHeight - (vv.height + vv.offsetTop);
 
-    if (bottomNavRef.current) {
-      bottomNavRef.current.style.bottom =
-        keyboardHeight > 0 ? `${keyboardHeight + 12}px` : "0px";
-    }
-  };
+      if (bottomNavRef.current) {
+        bottomNavRef.current.style.bottom =
+          keyboardHeight > 10 ? `${keyboardHeight}px` : "0px";
+      }
+    };
 
-  window.visualViewport.addEventListener("resize", handleViewport);
-  window.visualViewport.addEventListener("scroll", handleViewport);
+    window.visualViewport.addEventListener("resize", handleViewport);
+    window.visualViewport.addEventListener("scroll", handleViewport);
 
-  return () => {
-    window.visualViewport?.removeEventListener("resize", handleViewport);
-    window.visualViewport?.removeEventListener("scroll", handleViewport);
-  };
-}, []);
+    return () => {
+      window.visualViewport?.removeEventListener("resize", handleViewport);
+      window.visualViewport?.removeEventListener("scroll", handleViewport);
+    };
+  }, []);
 
   return (
     <AnimatePresence mode="wait">
-      <div  ref={bottomNavRef} className="lg:hidden fixed bottom-0  left-0 right-0 px-2 pb-6 z-50   bg-linear-to-b from-transparent to-white  flex flex-row gap-1">
+      <div ref={bottomNavRef} className="lg:hidden fixed bottom-0  left-0 right-0 px-2 pb-6 z-50   bg-linear-to-b from-transparent to-white  flex flex-row gap-1">
         {
           isSearchIconClick && (
             <motion.button
@@ -74,7 +75,7 @@ export default function MobileBottomNav() {
         {!isSearchIconClick && (
           <motion.div
             layoutId="left"
-            className="flex items-center justify-around gap-1 px-1 py-1 rounded-full bg-linear-to-b from bg-white/60 to-gray-200 backdrop-blur-lg border border-white shadow1 w-full h-12"
+            className="flex items-center justify-around gap-1 px-1 py-6 rounded-full bg-linear-to-b from bg-white/60 to-gray-200 backdrop-blur-lg border border-white shadow1 w-full h-12"
           >
             {mobileLinks.map((link, index) => {
               const Icon = link.icon;
@@ -152,7 +153,7 @@ export default function MobileBottomNav() {
             duration: 0.6
           }}
 
-          className={cn(`shrink-0 flex-1 rounded-3xl bg-linear-to-b from bg-white/60 to-gray-200 backdrop-blur-lg border border-white 
+          className={cn(`shrink-0 flex-1 rounded-3xl bg-linear-to-b  from bg-white/60 to-gray-200 backdrop-blur-lg border border-white 
           flex justify-center items-center`, isSearchIconClick ? "w-full" : "w-12")}>
           <Activity mode={isSearchIconClick ? "visible" : "hidden"} >
             <input

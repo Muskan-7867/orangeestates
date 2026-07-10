@@ -17,7 +17,7 @@ import { Route as UserBlogRouteImport } from './routes/_user/blog'
 import { Route as UserAboutRouteImport } from './routes/_user/about'
 import { Route as UserPropertiesIndexRouteImport } from './routes/_user/properties.index'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
-import { Route as UserPropertiesIdRouteImport } from './routes/_user/properties.$id'
+import { Route as UserPropertiesSlugRouteImport } from './routes/_user/properties.$slug'
 
 const UserRouteRoute = UserRouteRouteImport.update({
   id: '/_user',
@@ -58,9 +58,9 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   path: '/api/auth/$',
   getParentRoute: () => rootRouteImport,
 } as any)
-const UserPropertiesIdRoute = UserPropertiesIdRouteImport.update({
-  id: '/properties/$id',
-  path: '/properties/$id',
+const UserPropertiesSlugRoute = UserPropertiesSlugRouteImport.update({
+  id: '/properties/$slug',
+  path: '/properties/$slug',
   getParentRoute: () => UserRouteRoute,
 } as any)
 
@@ -70,7 +70,7 @@ export interface FileRoutesByFullPath {
   '/blog': typeof UserBlogRoute
   '/contact': typeof UserContactRoute
   '/admin/': typeof AdminIndexRoute
-  '/properties/$id': typeof UserPropertiesIdRoute
+  '/properties/$slug': typeof UserPropertiesSlugRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/properties/': typeof UserPropertiesIndexRoute
 }
@@ -80,7 +80,7 @@ export interface FileRoutesByTo {
   '/contact': typeof UserContactRoute
   '/': typeof UserIndexRoute
   '/admin': typeof AdminIndexRoute
-  '/properties/$id': typeof UserPropertiesIdRoute
+  '/properties/$slug': typeof UserPropertiesSlugRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/properties': typeof UserPropertiesIndexRoute
 }
@@ -92,7 +92,7 @@ export interface FileRoutesById {
   '/_user/contact': typeof UserContactRoute
   '/_user/': typeof UserIndexRoute
   '/admin/': typeof AdminIndexRoute
-  '/_user/properties/$id': typeof UserPropertiesIdRoute
+  '/_user/properties/$slug': typeof UserPropertiesSlugRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/_user/properties/': typeof UserPropertiesIndexRoute
 }
@@ -104,7 +104,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/contact'
     | '/admin/'
-    | '/properties/$id'
+    | '/properties/$slug'
     | '/api/auth/$'
     | '/properties/'
   fileRoutesByTo: FileRoutesByTo
@@ -114,7 +114,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/'
     | '/admin'
-    | '/properties/$id'
+    | '/properties/$slug'
     | '/api/auth/$'
     | '/properties'
   id:
@@ -125,7 +125,7 @@ export interface FileRouteTypes {
     | '/_user/contact'
     | '/_user/'
     | '/admin/'
-    | '/_user/properties/$id'
+    | '/_user/properties/$slug'
     | '/api/auth/$'
     | '/_user/properties/'
   fileRoutesById: FileRoutesById
@@ -194,11 +194,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAuthSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_user/properties/$id': {
-      id: '/_user/properties/$id'
-      path: '/properties/$id'
-      fullPath: '/properties/$id'
-      preLoaderRoute: typeof UserPropertiesIdRouteImport
+    '/_user/properties/$slug': {
+      id: '/_user/properties/$slug'
+      path: '/properties/$slug'
+      fullPath: '/properties/$slug'
+      preLoaderRoute: typeof UserPropertiesSlugRouteImport
       parentRoute: typeof UserRouteRoute
     }
   }
@@ -209,7 +209,7 @@ interface UserRouteRouteChildren {
   UserBlogRoute: typeof UserBlogRoute
   UserContactRoute: typeof UserContactRoute
   UserIndexRoute: typeof UserIndexRoute
-  UserPropertiesIdRoute: typeof UserPropertiesIdRoute
+  UserPropertiesSlugRoute: typeof UserPropertiesSlugRoute
   UserPropertiesIndexRoute: typeof UserPropertiesIndexRoute
 }
 
@@ -218,7 +218,7 @@ const UserRouteRouteChildren: UserRouteRouteChildren = {
   UserBlogRoute: UserBlogRoute,
   UserContactRoute: UserContactRoute,
   UserIndexRoute: UserIndexRoute,
-  UserPropertiesIdRoute: UserPropertiesIdRoute,
+  UserPropertiesSlugRoute: UserPropertiesSlugRoute,
   UserPropertiesIndexRoute: UserPropertiesIndexRoute,
 }
 
