@@ -138,7 +138,7 @@ const bgVariants: Variants = {
   },
 };
 
-export default function PremiumHero() {
+export default function HeroBannerCarousel() {
   const [[index, direction], setIndex] = useState([0, 0]);
 
   const slide = slides[index];

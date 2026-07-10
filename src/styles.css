@@ -303,3 +303,20 @@ body::after {
     rgba(0,0,0,0) 65%
   );
 }
+
+
+.imagemask {
+  mask-image: linear-gradient(
+    to bottom,
+    black 0%,
+    black 50%,
+    transparent 100%
+  );
+
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    black 0%,
+    black 50%,
+    transparent 100%
+  );
+}
