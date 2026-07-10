@@ -5,8 +5,8 @@ import { useState, useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "motion/react";
 
 const properties = [
-
     {
+        category: "SIGNATURE PROPERTIES",
         title: "Luxury Penthouse in London",
         location: "London, England",
         image:
@@ -15,6 +15,7 @@ const properties = [
             "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=20&q=10",
     },
     {
+        category: "PENTHOUSES",
         title: "A Landmark Art Deco Estate on St George's Hill",
         location: "Weybridge, Surrey",
         image:
@@ -23,6 +24,7 @@ const properties = [
             "https://images.unsplash.com/photo-1511818966892-d7d671e672a2?w=20&q=10",
     },
     {
+        category: "HOUSES",
         title: "Modern Countryside House",
         location: "Surrey, England",
         image:
@@ -34,28 +36,37 @@ const properties = [
 
 const tabs = [
     "SIGNATURE PROPERTIES",
-    "FLATS",
     "PENTHOUSES",
     "HOUSES",
 ];
 
 export default function Spotlight() {
     const [[active, direction], setActive] = useState([0, 0]);
-
+    const [activeTab, setActiveTab] = useState("SIGNATURE PROPERTIES");
+    const filteredProperties =
+        activeTab === "SIGNATURE PROPERTIES"
+            ? properties
+            : properties.filter((item) => item.category === activeTab);
+    useEffect(() => {
+        setActive([0, 0]);
+    }, [activeTab]);
     const next = () => {
+        if (filteredProperties.length <= 1) return;
+
         setActive(([prev]) => [
-            prev === properties.length - 1 ? 0 : prev + 1,
+            prev === filteredProperties.length - 1 ? 0 : prev + 1,
             1,
         ]);
     };
 
     const prev = () => {
+        if (filteredProperties.length <= 1) return;
+
         setActive(([prev]) => [
-            prev === 0 ? properties.length - 1 : prev - 1,
+            prev === 0 ? filteredProperties.length - 1 : prev - 1,
             -1,
         ]);
     };
-
     const variants = {
         enter: (direction: number) => ({
             x: direction > 0 ? "30%" : "-30%",
@@ -94,9 +105,8 @@ export default function Spotlight() {
                     ref={imgRef}
                     src={src}
                     onLoad={() => setLoaded(true)}
-                    className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${
-                        loaded ? "opacity-100" : "opacity-0"
-                    }`}
+                    className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${loaded ? "opacity-100" : "opacity-0"
+                        }`}
                 />
                 {/* Blur placeholder on top */}
                 <div
@@ -114,6 +124,14 @@ export default function Spotlight() {
         );
     }
 
+    if (!filteredProperties.length) {
+        return (
+            <div className="h-[500px] flex items-center justify-center text-gray-500">
+                No properties available.
+            </div>
+        );
+    }
+
     return (
         <section className="py-10">
             <div className="w-full px-4 md:px-18">
@@ -124,18 +142,19 @@ export default function Spotlight() {
                     </p>
                 </div>
                 {/* Top Row */}
-                <div className="mb-4 md:mb-6 flex items-center justify-between">
+                <div className="mb-4 md:mb-6 flex items-center justify-between ">
                     <h2 className="text-2xl font-serif text-primary">
                         In the Spotlight
                     </h2>
 
-                    <div className="hidden gap-8 text-xs tracking-wide text-gray-500 md:flex">
-                        {tabs.map((tab, index) => ( 
+                    <div className="hidden gap-8 text-xs tracking-wide text-gray-500 md:flex ">
+                        {tabs.map((tab) => (
                             <button
                                 key={tab}
-                                className={`transition ${index === 0
-                                    ? "text-black"
-                                    : "hover:text-black"
+                                onClick={() => setActiveTab(tab)}
+                                className={`transition pb-1 cursor-pointer ${activeTab === tab
+                                        ? "text-primary border-b border-primary"
+                                        : "hover:text-primary"
                                     }`}
                             >
                                 {tab}
@@ -161,8 +180,8 @@ export default function Spotlight() {
                             className="absolute inset-0 h-full w-full"
                         >
                             <SpotlightImage
-                                src={properties[active].image}
-                                blurSrc={properties[active].blurImage}
+                                src={filteredProperties[active].image}
+                                blurSrc={filteredProperties[active].blurImage}
                             />
                         </motion.div>
                     </AnimatePresence>
@@ -197,11 +216,11 @@ export default function Spotlight() {
                             transition={{ duration: 0.4 }}
                         >
                             <h3 className=" text-primary font-serif text-xl sm:text-2xl  leading-tight">
-                                {properties[active].title}
+                                {filteredProperties[active].title}
                             </h3>
 
                             <p className="mt-2 text-sm sm:text-base text-gray-600">
-                                {properties[active].location}
+                                {filteredProperties[active].location}
                             </p>
                         </motion.div>
                     </AnimatePresence>
@@ -210,6 +229,7 @@ export default function Spotlight() {
                         View property
                     </button>
                 </div>
+
             </div>
         </section>
     );
