@@ -1,6 +1,7 @@
 
 import { useState } from "react";
 import { PropertyCard } from "#/components/ui/PropertyCard";
+import { PropertyCardSkeleton } from "#/components/ui/PropertyCard";
 import { properties } from "#/constants";
 import PropertyHero from "./PropertyHero";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -12,6 +13,7 @@ export default function PropertiesPage() {
   const [selectedCountry, setSelectedCountry] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
 
   const countries = [
     "All",
@@ -44,6 +46,14 @@ export default function PropertiesPage() {
     currentPage * ITEMS_PER_PAGE
   );
 
+  // Show skeletons briefly when page / filters change
+  const triggerLoad = (fn: () => void) => {
+    setIsLoading(true);
+    fn();
+    const t = setTimeout(() => setIsLoading(false), 600);
+    return () => clearTimeout(t);
+  };
+
   return (
     <main className="min-h-screen bg-bg">
       <section className="py-28">
@@ -73,32 +83,41 @@ export default function PropertiesPage() {
           <PropertyFilters
             countries={countries}
             selectedCountry={selectedCountry}
-            setSelectedCountry={(country) => {
-              setSelectedCountry(country);
-              setCurrentPage(1);
-            }}
+            setSelectedCountry={(country) =>
+              triggerLoad(() => {
+                setSelectedCountry(country);
+                setCurrentPage(1);
+              })
+            }
             searchQuery={searchQuery}
-            setSearchQuery={(query) => {
-              setSearchQuery(query);
-              setCurrentPage(1);
-            }}
+            setSearchQuery={(query) =>
+              triggerLoad(() => {
+                setSearchQuery(query);
+                setCurrentPage(1);
+              })
+            }
           />
 
           {/* Grid */}
           <div className="grid gap-8 sm:grid-cols-2 xl:grid-cols-3">
-            {paginatedProperties.map((property) => (
-              <PropertyCard
-                key={property.title}
-                property={property}
-              />
-            ))}
+            {isLoading
+              ? Array.from({ length: ITEMS_PER_PAGE }).map((_, i) => (
+                  <PropertyCardSkeleton key={i} />
+                ))
+              : paginatedProperties.map((property) => (
+                  <PropertyCard key={property.title} property={property} />
+                ))}
           </div>
 
           {/* Pagination */}
           {totalPages > 1 && (
             <div className="mt-12 flex justify-center items-center gap-2">
               <button
-                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                onClick={() =>
+                  triggerLoad(() =>
+                    setCurrentPage((prev) => Math.max(prev - 1, 1))
+                  )
+                }
                 disabled={currentPage === 1}
                 className="p-2 border border-gray-300 rounded hover:border-black disabled:opacity-50 disabled:hover:border-gray-300 disabled:cursor-not-allowed transition-all duration-300 cursor-pointer text-gray-700"
                 aria-label="Previous page"
@@ -121,7 +140,11 @@ export default function PropertiesPage() {
               ))}
 
               <button
-                onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                onClick={() =>
+                  triggerLoad(() =>
+                    setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+                  )
+                }
                 disabled={currentPage === totalPages}
                 className="p-2 border border-gray-300 rounded hover:border-black disabled:opacity-50 disabled:hover:border-gray-300 disabled:cursor-not-allowed transition-all duration-300 cursor-pointer text-gray-700"
                 aria-label="Next page"

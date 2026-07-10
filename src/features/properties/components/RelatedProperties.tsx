@@ -1,6 +1,11 @@
 import { PropertyCard } from "#/components/ui/PropertyCard";
+import { PropertyCardSkeleton } from "#/components/ui/PropertyCard";
+
+const SKELETON_COUNT = 3;
 
 export default function RelatedProperties({ relatedProperties }: { relatedProperties: any[] }) {
+    const isLoading = !relatedProperties || relatedProperties.length === 0;
+
     return (
         <section className="w-full px-4 md:px-12 lg:px-34 mt-16 sm:mt-24">
             <div className="border-t border-gray-200/80 pt-16">
@@ -15,12 +20,17 @@ export default function RelatedProperties({ relatedProperties }: { relatedProper
                 </div>
 
                 <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-                    {relatedProperties?.map((relatedProperty: any) => (
-                        <PropertyCard
-                            key={relatedProperty.id}
-                            property={relatedProperty}
-                        />
-                    ))}
+                    {isLoading
+                        ? Array.from({ length: SKELETON_COUNT }).map((_, i) => (
+                            <PropertyCardSkeleton key={i} />
+                        ))
+                        : relatedProperties.map((relatedProperty: any) => (
+                            <PropertyCard
+                                key={relatedProperty.id}
+                                property={relatedProperty}
+                            />
+                        ))
+                    }
                 </div>
             </div>
         </section>

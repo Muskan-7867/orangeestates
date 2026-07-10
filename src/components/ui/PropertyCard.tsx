@@ -1,8 +1,9 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
+
 import type { properties } from "#/constants";
 import { ChevronLeft, ChevronRight, Heart } from "lucide-react";
-import { useState, useEffect, useRef } from "react";
 import { Link } from "@tanstack/react-router";
 
 function getBlurImageUrl(url: string) {
@@ -193,5 +194,76 @@ export function PropertyCard({ property }: { property: (typeof properties)[0] })
         </div>
       </div>
     </article>
+  );
+}
+
+// ─── Skeleton ──────────────────────────────────────────────────────────────────
+
+const shimmer = `
+  @keyframes shimmer {
+    0%   { background-position: -600px 0; }
+    100% { background-position:  600px 0; }
+  }
+`;
+
+const shimmerStyle: React.CSSProperties = {
+  background: "linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%)",
+  backgroundSize: "600px 100%",
+  animation: "shimmer 1.4s infinite linear",
+};
+
+function SkeletonBox({
+  className,
+  style,
+}: {
+  className?: string;
+  style?: React.CSSProperties;
+}) {
+  return (
+    <div
+      className={className}
+      style={{ ...shimmerStyle, ...style }}
+    />
+  );
+}
+
+export function PropertyCardSkeleton() {
+  return (
+    <>
+      {/* Inject keyframes once */}
+      <style>{shimmer}</style>
+
+      <article className="bg-[#fafafa] flex flex-col h-full border border-gray-100">
+        {/* Image area */}
+        <SkeletonBox className="h-55 sm:h-75 w-full" />
+
+        {/* Content */}
+        <div className="p-3 sm:p-4 flex-1 flex flex-col">
+          {/* Tags */}
+          <div className="flex gap-1.5 sm:gap-2">
+            <SkeletonBox className="h-5 w-10 rounded" />
+            <SkeletonBox className="h-5 w-10 rounded" />
+          </div>
+
+          {/* Title */}
+          <SkeletonBox className="mt-2 sm:mt-3 h-6 w-3/4 rounded" />
+          <SkeletonBox className="mt-2 h-5 w-1/2 rounded" />
+
+          {/* Details */}
+          <div className="mt-auto flex gap-4 pt-3">
+            <SkeletonBox className="h-4 w-14 rounded" />
+            <SkeletonBox className="h-4 w-14 rounded" />
+            <SkeletonBox className="h-4 w-16 rounded" />
+          </div>
+
+          {/* Divider */}
+          <div className="my-2 sm:my-4 border-t border-gray-200" />
+
+          {/* Price */}
+          <SkeletonBox className="h-3 w-10 rounded mb-2" />
+          <SkeletonBox className="h-6 w-32 rounded" />
+        </div>
+      </article>
+    </>
   );
 }
