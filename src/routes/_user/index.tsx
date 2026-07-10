@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import Features from '#/features/home/components/Features'
-import HeroBannerCarousel from '#/features/home/components/HeroBannerCarousel'
+
 import Images from '#/features/home/components/Images'
 import Spotlight from '#/features/home/components/SpotLight'
 import ScrollImages from '#/features/home/components/ScrollImages'
@@ -10,6 +10,9 @@ import ImageCarousel from '#/features/home/components/ImageCarousel'
 import { FaqsSection } from '#/features/home/components/FaqsSection'
 import Testimonials from '#/features/home/components/Testimonials'
 import { ArcCarousel } from '#/components/ui/ArcCarosel'
+import Hero from '#/features/home/components/Hero'
+import HeroBannerCarousel from '#/features/home/components/HeroBannerCarousel'
+
 
 export const Route = createFileRoute('/_user/')({
   component: RouteComponent,
@@ -26,6 +29,7 @@ function RouteComponent() {
       <ScrollImages />
       <Spotlight />
       <PropertyGrid />
+      <Hero />
       <WhyChooseUs />
       <ImageCarousel />
       <Testimonials />
