@@ -1,6 +1,6 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useRef, useState, useCallback, useEffect } from "react";
-import { motion } from "motion/react";
+import { motion, useMotionValue, useSpring, animate } from "motion/react";
 
 const images = [
     {
@@ -75,88 +75,92 @@ const images = [
     },
 ];
 
-const SCROLL_AMOUNT = 400;
+const SCROLL_AMOUNT = 380;
 
 export default function Images() {
-    const scrollRef = useRef<HTMLDivElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
+    const trackRef = useRef<HTMLDivElement>(null);
     const [scrollDir, setScrollDir] = useState<"left" | "right" | null>(null);
+    const [canScrollLeft, setCanScrollLeft] = useState(false);
+    const [canScrollRight, setCanScrollRight] = useState(true);
 
-    const onScroll = useCallback((direction: "left" | "right") => {
-        const delta = direction === "left" ? -SCROLL_AMOUNT : SCROLL_AMOUNT;
-        setScrollDir(direction);
-        scrollRef.current?.scrollBy({ left: delta, behavior: "smooth" });
+    // ─── Physics-based scroll ───────────────────────────────────────────────
+    const x = useMotionValue(0);
+    const springX = useSpring(x, { stiffness: 200, damping: 32, mass: 0.9, restDelta: 0.5 });
 
-        // Reset the direction flag after the scroll animation completes
-        setTimeout(() => setScrollDir(null), 500);
+    const getBounds = useCallback(() => {
+        if (!containerRef.current || !trackRef.current) return { min: 0, max: 0 };
+        const min = -(trackRef.current.scrollWidth - containerRef.current.clientWidth);
+        return { min, max: 0 };
     }, []);
 
-    // Track which cards are currently visible so we can animate them on scroll
-    const [visibleIndices, setVisibleIndices] = useState<Set<number>>(new Set());
-    const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
-
+    // Sync arrow disabled state with x position
     useEffect(() => {
-        const container = scrollRef.current;
-        if (!container) return;
+        return x.on("change", (v) => {
+            const { min } = getBounds();
+            setCanScrollLeft(v < -1);
+            setCanScrollRight(v > min + 1);
+        });
+    }, [x, getBounds]);
 
-        const observer = new IntersectionObserver(
-            (entries) => {
-                setVisibleIndices((prev) => {
-                    const next = new Set(prev);
-                    entries.forEach((entry) => {
-                        const idx = Number(
-                            (entry.target as HTMLElement).dataset.index
-                        );
-                        if (entry.isIntersecting) {
-                            next.add(idx);
-                        } else {
-                            next.delete(idx);
-                        }
-                    });
-                    return next;
-                });
-            },
-            { root: container, threshold: 0.3 }
-        );
+    const scroll = useCallback((direction: "left" | "right") => {
+        setScrollDir(direction);
+        const delta = direction === "left" ? SCROLL_AMOUNT : -SCROLL_AMOUNT;
+        const { min, max } = getBounds();
+        const next = Math.min(max, Math.max(min, x.get() + delta));
 
-        cardRefs.current.forEach((el) => {
-            if (el) observer.observe(el);
+        animate(x, next, {
+            type: "spring",
+            stiffness: 200,
+            damping: 32,
+            mass: 0.9,
         });
 
-        return () => observer.disconnect();
-    }, []);
+        setTimeout(() => setScrollDir(null), 650);
+    }, [x, getBounds]);
 
     return (
         <section className="py-6 px-4 sm:p-8">
-            <div
-                ref={scrollRef}
-                className="overflow-x-auto scrollbar-hide scroll-smooth"
-            >
+            {/* Carousel track — draggable + spring-scrolled */}
+            <div ref={containerRef} className="overflow-hidden cursor-grab active:cursor-grabbing">
                 <motion.div
+                    ref={trackRef}
                     className="flex gap-4 min-w-max py-3 px-1"
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, margin: "-40px" }}
-                    transition={{ staggerChildren: 0.045 }}
+                    style={{ x: springX }}
+                    drag="x"
+                    dragConstraints={containerRef}
+                    dragElastic={0.07}
+                    dragTransition={{ bounceStiffness: 280, bounceDamping: 36 }}
+                    // Keep x in sync after drag ends
+                    onDragEnd={(_, info) => {
+                        x.set(x.get()); // anchor spring to where drag landed
+                    }}
                 >
                     {images.map((image, index) => (
                         <motion.div
                             key={index}
-                            ref={(el) => { cardRefs.current[index] = el; }}
-                            data-index={index}
-                            className="shrink-0 w-42.5 text-center cursor-pointer"
-                            initial={{ opacity: 0, y: 20, scale: 0.9 }}
-                            whileInView={{
-                                opacity: 1,
-                                y: 0,
-                                scale: 1,
-                            }}
-                            viewport={{ once: true, amount: 0.3 }}
-                            transition={{
-                                type: "spring",
-                                stiffness: 120,
-                                damping: 14,
-                                delay: index * 0.04,
-                            }}
+                            className="shrink-0 w-42.5 text-center cursor-pointer select-none"
+                            // ── Wave nudge when a button is pressed ──────────
+                            animate={
+                                scrollDir
+                                    ? {
+                                        x: [
+                                            0,
+                                            scrollDir === "right" ? -10 : 10,
+                                            0,
+                                        ],
+                                    }
+                                    : { x: 0 }
+                            }
+                            transition={
+                                scrollDir
+                                    ? {
+                                        duration: 0.42,
+                                        ease: [0.25, 1, 0.5, 1],
+                                        delay: (index % 7) * 0.025, // stagger wave
+                                    }
+                                    : { duration: 0 }
+                            }
                             whileHover={{ y: -8, scale: 1.05 }}
                         >
                             {/* Image container */}
@@ -175,25 +179,11 @@ export default function Images() {
                                 <motion.img
                                     src={image.url}
                                     alt={image.name}
+                                    draggable={false}
                                     className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500"
-                                    // Smooth scale pulse when scroll direction changes
-                                    animate={
-                                        scrollDir && visibleIndices.has(index)
-                                            ? {
-                                                scale: [1, 1.08, 1],
-                                                transition: {
-                                                    duration: 0.5,
-                                                    ease: "easeInOut",
-                                                },
-                                            }
-                                            : { scale: 1 }
-                                    }
                                     whileHover={{
                                         scale: 1.15,
-                                        transition: {
-                                            duration: 0.45,
-                                            ease: [0.25, 1, 0.5, 1],
-                                        },
+                                        transition: { duration: 0.45, ease: [0.25, 1, 0.5, 1] },
                                     }}
                                 />
                                 {/* Gradient overlay on hover */}
@@ -207,10 +197,7 @@ export default function Images() {
 
                             <motion.h3
                                 className="mt-3 text-[18px] font-medium text-gray-800"
-                                whileHover={{
-                                    color: "#000",
-                                    transition: { duration: 0.2 },
-                                }}
+                                whileHover={{ color: "#000", transition: { duration: 0.2 } }}
                             >
                                 {image.name}
                             </motion.h3>
@@ -221,11 +208,7 @@ export default function Images() {
                                     className="h-0.5 bg-black rounded-full"
                                     initial={{ width: 0 }}
                                     whileHover={{ width: 28 }}
-                                    transition={{
-                                        type: "spring",
-                                        stiffness: 300,
-                                        damping: 20,
-                                    }}
+                                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
                                 />
                             </div>
                         </motion.div>
@@ -236,36 +219,43 @@ export default function Images() {
             {/* Bottom Controls */}
             <div className="flex items-center justify-end mt-4">
                 <div className="flex gap-3">
+                    {/* Left arrow */}
                     <motion.button
-                        onClick={() => onScroll("left")}
-                        whileHover={{ scale: 1.15 }}
-                        whileTap={{ scale: 0.85 }}
-                        transition={{
-                            type: "spring",
-                            stiffness: 400,
-                            damping: 17,
-                        }}
-                        className="w-8 h-8  rounded-full border border-neutral-200 flex items-center justify-center cursor-pointer "
+                        onClick={() => scroll("left")}
+                        disabled={!canScrollLeft}
+                        animate={{ opacity: canScrollLeft ? 1 : 0.3 }}
+                        whileHover={{ scale: canScrollLeft ? 1.15 : 1 }}
+                        whileTap={{ scale: 0.82 }}
+                        transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                        className="w-8 h-8 rounded-full border border-neutral-200 flex items-center justify-center"
                     >
-                        <ChevronLeft size={20} />
+                        <motion.span
+                            animate={scrollDir === "left" ? { x: [-4, 0] } : { x: 0 }}
+                            transition={{ type: "spring", stiffness: 500, damping: 20 }}
+                        >
+                            <ChevronLeft size={20} />
+                        </motion.span>
                     </motion.button>
 
+                    {/* Right arrow */}
                     <motion.button
-                        onClick={() => onScroll("right")}
-                        whileHover={{ scale: 1.15 }}
-                        whileTap={{ scale: 0.85 }}
-                        transition={{
-                            type: "spring",
-                            stiffness: 400,
-                            damping: 17,
-                        }}
-                        className="w-8 h-8 rounded-full border border-neutral-200 flex items-center justify-center cursor-pointer "
+                        onClick={() => scroll("right")}
+                        disabled={!canScrollRight}
+                        animate={{ opacity: canScrollRight ? 1 : 0.3 }}
+                        whileHover={{ scale: canScrollRight ? 1.15 : 1 }}
+                        whileTap={{ scale: 0.82 }}
+                        transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                        className="w-8 h-8 rounded-full border border-neutral-200 flex items-center justify-center"
                     >
-                        <ChevronRight size={20} />
+                        <motion.span
+                            animate={scrollDir === "right" ? { x: [4, 0] } : { x: 0 }}
+                            transition={{ type: "spring", stiffness: 500, damping: 20 }}
+                        >
+                            <ChevronRight size={20} />
+                        </motion.span>
                     </motion.button>
                 </div>
             </div>
-
         </section>
     );
 }
