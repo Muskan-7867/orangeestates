@@ -66,7 +66,7 @@ export default function PropertyHeaderDesc({property}: {property: any}) {
       <AnimatePresence>
         {isBookingOpen && (
           <div 
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 mt-12 bg-black/60 backdrop-blur-sm"
+            className="fixed inset-0 z-100 flex items-center justify-center p-4 sm:p-6 mt-12 bg-black/60 backdrop-blur-sm"
             onClick={() => setIsBookingOpen(false)}
           >
             <motion.div

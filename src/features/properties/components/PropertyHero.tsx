@@ -114,10 +114,10 @@ export default function PropertyHero() {
   };
 
   return (
-    <section className="py-16 px-6 rounded-[32px] text-white overflow-hidden ">
+    <section className="py-16 px-6 rounded-4xl text-white overflow-hidden ">
       <div className="max-w-7xl mx-auto">
         {/* Gallery */}
-        <div className="relative h-[480px] hidden lg:block w-full">
+        <div className="relative h-120 hidden lg:block w-full">
           {images.map((image, index) => {
             const className = getImageClassName(index);
             return (
@@ -147,7 +147,7 @@ export default function PropertyHero() {
           {images.slice(0, 4).map((image, index) => (
             <div
               key={index}
-              className="aspect-[3/4] rounded-2xl overflow-hidden shadow-md border border-white/5"
+              className="aspect-3/4 rounded-2xl overflow-hidden shadow-md border border-white/5"
             >
                <BlurImage
                   src={image.src}

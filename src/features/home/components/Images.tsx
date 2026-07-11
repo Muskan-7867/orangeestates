@@ -132,7 +132,7 @@ export default function Images() {
                     dragElastic={0.07}
                     dragTransition={{ bounceStiffness: 280, bounceDamping: 36 }}
                     // Keep x in sync after drag ends
-                    onDragEnd={(_, info) => {
+                    onDragEnd={(_) => {
                         x.set(x.get()); // anchor spring to where drag landed
                     }}
                 >

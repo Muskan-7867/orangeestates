@@ -204,7 +204,9 @@ export default function ScrollImages() {
                     </p>
 
                     <div className="mt-8 flex gap-3 justify-center">
-                        <button className="rounded-xl bg-black px-4 py-2 text-white text-xs font-medium">
+                        <button 
+                   
+                        className="rounded-xl bg-black px-4 py-2 text-white text-xs font-medium">
                             Explore Homes
                         </button>
 

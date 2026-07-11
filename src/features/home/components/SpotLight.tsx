@@ -126,7 +126,7 @@ export default function Spotlight() {
 
     if (!filteredProperties.length) {
         return (
-            <div className="h-[500px] flex items-center justify-center text-gray-500">
+            <div className="h-125 flex items-center justify-center text-gray-500">
                 No properties available.
             </div>
         );
@@ -164,7 +164,7 @@ export default function Spotlight() {
                 </div>
 
                 {/* Image */}
-                <div className="relative h-[250px] sm:h-[380px] md:h-[500px] overflow-hidden">
+                <div className="relative h-62.5 sm:h-95 md:h-125 overflow-hidden">
                     <AnimatePresence initial={false} custom={direction}>
                         <motion.div
                             key={active}

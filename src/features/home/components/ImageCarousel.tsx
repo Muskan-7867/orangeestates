@@ -166,7 +166,7 @@ const ImageCarousel = () => {
 
                 {/* Gradient overlay */}
                 <div
-                  className="absolute inset-0 z-[1] pointer-events-none"
+                  className="absolute inset-0 z-1 pointer-events-none"
                   style={{
                     background: isActive
                       ? 'linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.15) 55%, transparent 100%)'
@@ -176,7 +176,7 @@ const ImageCarousel = () => {
                 />
 
                 {/* Label row â€” pinned to bottom */}
-                <div className="absolute inset-x-0 bottom-0 z-[2] flex items-center gap-3 px-4 pb-3 pt-2">
+                <div className="absolute inset-x-0 bottom-0 z-2 flex items-center gap-3 px-4 pb-3 pt-2">
                   {/* Icon */}
                   <div
                     className="flex items-center justify-center rounded-full bg-[rgba(32,32,32,0.88)] backdrop-blur-[10px] border-2 border-[#444] shrink-0 transition-all duration-500"
@@ -289,7 +289,7 @@ const ImageCarousel = () => {
               />
 
               {/* Label row */}
-              <div className="absolute left-0 right-0 bottom-4 sm:bottom-5 flex items-center gap-2 sm:gap-3 px-3 sm:px-4 z-[2] pointer-events-none w-full">
+              <div className="absolute left-0 right-0 bottom-4 sm:bottom-5 flex items-center gap-2 sm:gap-3 px-3 sm:px-4 z-2 pointer-events-none w-full">
                 {/* Icon */}
                 <div className="flex items-center justify-center w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-[rgba(32,32,32,0.85)] backdrop-blur-[10px] shadow-[0_1px_4px_rgba(0,0,0,0.18)] border-2 border-[#444] shrink-0">
                   {option.icon}

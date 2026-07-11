@@ -1,5 +1,5 @@
 import { cn } from "#/lib/utils";
-import { ChevronLeft, ChevronRight, Maximize2, X } from "lucide-react";
+import { ChevronLeft, ChevronRight,  X } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, type Variants } from "motion/react";
 import { Link } from "@tanstack/react-router";
@@ -123,7 +123,7 @@ export default function PropertyGallery({ property }: { property: any }) {
           Properties
         </Link>
         <span className="text-gray-400">/</span>
-        <span className="text-gray-800 font-medium truncate max-w-[200px] md:max-w-xs">
+        <span className="text-gray-800 font-medium truncate max-w-50 md:max-w-xs">
           {property.title}
         </span>
       </div>
