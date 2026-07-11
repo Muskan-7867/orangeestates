@@ -10,8 +10,8 @@ import ImageCarousel from '#/features/home/components/ImageCarousel'
 import { FaqsSection } from '#/features/home/components/FaqsSection'
 import Testimonials from '#/features/home/components/Testimonials'
 import { ArcCarousel } from '#/components/ui/ArcCarosel'
-import Hero from '#/features/home/components/Hero'
 import HeroBannerCarousel from '#/features/home/components/HeroBannerCarousel'
+import Bridge from '#/features/home/components/Bridge'
 
 
 export const Route = createFileRoute('/_user/')({
@@ -29,7 +29,7 @@ function RouteComponent() {
       <ScrollImages />
       <Spotlight />
       <PropertyGrid />
-      <Hero />
+      <Bridge />
       <WhyChooseUs />
       <ImageCarousel />
       <Testimonials />
