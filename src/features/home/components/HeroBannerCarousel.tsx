@@ -436,16 +436,16 @@ export default function HeroBannerCarousel() {
 
       {/* ── Navigation ──────────────────────────────────────────────── */}
       <div className="absolute bottom-2 left-0 right-0 z-30 flex justify-center">
-        <div className="flex items-center gap-3  bg-black/50 px-3 py-1 backdrop-blur-md">
+        <div className="flex items-center gap-3  bg-black/30 px-4 py-2 backdrop-blur-md rounded-full">
 
           {/* Prev */}
-          <button
+          {/* <button
             onClick={() => paginate(-1)}
             className="flex h-7 w-7 items-center justify-center text-white/70 hover:text-white transition-colors cursor-pointer"
             aria-label="Previous slide"
           >
             <ChevronLeft size={16} />
-          </button>
+          </button> */}
 
           {/* Dot indicators */}
           <div className="flex items-center gap-1.5">
@@ -458,7 +458,7 @@ export default function HeroBannerCarousel() {
               >
                 <motion.div
                   animate={{
-                    width: i === index ? 24 : 6,
+                    width: i === index ? 6 : 6,
                     backgroundColor: i === index ? "#ffffff" : "rgba(255,255,255,0.45)",
                   }}
                   transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
@@ -469,13 +469,13 @@ export default function HeroBannerCarousel() {
           </div>
 
           {/* Next */}
-          <button
+          {/* <button
             onClick={() => paginate(1)}
             className="flex h-7 w-7 items-center justify-center text-white/70 hover:text-white transition-colors cursor-pointer"
             aria-label="Next slide"
           >
             <ChevronRight size={16} />
-          </button>
+          </button> */}
 
         </div>
       </div>
