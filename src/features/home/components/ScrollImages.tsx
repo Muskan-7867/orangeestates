@@ -133,11 +133,11 @@ export default function ScrollImages() {
                         </p>
 
                         <div className="mt-10 flex gap-4">
-                            <button className="rounded-full bg-primary px-8 py-4 text-white font-medium transition hover:scale-105">
+                            <button className=" bg-primary px-8 py-3 text-white font-medium transition hover:scale-105">
                                 Explore Homes
                             </button>
 
-                            <button className="rounded-full border border-black/20 bg-white/70 backdrop-blur px-8 py-4 font-medium transition hover:bg-white">
+                            <button className=" border border-black/20 bg-white/70 backdrop-blur px-8 py-3 font-medium transition hover:bg-white">
                                 Learn More
                             </button>
                         </div>
@@ -206,11 +206,11 @@ export default function ScrollImages() {
                     <div className="mt-8 flex gap-3 justify-center">
                         <button 
                    
-                        className="rounded-xl bg-black px-4 py-2 text-white text-xs font-medium">
+                        className=" bg-black px-4 py-2 text-white text-xs font-medium">
                             Explore Homes
                         </button>
 
-                        <button className="rounded-xl border border-black/20 bg-white/70 backdrop-blur px-4 py-2 text-xs font-medium">
+                        <button className=" border border-black/20 bg-white/70 backdrop-blur px-4 py-2 text-xs font-medium">
                             Learn More
                         </button>
                     </div>

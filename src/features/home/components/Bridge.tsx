@@ -7,7 +7,7 @@ gsap.registerPlugin(ScrollTrigger);
 export default function Bridge() {
     // Desktop animated refs
     const sectionRef = useRef<HTMLDivElement>(null);
-    const bridgeRef  = useRef<HTMLImageElement>(null);
+    const bridgeRef = useRef<HTMLImageElement>(null);
     const w1 = useRef<HTMLSpanElement>(null);
     const w2 = useRef<HTMLSpanElement>(null);
     const w3 = useRef<HTMLSpanElement>(null);
@@ -98,7 +98,8 @@ export default function Bridge() {
                     alignItems: "center",
                     width: "100%",
                     paddingTop: "2rem",
-               
+                                    marginBottom: "80px"
+
                 }}
             >
                 {/* Text block */}
@@ -115,7 +116,7 @@ export default function Bridge() {
                             letterSpacing: "0.38em",
                             textTransform: "uppercase",
                             color: "#f57b23",
-                         
+
                             marginBottom: "0.75rem",
                             fontWeight: 400,
                         }}
@@ -158,15 +159,11 @@ export default function Bridge() {
                             fontSize: "0.85rem",
                             letterSpacing: "0.05em",
                             textDecoration: "none",
-                            borderRadius: "4px",
-                            boxShadow: "0 6px 20px rgba(201,169,110,0.28)",
+                     
                         }}
                     >
                         Explore Properties
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M5 12h14M12 5l7 7-7 7" />
-                        </svg>
+                     
                     </a>
                 </div>
 
@@ -262,17 +259,18 @@ export default function Bridge() {
                         </span>
                         <span style={{ display: "block", fontSize: "clamp(2.4rem, 6vw, 4rem)" }}>
                             <span ref={w7} style={{
-                                  color: "#f57b23" ,
-                                  marginRight: "0.55rem",
+                                color: "#f57b23",
+                                marginRight: "0.55rem",
                             }}>Meets</span>
                             <span ref={w8} style={{
-                                  color: "#f57b23",
-                                  marginRight: "0.55rem",
+                                color: "#f57b23",
+                                marginRight: "0.55rem",
 
                             }}>Luxury</span>
-                            <span ref={w9} style={{ 
-                                    color: "#f57b23",
-                                marginRight: 0 }}>Living</span>
+                            <span ref={w9} style={{
+                                color: "#f57b23",
+                                marginRight: 0
+                            }}>Living</span>
                         </span>
                     </h1>
 
@@ -292,17 +290,12 @@ export default function Bridge() {
                             fontSize: "0.9rem",
                             letterSpacing: "0.06em",
                             textDecoration: "none",
-                            borderRadius: "4px",
-                            boxShadow: "0 8px 28px rgba(201,169,110,0.3)",
-                            opacity: 0,
-                            transition: "transform 0.2s ease, box-shadow 0.2s ease",
+
+                        
                         }}
                     >
                         Explore Properties
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M5 12h14M12 5l7 7-7 7" />
-                        </svg>
+
                     </a>
                 </div>
             </div>
