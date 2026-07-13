@@ -225,7 +225,7 @@ export default function Spotlight() {
                         </motion.div>
                     </AnimatePresence>
 
-                    <button className="w-full md:w-auto border border-primary px-8 py-3 md:px-10 md:py-4 text-sm transition hover:bg-primary hover:text-white">
+                    <button className="w-full md:w-auto bg-primary text-white px-4 py-3 md:px-6 md:py-4 text-sm transition cursor-pointer">
                         View property
                     </button>
                 </div>
