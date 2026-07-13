@@ -1,4 +1,4 @@
-﻿import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { FaCampground, FaFire, FaTint, FaHotTub, FaHiking } from 'react-icons/fa';
 
 function CarouselImage({
@@ -114,14 +114,13 @@ const ImageCarousel = () => {
     return () => timers.forEach(clearTimeout);
   }, []);
 
-  /* â”€â”€ Auto-cycle on mobile every 3.5 s â”€â”€ */
+  /* ── Auto-cycle on all screens every 3.5 s ── */
   useEffect(() => {
-    if (!isMobile) return;
     const id = setInterval(() => {
       setActiveIndex(prev => (prev + 1) % options.length);
     }, 3500);
     return () => clearInterval(id);
-  }, [isMobile, options.length]);
+  }, [options.length]);
 
   const handleOptionClick = (index: number) => setActiveIndex(index);
 
