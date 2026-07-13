@@ -52,14 +52,14 @@ export default function Menubar() {
         open: {
             width: openWidth,
             height: openWidth < 360 ? 520 : 500,
-            borderRadius: 16,
+            // borderRadius: 16,
             top: -6,
             right: -6,
         } as const,
         closed: {
             width: 100,
             height: 32,
-            borderRadius: 24,
+            // borderRadius: 24,
             top: 0,
             right: 0,
             transition: {
@@ -74,7 +74,7 @@ export default function Menubar() {
         <div className="hidden lg:block relative z-18">
 
             {/* ── Menu / Close pill button ── */}
-            <div onClick={() => setIsActive(!isActive)} className="h-8 w-25 rounded-full cursor-pointer overflow-hidden ">
+            <div onClick={() => setIsActive(!isActive)} className="h-8 w-25  cursor-pointer overflow-hidden ">
                 <motion.div
                     animate={{ top: isActive ? "-100%" : "0%" }}
                     transition={{ duration: 0.5, ease: "easeInOut" }}
@@ -102,7 +102,7 @@ export default function Menubar() {
             >
                 <AnimatePresence>
                     {isActive && (
-                        <div className="h-full w-full pt-16 sm:pt-20 px-8 sm:px-12 md:px-16">
+                        <div className="h-full w-full pt-16 sm:pt-20 px-8 sm:px-12 md:px-16 bg-white/90">
                             <div className="flex flex-col gap-3 sm:gap-4">
                                 {navLinks.map((link, i) => (
                                     <div key={i} className="perspective-[120px] perspective-origin-bottom">
