@@ -43,6 +43,7 @@ const tabs = [
 export default function Spotlight() {
     const [[active, direction], setActive] = useState([0, 0]);
     const [activeTab, setActiveTab] = useState("SIGNATURE PROPERTIES");
+    
     const filteredProperties =
         activeTab === "SIGNATURE PROPERTIES"
             ? properties
@@ -50,6 +51,7 @@ export default function Spotlight() {
     useEffect(() => {
         setActive([0, 0]);
     }, [activeTab]);
+
     const next = () => {
         if (filteredProperties.length <= 1) return;
 
@@ -135,12 +137,14 @@ export default function Spotlight() {
     return (
         <section className="py-10">
             <div className="w-full px-4 md:px-18">
+
                 <div className="text-xl mb-6 md:mb-10 font-serif flex flex-col justify-center items-center text-center px-2">
                     <h1 className="text-2xl sm:text-4xl font-serif text-primary">Global Reach, Local Expertise</h1>
                     <p className="mt-2 text-sm text-gray-400 max-w-md">
                         Offering exclusive access to exceptional properties and local experts – wherever, whenever.
                     </p>
                 </div>
+
                 {/* Top Row */}
                 <div className="mb-4 md:mb-6 flex items-center justify-between ">
                     <h2 className="text-2xl font-serif text-primary">
