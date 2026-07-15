@@ -4,15 +4,6 @@ import { Building2, BookOpen, Info, Home, Search, HomeIcon } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react";
 import { Activity, useEffect, useRef, useState } from "react";
 
-const mobileLinks = [
-  { label: "Home", href: "/", icon: Home },
-
-  { label: "Properties", href: "/properties", icon: Building2 },
-  { label: "Blog", href: "/blog", icon: BookOpen },
-  { label: "About", href: "/about", icon: Info },
-  // { label: "Contact", href: "/contact", icon: MessageSquare },
-];
-
 export default function MobileBottomNav() {
   const location = useLocation();
   const currentPath = location.pathname.replace(/\/$/, "") || "/";
@@ -20,6 +11,19 @@ export default function MobileBottomNav() {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const bottomNavRef = useRef<HTMLDivElement>(null);
 
+  // const { data: session } = authClient.useSession();
+
+  const mobileLinks = [
+    { label: "Home", href: "/", icon: Home },
+    { label: "Properties", href: "/properties", icon: Building2 },
+    { label: "Blog", href: "/blog", icon: BookOpen },
+    { label: "About", href: "/about", icon: Info },
+    // { 
+    //   label: session?.user ? "Profile" : "Login", 
+    //   href: "/login", 
+    //   icon: User 
+    // },
+  ];
   useEffect(() => {
     if (isSearchIconClick) {
       requestAnimationFrame(() => {

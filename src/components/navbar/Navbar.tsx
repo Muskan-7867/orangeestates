@@ -9,6 +9,7 @@ import MobileBottomNav from "./MobileBottomNav";
 import { FaWhatsapp } from "react-icons/fa";
 import SearchBar from "./SearchBar";
 import FloatingSearchBar from "./FloatingSearchBar";
+// import BetterAuthHeader from "#/integrations/better-auth/header-user";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP)
 
@@ -161,7 +162,10 @@ export default function Navbar({ open }: { open: boolean, setOpen: React.Dispatc
           <FaWhatsapp className="h-5.5 w-5.5" />
         </a>
 
-        <Menubar />
+        <div className="hidden lg:flex items-center gap-4">
+          {/* <BetterAuthHeader /> */}
+          <Menubar />
+        </div>
 
 
       </nav>
