@@ -56,14 +56,11 @@ export default function PropertiesPage() {
 
   return (
     <main className="min-h-screen bg-bg">
-      <section className="py-28">
+      <section className="py-20">
         <div className="w-full px-4 lg:px-18">
           {/* Header */}
-          <div className=" flex flex-col items-center">
-            <p className="text-sm uppercase tracking-[0.3em] text-gray-500">
-              Collection
-            </p>
-
+          <div className="flex flex-col items-center">
+           
             <h2 className="mt-2 text-2xl md:text-6xl font-light font-serif text-gray-900 text-center">
               Featured Properties
             </h2>
@@ -75,7 +72,7 @@ export default function PropertiesPage() {
           </div>
 
           {/* Gallery */}
-          <div className="mb-16">
+          <div className="mb-2">
             <PropertyHero />
           </div>
 

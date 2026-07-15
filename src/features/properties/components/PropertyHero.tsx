@@ -38,7 +38,7 @@ function BlurImage({
   alt = "",
   className = "",
   draggable = false,
-  
+
 }: BlurImageProps) {
   const [loaded, setLoaded] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
@@ -58,9 +58,8 @@ function BlurImage({
         src={src}
         alt=""
         aria-hidden
-        className={`absolute inset-0 w-full h-full object-cover scale-110 blur-2xl brightness-75 transition-opacity duration-500 ${
-          loaded ? "opacity-0" : "opacity-100"
-        }`}
+        className={`absolute inset-0 w-full h-full object-cover scale-110 blur-2xl brightness-75 transition-opacity duration-500 ${loaded ? "opacity-0" : "opacity-100"
+          }`}
         draggable={false}
       />
 
@@ -71,9 +70,8 @@ function BlurImage({
         alt={alt}
         draggable={draggable}
         onLoad={() => setLoaded(true)}
-        className={`${className} transition-opacity duration-700 ${
-          loaded ? "opacity-100" : "opacity-0"
-        }`}
+        className={`${className} transition-opacity duration-700 ${loaded ? "opacity-100" : "opacity-0"
+          }`}
       />
     </div>
   );
@@ -114,7 +112,7 @@ export default function PropertyHero() {
   };
 
   return (
-    <section className="py-16 px-6 rounded-4xl text-white overflow-hidden ">
+    <section className="py-8 px-6 rounded-4xl text-white overflow-hidden ">
       <div className="max-w-7xl mx-auto">
         {/* Gallery */}
         <div className="relative h-120 hidden lg:block w-full">
@@ -149,12 +147,12 @@ export default function PropertyHero() {
               key={index}
               className="aspect-3/4 rounded-2xl overflow-hidden shadow-md border border-white/5"
             >
-               <BlurImage
-                  src={image.src}
-                  alt=""
-                  className="h-full w-full object-cover select-none"
-                  draggable={false}
-                />
+              <BlurImage
+                src={image.src}
+                alt=""
+                className="h-full w-full object-cover select-none"
+                draggable={false}
+              />
             </div>
           ))}
         </div>
