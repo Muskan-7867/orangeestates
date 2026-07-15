@@ -24,12 +24,20 @@ const StickyFooter = ({ className, ...props }: StickyFooterProps) => {
         {/* Divider */}
         <div className="mt-14 border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-zinc-400">
           <p>© 2026 Orange Estate, Inc. All rights reserved.</p>
-          <Link
-            to="/"
-            className="hover:text-white transition-colors duration-300"
-          >
-            Privacy Policy
-          </Link>
+          <div className="flex items-center gap-6">
+            <Link
+              to="/privacy"
+              className="hover:text-white transition-colors duration-300"
+            >
+              Privacy Policy
+            </Link>
+            <Link
+              to="/terms"
+              className="hover:text-white transition-colors duration-300"
+            >
+              Terms & Conditions
+            </Link>
+          </div>
         </div>
       </div>
     </footer>
