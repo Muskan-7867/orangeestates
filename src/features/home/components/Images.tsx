@@ -9,37 +9,50 @@ const images = [
         name: "New homes",
     },
     {
-        url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=400",
+        // url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=400",
+        url: "/4.jpg",
         blurUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=20&q=10",
         name: "Coastal",
     },
     {
-        url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=400",
+        // url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=400",
+        url: "/5.jpg",
+
         blurUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=20&q=10",
         name: "London commute",
     },
     {
-        url: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=400",
+        // url: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=400",
+        url: "/6.jpg",
+
         blurUrl: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=20&q=10",
         name: "Lateral living",
     },
     {
-        url: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=400",
+        // url: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=400",
+        url: "/7.jpg",
+
         blurUrl: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=20&q=10",
         name: "With land",
     },
     {
-        url: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?q=80&w=400",
+        // url: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?q=80&w=400",
+        url: "/bridge.png",
+
         blurUrl: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=20&q=10",
         name: "New homes",
     },
     {
-        url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=400",
+        // url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=400",
+        url: "/8.jpg",
+
         blurUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=20&q=10",
         name: "Coastal",
     },
     {
-        url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=400",
+        // url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=400",
+        url: "/9.jpg",
+
         blurUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=20&q=10",
         name: "London commute",
     },
@@ -54,12 +67,16 @@ const images = [
         name: "With land",
     },
     {
-        url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=400",
+        // url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=400",
+        url: "/about-hero.jpg",
+
         blurUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=20&q=10",
         name: "Coastal",
     },
     {
-        url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=400",
+        // url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=400",
+        url: "/contact-hero.jpg",
+
         blurUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=20&q=10",
         name: "London commute",
     },

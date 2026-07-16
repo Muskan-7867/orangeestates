@@ -7,31 +7,39 @@ import { useRef } from "react";
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 const images = [
     {
-        src: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=600",
+        // src: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=600",
+        src:"/shard.jpg",
         blurSrc: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=20&q=10",
     },
     {
-        src: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?q=80&w=600",
+        // src: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?q=80&w=600",
+        src: "/7.jpg",
         blurSrc: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=20&q=10",
     },
     {
-        src: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=600",
+        // src: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=600",
+        src: "/8.jpg",
         blurSrc: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=20&q=10",
     },
     {
-        src: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?q=80&w=600",
+        // src: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?q=80&w=600",
+        src: "/about-hero.jpg",
         blurSrc: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=20&q=10",
     },
     {
-        src: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=600",
+        // src: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=600",
+        src: "4.jpg",
         blurSrc: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=20&q=10",
     },
     {
-        src: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?q=80&w=600",
+        // src: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?q=80&w=600",
+        src: "5.jpg",
         blurSrc: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=20&q=10",
     },
     {
-        src: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=600",
+        // src: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=600",
+        src: "9.jpg",
+
         blurSrc: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=20&q=10",
     },
     {
