@@ -12,6 +12,8 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as UserRouteRouteImport } from './routes/_user/route'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as UserIndexRouteImport } from './routes/_user/index'
+import { Route as UserTermsRouteImport } from './routes/_user/terms'
+import { Route as UserPrivacyRouteImport } from './routes/_user/privacy'
 import { Route as UserLoginRouteImport } from './routes/_user/login'
 import { Route as UserContactRouteImport } from './routes/_user/contact'
 import { Route as UserBlogRouteImport } from './routes/_user/blog'
@@ -32,6 +34,16 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
 const UserIndexRoute = UserIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => UserRouteRoute,
+} as any)
+const UserTermsRoute = UserTermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => UserRouteRoute,
+} as any)
+const UserPrivacyRoute = UserPrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
   getParentRoute: () => UserRouteRoute,
 } as any)
 const UserLoginRoute = UserLoginRouteImport.update({
@@ -76,6 +88,8 @@ export interface FileRoutesByFullPath {
   '/blog': typeof UserBlogRoute
   '/contact': typeof UserContactRoute
   '/login': typeof UserLoginRoute
+  '/privacy': typeof UserPrivacyRoute
+  '/terms': typeof UserTermsRoute
   '/admin/': typeof AdminIndexRoute
   '/properties/$slug': typeof UserPropertiesSlugRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
@@ -86,6 +100,8 @@ export interface FileRoutesByTo {
   '/blog': typeof UserBlogRoute
   '/contact': typeof UserContactRoute
   '/login': typeof UserLoginRoute
+  '/privacy': typeof UserPrivacyRoute
+  '/terms': typeof UserTermsRoute
   '/': typeof UserIndexRoute
   '/admin': typeof AdminIndexRoute
   '/properties/$slug': typeof UserPropertiesSlugRoute
@@ -99,6 +115,8 @@ export interface FileRoutesById {
   '/_user/blog': typeof UserBlogRoute
   '/_user/contact': typeof UserContactRoute
   '/_user/login': typeof UserLoginRoute
+  '/_user/privacy': typeof UserPrivacyRoute
+  '/_user/terms': typeof UserTermsRoute
   '/_user/': typeof UserIndexRoute
   '/admin/': typeof AdminIndexRoute
   '/_user/properties/$slug': typeof UserPropertiesSlugRoute
@@ -113,6 +131,8 @@ export interface FileRouteTypes {
     | '/blog'
     | '/contact'
     | '/login'
+    | '/privacy'
+    | '/terms'
     | '/admin/'
     | '/properties/$slug'
     | '/api/auth/$'
@@ -123,6 +143,8 @@ export interface FileRouteTypes {
     | '/blog'
     | '/contact'
     | '/login'
+    | '/privacy'
+    | '/terms'
     | '/'
     | '/admin'
     | '/properties/$slug'
@@ -135,6 +157,8 @@ export interface FileRouteTypes {
     | '/_user/blog'
     | '/_user/contact'
     | '/_user/login'
+    | '/_user/privacy'
+    | '/_user/terms'
     | '/_user/'
     | '/admin/'
     | '/_user/properties/$slug'
@@ -169,6 +193,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof UserIndexRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
+    '/_user/terms': {
+      id: '/_user/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof UserTermsRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
+    '/_user/privacy': {
+      id: '/_user/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof UserPrivacyRouteImport
       parentRoute: typeof UserRouteRoute
     }
     '/_user/login': {
@@ -228,6 +266,8 @@ interface UserRouteRouteChildren {
   UserBlogRoute: typeof UserBlogRoute
   UserContactRoute: typeof UserContactRoute
   UserLoginRoute: typeof UserLoginRoute
+  UserPrivacyRoute: typeof UserPrivacyRoute
+  UserTermsRoute: typeof UserTermsRoute
   UserIndexRoute: typeof UserIndexRoute
   UserPropertiesSlugRoute: typeof UserPropertiesSlugRoute
   UserPropertiesIndexRoute: typeof UserPropertiesIndexRoute
@@ -238,6 +278,8 @@ const UserRouteRouteChildren: UserRouteRouteChildren = {
   UserBlogRoute: UserBlogRoute,
   UserContactRoute: UserContactRoute,
   UserLoginRoute: UserLoginRoute,
+  UserPrivacyRoute: UserPrivacyRoute,
+  UserTermsRoute: UserTermsRoute,
   UserIndexRoute: UserIndexRoute,
   UserPropertiesSlugRoute: UserPropertiesSlugRoute,
   UserPropertiesIndexRoute: UserPropertiesIndexRoute,

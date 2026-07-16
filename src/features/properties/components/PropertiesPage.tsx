@@ -1,11 +1,10 @@
-
 import { useState } from "react";
 import { PropertyCard } from "#/components/ui/PropertyCard";
 import { PropertyCardSkeleton } from "#/components/ui/PropertyCard";
 import { properties } from "#/constants";
-import PropertyHero from "./PropertyHero";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import PropertyFilters from "./PropertyFilters";
+import PropHero from "./Prop";
 
 const ITEMS_PER_PAGE = 6;
 
@@ -55,11 +54,12 @@ export default function PropertiesPage() {
   };
 
   return (
-    <main className="min-h-screen bg-bg">
-      <section className="py-20">
-        <div className="w-full px-4 lg:px-18">
+    <main className="min-h-screen bg-bg pb-28">
+      <section className="">
+
+        <div className="w-full  ">
           {/* Header */}
-          <div className="flex flex-col items-center">
+          {/* <div className="flex flex-col items-center">
            
             <h2 className="mt-2 text-2xl md:text-6xl font-light font-serif text-gray-900 text-center">
               Featured Properties
@@ -69,11 +69,13 @@ export default function PropertiesPage() {
               Explore our handpicked collection of exceptional homes and
               investment properties.
             </p>
-          </div>
+          </div> */}
 
           {/* Gallery */}
-          <div className="mb-2">
-            <PropertyHero />
+          <div className="mb-2 ">
+        <PropHero />
+
+            {/* <PropertyHero /> */}
           </div>
 
           {/* Filter */}
@@ -96,7 +98,7 @@ export default function PropertiesPage() {
           />
 
           {/* Grid */}
-          <div className="grid gap-8 sm:grid-cols-2 xl:grid-cols-3">
+          <div className="grid gap-8 sm:grid-cols-2 xl:grid-cols-3 px-4 lg:px-18  ">
             {isLoading
               ? Array.from({ length: ITEMS_PER_PAGE }).map((_, i) => (
                   <PropertyCardSkeleton key={i} />

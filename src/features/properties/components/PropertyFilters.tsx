@@ -16,7 +16,7 @@ export default function PropertyFilters({
   setSearchQuery,
 }: PropertyFiltersProps) {
   return (
-    <div className="mb-10 flex flex-col md:flex-row md:items-center md:justify-between gap-4 w-full">
+    <div className="mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4 w-full px-4 lg:px-18 pt-4">
       {/* Country Filter - Left Side */}
       <div className="flex flex-wrap items-center gap-2">
         {countries.map((country) => (
