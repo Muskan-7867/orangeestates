@@ -109,14 +109,17 @@ export default function PropHero() {
             });
         });
 
-        const tl = gsap.timeline();
+        const tl = gsap.timeline({ repeat: -1, repeatDelay: 0.8 });
 
+        // Phase 1: Draw strokes
         tl.to(paths, {
             strokeDashoffset: 0,
             duration: 2.5,
             ease: "power2.inOut",
             stagger: 0.12,
-        }).to(
+        })
+        // Phase 2: Fill white (overlaps with draw end)
+        .to(
             paths,
             {
                 fill: "#ffffff",
@@ -125,7 +128,21 @@ export default function PropHero() {
                 stagger: 0.1,
             },
             "-=1.5"
-        );
+        )
+        // Phase 3: Hold briefly, then fade fill back out
+        .to(paths, {
+            fill: "transparent",
+            duration: 1.2,
+            ease: "power2.in",
+            stagger: { each: 0.08, from: "end" },
+        }, "+=0.6")
+        // Phase 4: Un-draw strokes (reverse stagger)
+        .to(paths, {
+            strokeDashoffset: (i: number, target: SVGPathElement) => target.getTotalLength(),
+            duration: 2,
+            ease: "power2.inOut",
+            stagger: { each: 0.1, from: "end" },
+        }, "-=0.8");
     }, { scope: containerRef });
 
     const allLetters = [...word1Letters, ...word2Letters];

@@ -34,7 +34,7 @@ export const properties = [
     id: "1",
     slug: "peninsula-heights-albert-embankment-london",
     images: [
-      { url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=20&q=10" },
+      { url: "https://sothebysrealty.co.uk/cdn-cgi/image/format=auto,height=1000,fit=cover,quality=75/https://sothebys-assets.s3.eu-west-2.amazonaws.com/47153043-75df-4885-9212-8ccdc379cd8b.png", blurUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=20&q=10" },
       { url: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=20&q=10" },
       { url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=20&q=10" },
       { url: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=20&q=10" },
@@ -50,7 +50,7 @@ export const properties = [
     id: "2",
     slug: "hanover-square-mayfair-london",
     images: [
-      { url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=20&q=10" },
+      { url: "https://sothebysrealty.co.uk/cdn-cgi/image/format=auto,width=800,fit=cover,quality=80/https://uk-media.s3.amazonaws.com/Listing_s3/UK-S-07425_hamstonehousesouthridgestgeorgeshillweybridgekt130nfdrone-372.jpg.jpeg", blurUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=20&q=10" },
       { url: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=20&q=10" },
       { url: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=20&q=10" },
     ],
@@ -64,7 +64,7 @@ export const properties = [
     id: "3",
     slug: "craven-hill-gardens-bayswater-london",
     images: [
-      { url: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=20&q=10" },
+      { url: "https://sothebysrealty.co.uk/cdn-cgi/image/format=auto,width=900,fit=cover,quality=80/https://my-dubai-real-estate.s3.eu-north-1.amazonaws.com/Listing_s3/9br9g77po.jpg.jpeg", blurUrl: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=20&q=10" },
       { url: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=20&q=10" },
       { url: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=20&q=10" },
     ],
@@ -78,7 +78,7 @@ export const properties = [
     id: "4",
     slug: "peninsula-heights-albert-embankment-london-2",
     images: [
-      { url: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=20&q=10" },
+      { url: "https://sothebysrealty.co.uk/cdn-cgi/image/format=auto,width=900,fit=cover,quality=80/https://my-dubai-real-estate.s3.eu-north-1.amazonaws.com/Listing_s3/0czv7738z.jpg.jpeg", blurUrl: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=20&q=10" },
       { url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=20&q=10" },
       { url: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=20&q=10" },
     ],
@@ -92,7 +92,7 @@ export const properties = [
     id: "5",
     slug: "hanover-square-mayfair-london-2",
     images: [
-      { url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=20&q=10" },
+      { url: "https://sothebysrealty.co.uk/cdn-cgi/image/format=auto,width=900,fit=cover,quality=80/https://my-dubai-real-estate.s3.eu-north-1.amazonaws.com/Listing_s3/img_0413-hdr-edithero.jpg.jpeg", blurUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=20&q=10" },
       { url: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=20&q=10" },
       { url: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=20&q=10" },
     ],
