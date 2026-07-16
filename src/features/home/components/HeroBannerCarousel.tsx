@@ -1,9 +1,8 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import type { Variants } from "motion/react";
-import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 
 interface Slide {
   id: number;
@@ -24,7 +23,7 @@ const slides: Slide[] = [
     description:
       "Designed to elevate contemporary interiors through sculptural forms, natural materials, and timeless craftsmanship.",
     image:
-      "/4.jpg",
+      "/9.jpg",
     blurImage:
       "https://robbreport.com/wp-content/uploads/2023/04/Studley-Royal-House-.jpg?w=1000&q=10",
 
@@ -39,7 +38,7 @@ const slides: Slide[] = [
       "Refined silhouettes and tactile materials create a balanced atmosphere between architecture and design.",
     // image:
     //   "https://images.unsplash.com/photo-1632860644196-e1e464596ea3?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    image: "/5.jpg",
+    image: "/bridge.png",
     blurImage:
       "https://images.unsplash.com/photo-1494526585095-c41746248156?w=20&q=10",
 
@@ -54,7 +53,7 @@ const slides: Slide[] = [
       "A curated collection of objects and spaces inspired by contemporary editorial aesthetics.",
     // image:
     //   "https://as1.ftcdn.net/v2/jpg/20/73/37/00/1000_F_2073370087_qAFZo1zBMYp42tipfSqBPjEQeTaICBr6.jpg",
-    image: "/6.jpg",
+    image: "/5.jpg",
     blurImage:
       "https://images.unsplash.com/photo-1484154218962-a197022b5858?w=20&q=10",
 
@@ -152,6 +151,14 @@ export default function HeroBannerCarousel() {
     });
   };
 
+  // Auto-scroll slides every 6 seconds. The interval resets if the user manually navigates or swiping triggers an index change.
+  useEffect(() => {
+    const timer = setInterval(() => {
+      paginate(1);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, [index]);
+
   // ─── Swipe / drag handling (mouse + touch) ───────────────────────────────
   const dragStart = useRef<number | null>(null);
   const isDragging = useRef(false);
@@ -208,7 +215,7 @@ export default function HeroBannerCarousel() {
           exit="exit"
           style={{ willChange: "opacity, transform" }}
         >
-          <div className="absolute inset-0 bg-black/15 z-10" />
+          <div className="absolute inset-0  z-10" />
           {/* Blur placeholder — tiny image scaled up with CSS blur */}
           <div
             className="absolute inset-0"
