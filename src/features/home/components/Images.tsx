@@ -5,89 +5,58 @@ import { motion, useMotionValue, useSpring, animate } from "motion/react";
 const images = [
     {
         url: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?q=80&w=400",
-        blurUrl: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=20&q=10",
         name: "New homes",
     },
     {
-        // url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=400",
         url: "/4.jpg",
-        blurUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=20&q=10",
         name: "Coastal",
     },
     {
-        // url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=400",
         url: "/5.jpg",
-
-        blurUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=20&q=10",
         name: "London commute",
     },
     {
-        // url: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=400",
         url: "/6.jpg",
-
-        blurUrl: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=20&q=10",
         name: "Lateral living",
     },
     {
-        // url: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=400",
         url: "/7.jpg",
-
-        blurUrl: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=20&q=10",
         name: "With land",
     },
     {
-        // url: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?q=80&w=400",
         url: "/bridge.png",
-
-        blurUrl: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=20&q=10",
         name: "New homes",
     },
     {
-        // url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=400",
         url: "/8.jpg",
-
-        blurUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=20&q=10",
         name: "Coastal",
     },
     {
-        // url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=400",
         url: "/9.jpg",
-
-        blurUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=20&q=10",
         name: "London commute",
     },
     {
         url: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=400",
-        blurUrl: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=20&q=10",
         name: "Lateral living",
     },
     {
         url: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=400",
-        blurUrl: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=20&q=10",
         name: "With land",
     },
     {
-        // url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=400",
         url: "/about-hero.jpg",
-
-        blurUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=20&q=10",
         name: "Coastal",
     },
     {
-        // url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=400",
         url: "/contact-hero.jpg",
-
-        blurUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=20&q=10",
         name: "London commute",
     },
     {
         url: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=400",
-        blurUrl: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=20&q=10",
         name: "Lateral living",
     },
     {
         url: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=400",
-        blurUrl: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=20&q=10",
         name: "With land",
     },
 ];
@@ -97,13 +66,12 @@ const SCROLL_AMOUNT = 380;
 export default function Images() {
     const containerRef = useRef<HTMLDivElement>(null);
     const trackRef = useRef<HTMLDivElement>(null);
-    const [scrollDir, setScrollDir] = useState<"left" | "right" | null>(null);
     const [canScrollLeft, setCanScrollLeft] = useState(false);
     const [canScrollRight, setCanScrollRight] = useState(true);
 
-    // ─── Physics-based scroll ───────────────────────────────────────────────
+    // Physics-based scroll — only x drives the track; no per-card animation
     const x = useMotionValue(0);
-    const springX = useSpring(x, { stiffness: 200, damping: 32, mass: 0.9, restDelta: 0.5 });
+    const springX = useSpring(x, { stiffness: 220, damping: 34, mass: 0.8, restDelta: 0.3 });
 
     const getBounds = useCallback(() => {
         if (!containerRef.current || !trackRef.current) return { min: 0, max: 0 };
@@ -120,21 +88,21 @@ export default function Images() {
         });
     }, [x, getBounds]);
 
-    const scroll = useCallback((direction: "left" | "right") => {
-        setScrollDir(direction);
-        const delta = direction === "left" ? SCROLL_AMOUNT : -SCROLL_AMOUNT;
-        const { min, max } = getBounds();
-        const next = Math.min(max, Math.max(min, x.get() + delta));
+    const scroll = useCallback(
+        (direction: "left" | "right") => {
+            const delta = direction === "left" ? SCROLL_AMOUNT : -SCROLL_AMOUNT;
+            const { min, max } = getBounds();
+            const next = Math.min(max, Math.max(min, x.get() + delta));
 
-        animate(x, next, {
-            type: "spring",
-            stiffness: 200,
-            damping: 32,
-            mass: 0.9,
-        });
-
-        setTimeout(() => setScrollDir(null), 650);
-    }, [x, getBounds]);
+            animate(x, next, {
+                type: "spring",
+                stiffness: 220,
+                damping: 34,
+                mass: 0.8,
+            });
+        },
+        [x, getBounds],
+    );
 
     return (
         <section className="py-6 px-4 sm:p-8">
@@ -143,92 +111,42 @@ export default function Images() {
                 <motion.div
                     ref={trackRef}
                     className="flex gap-4 min-w-max py-3 px-1"
-                    style={{ x: springX }}
+                    style={{ x: springX, willChange: "transform" }}
                     drag="x"
                     dragConstraints={containerRef}
-                    dragElastic={0.07}
+                    dragElastic={0.06}
                     dragTransition={{ bounceStiffness: 280, bounceDamping: 36 }}
-                    // Keep x in sync after drag ends
-                    onDragEnd={(_) => {
+                    onDragEnd={() => {
                         x.set(x.get()); // anchor spring to where drag landed
                     }}
                 >
                     {images.map((image, index) => (
-                        <motion.div
+                        <div
                             key={index}
-                            className="shrink-0 w-42.5 text-center cursor-pointer select-none"
-                            // ── Wave nudge when a button is pressed ──────────
-                            animate={
-                                scrollDir
-                                    ? {
-                                        x: [
-                                            0,
-                                            scrollDir === "right" ? -10 : 10,
-                                            0,
-                                        ],
-                                    }
-                                    : { x: 0 }
-                            }
-                            transition={
-                                scrollDir
-                                    ? {
-                                        duration: 0.42,
-                                        ease: [0.25, 1, 0.5, 1],
-                                        delay: (index % 7) * 0.025, // stagger wave
-                                    }
-                                    : { duration: 0 }
-                            }
-                            whileHover={{ y: -8, scale: 1.05 }}
+                            className="images-card shrink-0 w-42.5 text-center cursor-pointer select-none"
                         >
                             {/* Image container */}
-                            <div className="overflow-hidden rounded-xl w-full h-24.5 relative bg-neutral-100">
-                                {/* Blur placeholder */}
-                                <div
-                                    className="absolute inset-0"
-                                    style={{
-                                        backgroundImage: `url(${image.blurUrl})`,
-                                        backgroundSize: "cover",
-                                        backgroundPosition: "center",
-                                        filter: "blur(12px)",
-                                        transform: "scale(1.1)",
-                                    }}
-                                />
-                                <motion.img
+                            <div className="images-img-wrap overflow-hidden rounded-xl w-full h-24.5 relative bg-neutral-100">
+                                <img
                                     src={image.url}
                                     alt={image.name}
                                     draggable={false}
-                                    className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500"
-                                    whileHover={{
-                                        scale: 1.15,
-                                        transition: { duration: 0.45, ease: [0.25, 1, 0.5, 1] },
-                                    }}
+                                    loading={index < 4 ? "eager" : "lazy"}
+                                    className="images-img absolute inset-0 w-full h-full object-cover"
                                 />
                                 {/* Gradient overlay on hover */}
-                                <motion.div
-                                    className="absolute inset-0 bg-linear-to-t from-black/25 to-transparent pointer-events-none z-10"
-                                    initial={{ opacity: 0 }}
-                                    whileHover={{ opacity: 1 }}
-                                    transition={{ duration: 0.3 }}
-                                />
+                                <div className="images-overlay absolute inset-0 bg-gradient-to-t from-black/25 to-transparent pointer-events-none z-10" />
                             </div>
 
-                            <motion.h3
-                                className="mt-3 text-[18px] font-medium text-gray-800"
-                                whileHover={{ color: "#000", transition: { duration: 0.2 } }}
-                            >
+                            <h3 className="images-label mt-3 text-[18px] font-medium text-gray-800">
                                 {image.name}
-                            </motion.h3>
+                            </h3>
 
                             {/* Animated underline on hover */}
-                            <div className="flex justify-center mt-1">
-                                <motion.div
-                                    className="h-0.5 bg-black rounded-full"
-                                    initial={{ width: 0 }}
-                                    whileHover={{ width: 28 }}
-                                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                                />
-                            </div>
-                        </motion.div>
+                            {/* <div className="flex justify-center mt-1">
+                                <div className="images-underline h-0.5 bg-black rounded-full" />
+                            </div> */}
+                        </div>
                     ))}
                 </motion.div>
             </div>
@@ -246,12 +164,7 @@ export default function Images() {
                         transition={{ type: "spring", stiffness: 400, damping: 17 }}
                         className="w-8 h-8 rounded-full border border-neutral-200 flex items-center justify-center"
                     >
-                        <motion.span
-                            animate={scrollDir === "left" ? { x: [-4, 0] } : { x: 0 }}
-                            transition={{ type: "spring", stiffness: 500, damping: 20 }}
-                        >
-                            <ChevronLeft size={20} />
-                        </motion.span>
+                        <ChevronLeft size={20} />
                     </motion.button>
 
                     {/* Right arrow */}
@@ -264,15 +177,53 @@ export default function Images() {
                         transition={{ type: "spring", stiffness: 400, damping: 17 }}
                         className="w-8 h-8 rounded-full border border-neutral-200 flex items-center justify-center"
                     >
-                        <motion.span
-                            animate={scrollDir === "right" ? { x: [4, 0] } : { x: 0 }}
-                            transition={{ type: "spring", stiffness: 500, damping: 20 }}
-                        >
-                            <ChevronRight size={20} />
-                        </motion.span>
+                        <ChevronRight size={20} />
                     </motion.button>
                 </div>
             </div>
+
+            <style>{`
+                /* Card lift on hover — pure CSS, GPU composited */
+                .images-card {
+                    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+                    will-change: transform;
+                }
+                .images-card:hover {
+                    transform: translateY(-8px) scale(1.05);
+                }
+
+                /* Image zoom on hover — CSS transition, no JS runtime */
+                .images-img {
+                    transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1);
+                    will-change: transform;
+                }
+                .images-img-wrap:hover .images-img {
+                    transform: scale(1.15);
+                }
+
+                /* Gradient overlay fade on hover */
+                .images-overlay {
+                    opacity: 0;
+                    transition: opacity 0.3s ease;
+                }
+                .images-img-wrap:hover .images-overlay {
+                    opacity: 1;
+                }
+
+                /* Label colour on hover */
+                .images-card:hover .images-label {
+                    color: #000;
+                }
+
+                /* Underline expand on hover */
+                .images-underline {
+                    width: 0;
+                    transition: width 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+                }
+                .images-card:hover .images-underline {
+                    width: 28px;
+                }
+            `}</style>
         </section>
     );
 }

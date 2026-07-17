@@ -139,7 +139,7 @@ export default function HeroBannerCarousel() {
   const [[index, direction], setIndex] = useState([0, 0]);
 
   const slide = slides[index];
-  const nextSlide = slides[(index + 1) % slides.length];
+  const nextSlide = slides[(index + 1) % slides.length];    
   const thirdSlide = slides[(index + 2) % slides.length];
 
   // ── Stable paginate — never changes identity, safe for refs ──────────────

@@ -184,8 +184,8 @@ export default function Spotlight() {
                             className="absolute inset-0 h-full w-full"
                         >
                             <SpotlightImage
-                                src={filteredProperties[active].image}
-                                blurSrc={filteredProperties[active].blurImage}
+                                src={filteredProperties[active]?.image}
+                                blurSrc={filteredProperties[active]?.blurImage}
                             />
                         </motion.div>
                     </AnimatePresence>

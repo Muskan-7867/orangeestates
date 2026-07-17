@@ -200,7 +200,7 @@ export default function ScrollImages() {
             <section className="flex flex-col md:hidden w-full py-10 p-4 ">
                 {/* Text content */}
                 <div className="text-center mb-8 px-6">
-                    <h1 className="text-4xl font-medium leading-[1.1] tracking-tight font-serif text-primary">
+                    <h1 className="text-2xl sm:text-4xl font-medium leading-[1.1] tracking-tight font-serif text-primary">
                         Find your
                         <br />
                         dream home.
