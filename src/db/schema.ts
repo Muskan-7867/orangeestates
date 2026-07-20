@@ -1,5 +1,5 @@
 
-import { pgTable, text, timestamp, boolean, index } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, boolean, index, uuid } from "drizzle-orm/pg-core";
 
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
@@ -79,3 +79,67 @@ export const verification = pgTable(
 );
 
 
+export const post = pgTable(
+  "post",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    title: text("title").notNull(),
+    slug: text("slug").notNull().unique(),
+    excerpt: text("excerpt"),
+    content: text("content").notNull(),
+    status: text("status", {
+      enum: ["draft", "published", "archived"],
+    })
+      .default("draft")
+      .notNull(),
+    featured: boolean("featured").default(false).notNull(),
+    coverImage: uuid("cover_image")
+      .references(() => media.id),
+    category: uuid("category_id")
+      .notNull()
+      .references(() => category.id, {
+        onDelete: "cascade",
+      }),
+    authorId: text("author_id")
+      .notNull()
+      .references(() => user.id, {
+        onDelete: "cascade",
+      }),
+    publishedAt: timestamp("published_at"),
+    createdAt: timestamp("created_at")
+      .defaultNow()
+      .notNull(),
+    updatedAt: timestamp("updated_at")
+      .defaultNow()
+      .$onUpdate(() => new Date())
+      .notNull(),
+  },
+  (table) => [
+    index("post_slug_idx").on(table.slug),
+    index("post_author_idx").on(table.authorId),
+    index("post_category_idx").on(table.category),
+    index("post_status_idx").on(table.status),
+  ]
+);
+
+export const media = pgTable("media", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  name: text("name").notNull(),
+  imageId: text("image_id").notNull(),
+  url: text("url").notNull(),
+  thumbhash: text("thumbhash").notNull(),
+  blurDataUrl: text("blur_data_url").notNull(),
+
+  uploadedBy: text("uploaded_by")
+    .references(() => user.id),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at")
+    .defaultNow()
+    .$onUpdate(() => new Date())
+    .notNull(),
+});
+
+export const category = pgTable("category", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  name: text("name").notNull().unique(),
+});
