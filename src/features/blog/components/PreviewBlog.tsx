@@ -2,6 +2,7 @@
 import { Link } from "@tanstack/react-router";
 import { Calendar, Clock, User, X } from "lucide-react";
 import {  motion } from "motion/react";
+import { env } from "../../../../env";
 
 export default function PreviewBlog({
     selectedPost,
@@ -10,6 +11,8 @@ export default function PreviewBlog({
     setSelectedPost: any
     selectedPost: any
 }) {
+    console.log("from preview blog", selectedPost);
+    
     return (
         <>
            <motion.div
@@ -41,7 +44,7 @@ export default function PreviewBlog({
                   }}
                 />
                 <img
-                  src={selectedPost.image}
+                  src={`${env.VITE_OMSTORAGE_URL}${selectedPost.image}`}
                   alt={selectedPost.title}
                   className="absolute inset-0 w-full h-full object-cover rounded-t-lg"
                 />
@@ -87,9 +90,19 @@ export default function PreviewBlog({
 
                 {/* Content paragraphs */}
                 <div className="space-y-4 text-gray-700 text-sm leading-relaxed font-light">
-                  {selectedPost.content.map((p: any, i:number) => (
-                    <p key={i}>{p}</p>
-                  ))}
+                  {selectedPost.content.map((p: any, i: number) => {
+                    if (
+                      typeof p === 'string' &&
+                      (p.includes('<p>') ||
+                        p.includes('<h') ||
+                        p.includes('<div') ||
+                        p.includes('<ul') ||
+                        p.includes('<ol'))
+                    ) {
+                      return <div key={i} dangerouslySetInnerHTML={{ __html: p }} />
+                    }
+                    return <p key={i}>{p}</p>
+                  })}
                 </div>
 
                 {/* Footer action */}
