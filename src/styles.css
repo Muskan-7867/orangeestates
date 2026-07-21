@@ -308,3 +308,68 @@ body {
     transparent 100%
   );
 }
+
+/* ── Hero SplitText overflow clip ─────────────────────────────── */
+.hero-line1,
+.hero-line2 {
+  overflow: hidden;
+  display: block;
+}
+
+/* Ensure 3D perspective is inherited for hero 3D tilt */
+#hero {
+  perspective: 1200px;
+  cursor: none !important;
+}
+
+/* Hide standard cursor inside children, except in the normal cursor container (.no-custom-cursor) */
+#hero *:not(.no-custom-cursor):not(.no-custom-cursor *) {
+  cursor: none !important;
+}
+
+.no-custom-cursor {
+  cursor: auto !important;
+}
+
+.no-custom-cursor button,
+.no-custom-cursor [role="button"],
+.no-custom-cursor a {
+  cursor: pointer !important;
+}
+
+.no-custom-cursor input {
+  cursor: text !important;
+}
+
+#hero > div:first-of-type {
+  transform-style: preserve-3d;
+}
+
+/* Smooth 60fps for hero transitions */
+#hero video {
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Custom cursor responsive fallback */
+@media (max-width: 1024px) {
+  #hero, #hero * {
+    cursor: auto !important;
+  }
+  .fixed[ref="cursorRingRef"],
+  .fixed[ref="cursorDotRef"] {
+    display: none !important;
+  }
+}
+
+/* Prevent layout shift on very small screens */
+@media (max-width: 480px) {
+  #hero {
+    perspective: none;
+  }
+}
+
+.hero-custom-cursor {
+  cursor: none;
+}

@@ -20,8 +20,8 @@ const FooterContent = () => {
     {
       label: "Links",
       links: [
-        // { title: "Home", href: "/" },
-        { title: "Properties", href: "/properties" },
+        { title: "Buy", href: "/buy" },
+        { title: "Rent", href: "/rent" },
         { title: "Blog", href: "/blog" },
         { title: "About Us", href: "/about" },
         { title: "Contact Us", href: "/contact" }

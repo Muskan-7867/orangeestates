@@ -5,7 +5,8 @@ import { X } from "lucide-react"
 
 export const navLinks = [
   { label: "Home", href: "/" },
-  { label: "Properties", href: "/properties" },
+  { label: "Buy", href: "/buy" },
+  { label: "Rent", href: "/rent" },
   { label: "Blog", href: "/blog" },
   { label: "About Us", href: "/about" },
   { label: "Contact", href: "/contact" },

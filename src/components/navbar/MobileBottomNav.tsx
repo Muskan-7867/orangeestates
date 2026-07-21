@@ -1,6 +1,6 @@
 import { cn } from "#/lib/utils";
 import { Link, useLocation } from "@tanstack/react-router";
-import { Building2, BookOpen, Info, Home, Search, HomeIcon } from "lucide-react";
+import { Building2, BookOpen, Info, Home, Search, HomeIcon, Key } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { Activity, useEffect, useRef, useState } from "react";
 
@@ -15,9 +15,9 @@ export default function MobileBottomNav() {
 
   const mobileLinks = [
     { label: "Home", href: "/", icon: Home },
-    { label: "Properties", href: "/properties", icon: Building2 },
+    { label: "Buy", href: "/buy", icon: Building2 },
+    { label: "Rent", href: "/rent", icon: Key },
     { label: "Blog", href: "/blog", icon: BookOpen },
-    { label: "About", href: "/about", icon: Info },
     // { 
     //   label: session?.user ? "Profile" : "Login", 
     //   href: "/login", 

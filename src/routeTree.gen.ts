@@ -10,25 +10,39 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UserRouteRouteImport } from './routes/_user/route'
-import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as AdminRouteRouteImport } from './routes/admin/route'
+import { Route as AuthRouteRouteImport } from './routes/auth/route'
 import { Route as UserIndexRouteImport } from './routes/_user/index'
-import { Route as UserTermsRouteImport } from './routes/_user/terms'
-import { Route as UserPrivacyRouteImport } from './routes/_user/privacy'
-import { Route as UserLoginRouteImport } from './routes/_user/login'
-import { Route as UserContactRouteImport } from './routes/_user/contact'
-import { Route as UserBlogRouteImport } from './routes/_user/blog'
 import { Route as UserAboutRouteImport } from './routes/_user/about'
+import { Route as UserBuyRouteImport } from './routes/_user/buy'
+import { Route as UserContactRouteImport } from './routes/_user/contact'
+import { Route as UserLoginRouteImport } from './routes/_user/login'
+import { Route as UserNewHomesRouteImport } from './routes/_user/new-homes'
+import { Route as UserPrivacyRouteImport } from './routes/_user/privacy'
+import { Route as UserRentRouteImport } from './routes/_user/rent'
+import { Route as UserTermsRouteImport } from './routes/_user/terms'
+import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as AuthLoginRouteImport } from './routes/auth/login'
+import { Route as AuthRegisterRouteImport } from './routes/auth/register'
+import { Route as UserBlogIndexRouteImport } from './routes/_user/blog.index'
+import { Route as UserBlogSlugRouteImport } from './routes/_user/blog.$slug'
 import { Route as UserPropertiesIndexRouteImport } from './routes/_user/properties.index'
-import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 import { Route as UserPropertiesSlugRouteImport } from './routes/_user/properties.$slug'
+import { Route as AdminBlogEditorRouteImport } from './routes/admin/blog/editor'
+import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
 const UserRouteRoute = UserRouteRouteImport.update({
   id: '/_user',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AdminIndexRoute = AdminIndexRouteImport.update({
-  id: '/admin/',
-  path: '/admin/',
+const AdminRouteRoute = AdminRouteRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRouteRoute = AuthRouteRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const UserIndexRoute = UserIndexRouteImport.update({
@@ -36,19 +50,14 @@ const UserIndexRoute = UserIndexRouteImport.update({
   path: '/',
   getParentRoute: () => UserRouteRoute,
 } as any)
-const UserTermsRoute = UserTermsRouteImport.update({
-  id: '/terms',
-  path: '/terms',
+const UserAboutRoute = UserAboutRouteImport.update({
+  id: '/about',
+  path: '/about',
   getParentRoute: () => UserRouteRoute,
 } as any)
-const UserPrivacyRoute = UserPrivacyRouteImport.update({
-  id: '/privacy',
-  path: '/privacy',
-  getParentRoute: () => UserRouteRoute,
-} as any)
-const UserLoginRoute = UserLoginRouteImport.update({
-  id: '/login',
-  path: '/login',
+const UserBuyRoute = UserBuyRouteImport.update({
+  id: '/buy',
+  path: '/buy',
   getParentRoute: () => UserRouteRoute,
 } as any)
 const UserContactRoute = UserContactRouteImport.update({
@@ -56,14 +65,54 @@ const UserContactRoute = UserContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => UserRouteRoute,
 } as any)
-const UserBlogRoute = UserBlogRouteImport.update({
-  id: '/blog',
-  path: '/blog',
+const UserLoginRoute = UserLoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => UserRouteRoute,
 } as any)
-const UserAboutRoute = UserAboutRouteImport.update({
-  id: '/about',
-  path: '/about',
+const UserNewHomesRoute = UserNewHomesRouteImport.update({
+  id: '/new-homes',
+  path: '/new-homes',
+  getParentRoute: () => UserRouteRoute,
+} as any)
+const UserPrivacyRoute = UserPrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => UserRouteRoute,
+} as any)
+const UserRentRoute = UserRentRouteImport.update({
+  id: '/rent',
+  path: '/rent',
+  getParentRoute: () => UserRouteRoute,
+} as any)
+const UserTermsRoute = UserTermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => UserRouteRoute,
+} as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const AuthLoginRoute = AuthLoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => AuthRouteRoute,
+} as any)
+const AuthRegisterRoute = AuthRegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => AuthRouteRoute,
+} as any)
+const UserBlogIndexRoute = UserBlogIndexRouteImport.update({
+  id: '/blog/',
+  path: '/blog/',
+  getParentRoute: () => UserRouteRoute,
+} as any)
+const UserBlogSlugRoute = UserBlogSlugRouteImport.update({
+  id: '/blog/$slug',
+  path: '/blog/$slug',
   getParentRoute: () => UserRouteRoute,
 } as any)
 const UserPropertiesIndexRoute = UserPropertiesIndexRouteImport.update({
@@ -71,104 +120,162 @@ const UserPropertiesIndexRoute = UserPropertiesIndexRouteImport.update({
   path: '/properties/',
   getParentRoute: () => UserRouteRoute,
 } as any)
-const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
-  id: '/api/auth/$',
-  path: '/api/auth/$',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const UserPropertiesSlugRoute = UserPropertiesSlugRouteImport.update({
   id: '/properties/$slug',
   path: '/properties/$slug',
   getParentRoute: () => UserRouteRoute,
 } as any)
+const AdminBlogEditorRoute = AdminBlogEditorRouteImport.update({
+  id: '/blog/editor',
+  path: '/blog/editor',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
+  id: '/api/auth/$',
+  path: '/api/auth/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof UserIndexRoute
+  '/admin': typeof AdminRouteRouteWithChildren
+  '/auth': typeof AuthRouteRouteWithChildren
   '/about': typeof UserAboutRoute
-  '/blog': typeof UserBlogRoute
+  '/buy': typeof UserBuyRoute
   '/contact': typeof UserContactRoute
   '/login': typeof UserLoginRoute
+  '/new-homes': typeof UserNewHomesRoute
   '/privacy': typeof UserPrivacyRoute
+  '/rent': typeof UserRentRoute
   '/terms': typeof UserTermsRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/register': typeof AuthRegisterRoute
   '/admin/': typeof AdminIndexRoute
+  '/blog/$slug': typeof UserBlogSlugRoute
   '/properties/$slug': typeof UserPropertiesSlugRoute
+  '/admin/blog/editor': typeof AdminBlogEditorRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/blog/': typeof UserBlogIndexRoute
   '/properties/': typeof UserPropertiesIndexRoute
 }
 export interface FileRoutesByTo {
+  '/auth': typeof AuthRouteRouteWithChildren
   '/about': typeof UserAboutRoute
-  '/blog': typeof UserBlogRoute
+  '/buy': typeof UserBuyRoute
   '/contact': typeof UserContactRoute
   '/login': typeof UserLoginRoute
+  '/new-homes': typeof UserNewHomesRoute
   '/privacy': typeof UserPrivacyRoute
+  '/rent': typeof UserRentRoute
   '/terms': typeof UserTermsRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/register': typeof AuthRegisterRoute
   '/': typeof UserIndexRoute
   '/admin': typeof AdminIndexRoute
+  '/blog/$slug': typeof UserBlogSlugRoute
   '/properties/$slug': typeof UserPropertiesSlugRoute
+  '/admin/blog/editor': typeof AdminBlogEditorRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/blog': typeof UserBlogIndexRoute
   '/properties': typeof UserPropertiesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_user': typeof UserRouteRouteWithChildren
+  '/admin': typeof AdminRouteRouteWithChildren
+  '/auth': typeof AuthRouteRouteWithChildren
   '/_user/about': typeof UserAboutRoute
-  '/_user/blog': typeof UserBlogRoute
+  '/_user/buy': typeof UserBuyRoute
   '/_user/contact': typeof UserContactRoute
   '/_user/login': typeof UserLoginRoute
+  '/_user/new-homes': typeof UserNewHomesRoute
   '/_user/privacy': typeof UserPrivacyRoute
+  '/_user/rent': typeof UserRentRoute
   '/_user/terms': typeof UserTermsRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/register': typeof AuthRegisterRoute
   '/_user/': typeof UserIndexRoute
   '/admin/': typeof AdminIndexRoute
+  '/_user/blog/$slug': typeof UserBlogSlugRoute
   '/_user/properties/$slug': typeof UserPropertiesSlugRoute
+  '/admin/blog/editor': typeof AdminBlogEditorRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/_user/blog/': typeof UserBlogIndexRoute
   '/_user/properties/': typeof UserPropertiesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/admin'
+    | '/auth'
     | '/about'
-    | '/blog'
+    | '/buy'
     | '/contact'
     | '/login'
+    | '/new-homes'
     | '/privacy'
+    | '/rent'
     | '/terms'
+    | '/auth/login'
+    | '/auth/register'
     | '/admin/'
+    | '/blog/$slug'
     | '/properties/$slug'
+    | '/admin/blog/editor'
     | '/api/auth/$'
+    | '/blog/'
     | '/properties/'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/auth'
     | '/about'
-    | '/blog'
+    | '/buy'
     | '/contact'
     | '/login'
+    | '/new-homes'
     | '/privacy'
+    | '/rent'
     | '/terms'
+    | '/auth/login'
+    | '/auth/register'
     | '/'
     | '/admin'
+    | '/blog/$slug'
     | '/properties/$slug'
+    | '/admin/blog/editor'
     | '/api/auth/$'
+    | '/blog'
     | '/properties'
   id:
     | '__root__'
     | '/_user'
+    | '/admin'
+    | '/auth'
     | '/_user/about'
-    | '/_user/blog'
+    | '/_user/buy'
     | '/_user/contact'
     | '/_user/login'
+    | '/_user/new-homes'
     | '/_user/privacy'
+    | '/_user/rent'
     | '/_user/terms'
+    | '/auth/login'
+    | '/auth/register'
     | '/_user/'
     | '/admin/'
+    | '/_user/blog/$slug'
     | '/_user/properties/$slug'
+    | '/admin/blog/editor'
     | '/api/auth/$'
+    | '/_user/blog/'
     | '/_user/properties/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   UserRouteRoute: typeof UserRouteRouteWithChildren
-  AdminIndexRoute: typeof AdminIndexRoute
+  AdminRouteRoute: typeof AdminRouteRouteWithChildren
+  AuthRouteRoute: typeof AuthRouteRouteWithChildren
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
 
@@ -181,11 +288,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UserRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/': {
-      id: '/admin/'
+    '/admin': {
+      id: '/admin'
       path: '/admin'
-      fullPath: '/admin/'
-      preLoaderRoute: typeof AdminIndexRouteImport
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_user/': {
@@ -195,25 +309,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UserIndexRouteImport
       parentRoute: typeof UserRouteRoute
     }
-    '/_user/terms': {
-      id: '/_user/terms'
-      path: '/terms'
-      fullPath: '/terms'
-      preLoaderRoute: typeof UserTermsRouteImport
+    '/_user/about': {
+      id: '/_user/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof UserAboutRouteImport
       parentRoute: typeof UserRouteRoute
     }
-    '/_user/privacy': {
-      id: '/_user/privacy'
-      path: '/privacy'
-      fullPath: '/privacy'
-      preLoaderRoute: typeof UserPrivacyRouteImport
-      parentRoute: typeof UserRouteRoute
-    }
-    '/_user/login': {
-      id: '/_user/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof UserLoginRouteImport
+    '/_user/buy': {
+      id: '/_user/buy'
+      path: '/buy'
+      fullPath: '/buy'
+      preLoaderRoute: typeof UserBuyRouteImport
       parentRoute: typeof UserRouteRoute
     }
     '/_user/contact': {
@@ -223,18 +330,74 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UserContactRouteImport
       parentRoute: typeof UserRouteRoute
     }
-    '/_user/blog': {
-      id: '/_user/blog'
-      path: '/blog'
-      fullPath: '/blog'
-      preLoaderRoute: typeof UserBlogRouteImport
+    '/_user/login': {
+      id: '/_user/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof UserLoginRouteImport
       parentRoute: typeof UserRouteRoute
     }
-    '/_user/about': {
-      id: '/_user/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof UserAboutRouteImport
+    '/_user/new-homes': {
+      id: '/_user/new-homes'
+      path: '/new-homes'
+      fullPath: '/new-homes'
+      preLoaderRoute: typeof UserNewHomesRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
+    '/_user/privacy': {
+      id: '/_user/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof UserPrivacyRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
+    '/_user/rent': {
+      id: '/_user/rent'
+      path: '/rent'
+      fullPath: '/rent'
+      preLoaderRoute: typeof UserRentRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
+    '/_user/terms': {
+      id: '/_user/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof UserTermsRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/auth/login': {
+      id: '/auth/login'
+      path: '/login'
+      fullPath: '/auth/login'
+      preLoaderRoute: typeof AuthLoginRouteImport
+      parentRoute: typeof AuthRouteRoute
+    }
+    '/auth/register': {
+      id: '/auth/register'
+      path: '/register'
+      fullPath: '/auth/register'
+      preLoaderRoute: typeof AuthRegisterRouteImport
+      parentRoute: typeof AuthRouteRoute
+    }
+    '/_user/blog/': {
+      id: '/_user/blog/'
+      path: '/blog'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof UserBlogIndexRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
+    '/_user/blog/$slug': {
+      id: '/_user/blog/$slug'
+      path: '/blog/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof UserBlogSlugRouteImport
       parentRoute: typeof UserRouteRoute
     }
     '/_user/properties/': {
@@ -244,13 +407,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UserPropertiesIndexRouteImport
       parentRoute: typeof UserRouteRoute
     }
-    '/api/auth/$': {
-      id: '/api/auth/$'
-      path: '/api/auth/$'
-      fullPath: '/api/auth/$'
-      preLoaderRoute: typeof ApiAuthSplatRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/_user/properties/$slug': {
       id: '/_user/properties/$slug'
       path: '/properties/$slug'
@@ -258,30 +414,52 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UserPropertiesSlugRouteImport
       parentRoute: typeof UserRouteRoute
     }
+    '/admin/blog/editor': {
+      id: '/admin/blog/editor'
+      path: '/blog/editor'
+      fullPath: '/admin/blog/editor'
+      preLoaderRoute: typeof AdminBlogEditorRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
+    '/api/auth/$': {
+      id: '/api/auth/$'
+      path: '/api/auth/$'
+      fullPath: '/api/auth/$'
+      preLoaderRoute: typeof ApiAuthSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 interface UserRouteRouteChildren {
   UserAboutRoute: typeof UserAboutRoute
-  UserBlogRoute: typeof UserBlogRoute
+  UserBuyRoute: typeof UserBuyRoute
   UserContactRoute: typeof UserContactRoute
   UserLoginRoute: typeof UserLoginRoute
+  UserNewHomesRoute: typeof UserNewHomesRoute
   UserPrivacyRoute: typeof UserPrivacyRoute
+  UserRentRoute: typeof UserRentRoute
   UserTermsRoute: typeof UserTermsRoute
   UserIndexRoute: typeof UserIndexRoute
+  UserBlogSlugRoute: typeof UserBlogSlugRoute
   UserPropertiesSlugRoute: typeof UserPropertiesSlugRoute
+  UserBlogIndexRoute: typeof UserBlogIndexRoute
   UserPropertiesIndexRoute: typeof UserPropertiesIndexRoute
 }
 
 const UserRouteRouteChildren: UserRouteRouteChildren = {
   UserAboutRoute: UserAboutRoute,
-  UserBlogRoute: UserBlogRoute,
+  UserBuyRoute: UserBuyRoute,
   UserContactRoute: UserContactRoute,
   UserLoginRoute: UserLoginRoute,
+  UserNewHomesRoute: UserNewHomesRoute,
   UserPrivacyRoute: UserPrivacyRoute,
+  UserRentRoute: UserRentRoute,
   UserTermsRoute: UserTermsRoute,
   UserIndexRoute: UserIndexRoute,
+  UserBlogSlugRoute: UserBlogSlugRoute,
   UserPropertiesSlugRoute: UserPropertiesSlugRoute,
+  UserBlogIndexRoute: UserBlogIndexRoute,
   UserPropertiesIndexRoute: UserPropertiesIndexRoute,
 }
 
@@ -289,9 +467,38 @@ const UserRouteRouteWithChildren = UserRouteRoute._addFileChildren(
   UserRouteRouteChildren,
 )
 
+interface AdminRouteRouteChildren {
+  AdminIndexRoute: typeof AdminIndexRoute
+  AdminBlogEditorRoute: typeof AdminBlogEditorRoute
+}
+
+const AdminRouteRouteChildren: AdminRouteRouteChildren = {
+  AdminIndexRoute: AdminIndexRoute,
+  AdminBlogEditorRoute: AdminBlogEditorRoute,
+}
+
+const AdminRouteRouteWithChildren = AdminRouteRoute._addFileChildren(
+  AdminRouteRouteChildren,
+)
+
+interface AuthRouteRouteChildren {
+  AuthLoginRoute: typeof AuthLoginRoute
+  AuthRegisterRoute: typeof AuthRegisterRoute
+}
+
+const AuthRouteRouteChildren: AuthRouteRouteChildren = {
+  AuthLoginRoute: AuthLoginRoute,
+  AuthRegisterRoute: AuthRegisterRoute,
+}
+
+const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
+  AuthRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   UserRouteRoute: UserRouteRouteWithChildren,
-  AdminIndexRoute: AdminIndexRoute,
+  AdminRouteRoute: AdminRouteRouteWithChildren,
+  AuthRouteRoute: AuthRouteRouteWithChildren,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
 }
 export const routeTree = rootRouteImport

@@ -17,7 +17,7 @@ const StickyFooter = ({ className, ...props }: StickyFooterProps) => {
      
 
       {/* Top border */}
-      <div className="relative z-10 border-t border-white/10 px-4 py-16 sm:px-8 md:px-16 lg:px-24 sm:py-30">
+      <div className="relative z-10 border-t border-white/10 px-4 py-16 sm:px-8 md:px-16 lg:px-24 sm:py-30 ">
         {/* Main columns */}
         <FooterContent />
 

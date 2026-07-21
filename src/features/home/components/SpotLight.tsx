@@ -220,11 +220,11 @@ export default function Spotlight() {
                             transition={{ duration: 0.4 }}
                         >
                             <h3 className=" text-primary font-serif text-xl sm:text-2xl  leading-tight">
-                                {filteredProperties[active].title}
+                                {filteredProperties[active]?.title}
                             </h3>
 
                             <p className="mt-2 text-sm sm:text-base text-gray-600">
-                                {filteredProperties[active].location}
+                                {filteredProperties[active]?.location}
                             </p>
                         </motion.div>
                     </AnimatePresence>

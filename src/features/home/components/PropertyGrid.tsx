@@ -3,7 +3,7 @@ import { properties } from "#/constants";
 
 export default function PropertyGrid() {
   return (
-    <section className="py-10 lg:py-24">
+    <section className="py-10 lg:py-24   bg-bg">
       <div className="mx-auto max-w-[1800px] px-4 sm:px-10 flex flex-col items-center ">
         {/* Section Header */}
         <div className="mb-8 md:mb-14 max-w-5xl flex flex-col items-center px-4 text-center">

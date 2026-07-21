@@ -1,424 +1,478 @@
-"use client";
+import { useEffect, useRef, useState, useCallback } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+import { useNavigate } from "@tanstack/react-router";
+import { Search, Sparkles } from "lucide-react";
+import { SLIDES } from "#/constants";
 
-import { useCallback, useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
-import type { Variants } from "motion/react";
+gsap.registerPlugin(ScrollTrigger);
 
-interface Slide {
-  id: number;
-  title: string;
-  subtitle: string;
-  description: string;
-  image: string;
-  blurImage: string;
-  accent: string;
-  cta: string;
-}
-
-const slides: Slide[] = [
-  {
-    id: 1,
-    title: "Minimal Objects",
-    subtitle: "EDITORIAL COLLECTION",
-    description:
-      "Designed to elevate contemporary interiors through sculptural forms, natural materials, and timeless craftsmanship.",
-    image: "/9.jpg",
-    blurImage:
-      "https://robbreport.com/wp-content/uploads/2023/04/Studley-Royal-House-.jpg?w=1000&q=10",
-    accent: "#F3EFE8",
-    cta: "Discover Collection",
-  },
-  {
-    id: 2,
-    title: "Quiet Luxury",
-    subtitle: "NEW SEASON",
-    description:
-      "Refined silhouettes and tactile materials create a balanced atmosphere between architecture and design.",
-    image: "/bridge.png",
-    blurImage:
-      "https://images.unsplash.com/photo-1494526585095-c41746248156?w=20&q=10",
-    accent: "#ECE7E1",
-    cta: "View Pieces",
-  },
-  {
-    id: 3,
-    title: "Modern Living",
-    subtitle: "CURATED INTERIORS",
-    description:
-      "A curated collection of objects and spaces inspired by contemporary editorial aesthetics.",
-    image: "/5.jpg",
-    blurImage:
-      "https://images.unsplash.com/photo-1484154218962-a197022b5858?w=20&q=10",
-    accent: "#EAE4DB",
-    cta: "Explore More",
-  },
-];
-
-// ─── Image card: slides in from the side ────────────────────────────────────
-const imageVariants: Variants = {
-  enter: (direction: number) => ({
-    x: direction > 0 ? 220 : -220,
-    opacity: 0,
-    scale: 1.08,
-    rotateY: direction > 0 ? 8 : -8,
-  }) as const,
-  center: {
-    x: 0,
-    opacity: 1,
-    scale: 1,
-    rotateY: 0,
-    transition: {
-      duration: 1.0,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  },
-  exit: (direction: number) => ({
-    x: direction > 0 ? -220 : 220,
-    opacity: 0,
-    scale: 0.92,
-    rotateY: direction > 0 ? -8 : 8,
-    transition: {
-      duration: 0.75,
-      ease: [0.76, 0, 0.24, 1],
-    },
-  }),
-};
-
-// ─── Text lines: clip-reveal stagger ────────────────────────────────────────
-const textEnter = (delay: number) => ({
-  y: "0%",
-  opacity: 1,
-  transition: {
-    delay,
-    duration: 0.85,
-    ease: [0.22, 1, 0.36, 1],
-  },
-}) as const;
-
-const textExit = (delay: number) => ({
-  y: "-115%",
-  opacity: 0,
-  transition: {
-    delay,
-    duration: 0.45,
-    ease: [0.76, 0, 0.24, 1],
-  },
-}) as const;
-
-// ─── Background layer ────────────────────────────────────────────────────────
-const bgVariants: Variants = {
-  enter: {
-    opacity: 0,
-    scale: 1.08,
-  },
-  center: {
-    opacity: 1,
-    scale: 1,
-    transition: {
-      opacity: { duration: 1.0, ease: "easeOut" },
-      scale: { duration: 8, ease: "linear" },
-    },
-  },
-  exit: {
-    opacity: 0,
-    scale: 0.97,
-    transition: {
-      opacity: { duration: 0.7, ease: "easeIn" },
-      scale: { duration: 0.7, ease: "easeIn" },
-    },
-  },
-};
-
-// Shared will-change style to promote animated elements to GPU layers
-const willChangeTransform: React.CSSProperties = {
-  willChange: "transform, opacity",
-  backfaceVisibility: "hidden",
-};
 
 export default function HeroBannerCarousel() {
-  const [[index, direction], setIndex] = useState([0, 0]);
+  const [current, setCurrent] = useState(0);
+  const [isReady, setIsReady] = useState(false);
 
-  const slide = slides[index];
-  const nextSlide = slides[(index + 1) % slides.length];    
-  const thirdSlide = slides[(index + 2) % slides.length];
+  // DOM Refs
+  const heroRef = useRef<HTMLDivElement>(null);
+  const videoContainerRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const contentInnerRef = useRef<HTMLDivElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const navRef = useRef<HTMLDivElement>(null);
 
-  // ── Stable paginate — never changes identity, safe for refs ──────────────
-  const indexRef = useRef(index);
-  indexRef.current = index;
+  // Custom Cursor Refs
+  const cursorDotRef = useRef<HTMLDivElement>(null);
+  const cursorRingRef = useRef<HTMLDivElement>(null);
+  const cursorTextRef = useRef<HTMLSpanElement>(null);
 
-  const paginate = useCallback((dir: number) => {
-    setIndex(([prev]) => {
-      const next = (prev + dir + slides.length) % slides.length;
-      return [next, dir];
+  // Slide layers and videos
+  const layerRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+
+  // State refs
+  const transitioning = useRef(false);
+  const currentRef = useRef(0);
+  const mouse = useRef({ x: 0, y: 0 });
+  const mouseTarget = useRef({ x: 0, y: 0 });
+
+  // Navigation and Search State
+  const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState<"buy" | "rent" | "sold">("buy");
+  const [searchMode, setSearchMode] = useState<"classic" | "ai">("classic");
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearch = () => {
+    const targetRoute = activeTab === "sold" ? "/properties" : `/${activeTab}`;
+    navigate({
+      to: targetRoute as any,
+      search: { q: searchQuery } as any,
     });
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
+
+  // ── 1. CUSTOM CURSOR & MOUSE ROTATE 
+  useEffect(() => {
+    const dot = cursorDotRef.current;
+    const ring = cursorRingRef.current;
+    if (!dot || !ring) return;
+
+    // Custom cursor follow mouse
+    const onMouseMove = (e: MouseEvent) => {
+      // Normalize coordinate for rotate
+      mouse.current.x = (e.clientX / window.innerWidth - 0.5) * 2;
+      mouse.current.y = (e.clientY / window.innerHeight - 0.5) * 2;
+
+      const target = e.target as HTMLElement | null;
+
+      // Disable custom cursor inside search content or outside hero
+      if (!target?.closest("#hero") || target?.closest(".no-custom-cursor")) {
+        gsap.set(dot, { opacity: 0 });
+        gsap.set(ring, { opacity: 0 });
+        document.body.style.cursor = "auto";
+        return;
+      }
+
+      gsap.set(dot, { opacity: 1 });
+      gsap.set(ring, { opacity: 1 });
+      document.body.style.cursor = "none";
+
+      // Track cursor position
+      gsap.to(dot, {
+        x: e.clientX,
+        y: e.clientY,
+        duration: 0.08,
+        ease: "power2.out",
+      });
+
+      gsap.to(ring, {
+        x: e.clientX,
+        y: e.clientY,
+        duration: 0.25,
+        ease: "power2.out",
+      });
+
+      const isHoverable = target && (
+        target.tagName === 'BUTTON' ||
+        target.tagName === 'INPUT' ||
+        target.tagName === 'A' ||
+        target.closest('button') ||
+        target.closest('a') ||
+        window.getComputedStyle(target).cursor === 'pointer'
+      );
+
+      if (isHoverable) {
+        gsap.to(ring, {
+          scale: 1.5,
+          borderColor: "rgba(255, 255, 255, 0.8)",
+          backgroundColor: "rgba(255, 255, 255, 0.15)",
+          duration: 0.2,
+        });
+        gsap.to(dot, {
+          scale: 0,
+          duration: 0.15,
+        });
+      } else {
+        gsap.to(ring, {
+          scale: 1,
+          borderColor: "rgba(255, 255, 255, 0.4)",
+          backgroundColor: "rgba(255, 255, 255, 0)",
+          duration: 0.2,
+        });
+        gsap.to(dot, {
+          scale: 1,
+          duration: 0.15,
+        });
+      }
+    };
+
+    window.addEventListener("mousemove", onMouseMove);
+
+    // Dynamic rotation of video based on mouse
+    const rotateLoop = () => {
+      // Interpolate towards target rotation
+      mouseTarget.current.x += (mouse.current.x - mouseTarget.current.x) * 0.08;
+      mouseTarget.current.y += (mouse.current.y - mouseTarget.current.y) * 0.08;
+
+      if (videoContainerRef.current) {
+        gsap.set(videoContainerRef.current, {
+          rotateY: mouseTarget.current.x * 5,
+          rotateX: -mouseTarget.current.y * 5,
+          x: mouseTarget.current.x * 12,
+          y: mouseTarget.current.y * 12,
+        });
+      }
+
+      // Content follows cursor with a slight delay/lag
+      if (contentRef.current) {
+        gsap.set(contentRef.current, {
+          x: mouseTarget.current.x * 20,
+          y: mouseTarget.current.y * 15,
+        });
+      }
+
+      requestAnimationFrame(rotateLoop);
+    };
+    const loopId = requestAnimationFrame(rotateLoop);
+
+    return () => {
+      window.removeEventListener("mousemove", onMouseMove);
+      cancelAnimationFrame(loopId);
+    };
   }, []);
 
-  // ── Auto-scroll: stable interval, not recreated on every slide change ──────
-  useEffect(() => {
-    const timer = setInterval(() => paginate(1), 6000);
-    return () => clearInterval(timer);
-  }, [paginate]); // paginate is stable via useCallback — interval never restarts
+  // ── 2. INITIAL ENTRANCE ANIMATION 
+  useGSAP(() => {
+    // Setup initial positions
+    layerRefs.current.forEach((layer, i) => {
+      gsap.set(layer, { opacity: i === 0 ? 1 : 0, zIndex: i === 0 ? 2 : 1 });
+    });
+    gsap.set(videoRefs.current[0], { scale: 1.15 });
 
-  // ─── Swipe / drag handling (mouse + touch) ───────────────────────────────
-  const dragStart = useRef<number | null>(null);
-  const isDragging = useRef(false);
-  const SWIPE_THRESHOLD = 50;
+    const tl = gsap.timeline({
+      delay: 0.2,
+      onComplete: () => setIsReady(true),
+    });
 
-  const onDragStart = (clientX: number) => {
-    dragStart.current = clientX;
-    isDragging.current = false;
-  };
+    // Fade-in background video and scale to normal
+    tl.to(videoRefs.current[0], { scale: 1.05, duration: 2.2, ease: "power3.out" }, 0);
+    tl.fromTo(heroRef.current, { opacity: 0 }, { opacity: 1, duration: 0.8 }, 0);
 
-  const onDragEnd = (clientX: number) => {
-    if (dragStart.current === null) return;
-    const delta = dragStart.current - clientX;
-    if (Math.abs(delta) > SWIPE_THRESHOLD) {
-      isDragging.current = true;
-      paginate(delta > 0 ? 1 : -1);
+    // Stagger navigation items drop in
+    tl.fromTo(navRef.current, { y: -40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }, 0.4);
+
+    // Fade-in and slide-up the central content
+    if (contentInnerRef.current) {
+      tl.fromTo(
+        contentInnerRef.current,
+        { opacity: 0, y: 40 },
+        { opacity: 1, y: 0, duration: 1.2, ease: "power4.out" },
+        0.5
+      );
     }
-    dragStart.current = null;
+
+
+  }, []);
+
+ // ── 4. DIAGONAL SLIDE CAROUSEL TRANSITION 
+  const goTo = useCallback((nextIdx: number) => {
+    if (transitioning.current || nextIdx === currentRef.current) return;
+    transitioning.current = true;
+
+    const prevIdx = currentRef.current;
+    const prevLayer = layerRefs.current[prevIdx];
+    const nextLayer = layerRefs.current[nextIdx];
+    const prevVid = videoRefs.current[prevIdx];
+    const nextVid = videoRefs.current[nextIdx];
+
+    if (!prevLayer || !nextLayer) return;
+
+    // Setup next layer in top-right diagonal position
+    gsap.set(nextLayer, {
+      opacity: 1,
+      zIndex: 5,
+      x: "100%",
+      y: "-100%",
+    });
+    gsap.set(prevLayer, { zIndex: 4 });
+
+    if (nextVid) {
+      nextVid.currentTime = 0;
+      gsap.set(nextVid, { scale: 1.15 });
+    }
+
+    const tl = gsap.timeline({
+      onComplete: () => {
+        currentRef.current = nextIdx;
+        setCurrent(nextIdx);
+        gsap.set(prevLayer, { opacity: 0, zIndex: 1, x: "0%", y: "0%" });
+        transitioning.current = false;
+
+        if (prevVid) prevVid.pause();
+        if (nextVid) nextVid.play().catch(() => { });
+
+        // Re-reveal letters for the new slide title
+        gsap.fromTo(
+          ".char-fly",
+          { opacity: 0, scale: 0.6, y: 20 },
+          { opacity: 1, scale: 1, y: 0, duration: 0.8, ease: "power3.out", stagger: 0.02 }
+        );
+      },
+    });
+
+    // Diagonally slide next layer in, slide prev layer out
+    tl.to(nextLayer, { x: "0%", y: "0%", duration: 1.1, ease: "power4.inOut" }, 0);
+    tl.to(prevLayer, { x: "-100%", y: "100%", duration: 1.1, ease: "power4.inOut" }, 0);
+
+    // Settle next video scale
+    if (nextVid) {
+      tl.to(nextVid, { scale: 1.05, duration: 1.4, ease: "power3.out" }, 0.2);
+    }
+  }, []);
+
+  const goNext = useCallback(() => goTo((currentRef.current + 1) % SLIDES.length), [goTo]);
+  const goPrev = useCallback(() => goTo((currentRef.current - 1 + SLIDES.length) % SLIDES.length), [goTo]);
+// ── Swipe 
+  const dragX = useRef<number | null>(null);
+  const onPD = (e: React.PointerEvent) => { dragX.current = e.clientX; };
+  const onPU = (e: React.PointerEvent) => {
+    if (dragX.current === null) return;
+    const d = dragX.current - e.clientX;
+    if (Math.abs(d) > 60) d > 0 ? goNext() : goPrev();
+    dragX.current = null;
   };
 
-  // Mouse handlers
-  const handleMouseDown = (e: React.MouseEvent) => onDragStart(e.clientX);
-  const handleMouseUp = (e: React.MouseEvent) => onDragEnd(e.clientX);
-  const handleMouseLeave = () => { dragStart.current = null; };
-
-  // Touch handlers
-  const handleTouchStart = (e: React.TouchEvent) => onDragStart(e.touches[0].clientX);
-  const handleTouchEnd = (e: React.TouchEvent) => onDragEnd(e.changedTouches[0].clientX);
 
   return (
-    // motion.section lets us smoothly animate the background color
-    <motion.section
-      id="hero-carousel"
-      className="relative h-[55vh] sm:h-[90vh] overflow-hidden text-white sm:px-28 select-none"
-      animate={{ backgroundColor: slide.accent }}
-      transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-      // Mouse drag
-      onMouseDown={handleMouseDown}
-      onMouseUp={handleMouseUp}
-      onMouseLeave={handleMouseLeave}
-      // Touch swipe
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
-      style={{ cursor: "grab" }}
+    <div
+      ref={heroRef}
+      id="hero"
+      className="relative overflow-hidden w-full select-none h-[75vh] md:h-[100vh] min-h-[580px] md:min-h-[750px]"
+      style={{ background: "#060507" }}
+      onPointerDown={onPD}
+      onPointerUp={onPU}
     >
-      {/* ── Background image layer ──────────────────────────────────── */}
-      <AnimatePresence mode="sync" custom={direction}>
-        <motion.div
-          key={slide.id + "-bg"}
-          className="absolute inset-0"
-          variants={bgVariants}
-          initial="enter"
-          animate="center"
-          exit="exit"
-          style={willChangeTransform}
-        >
-          <div className="absolute inset-0 z-10" />
-          {/* Full-res hero image — highest fetch priority, no blur placeholder needed at bg level */}
-          <img
-            src={slide.image}
-            alt={slide.title}
-            fetchPriority="high"
-            className="absolute inset-0 h-full w-full object-cover"
-          />
-          <div className="absolute inset-0 z-10 bg-linear-to-r from-black/70 via-black/20 to-transparent" />
-        </motion.div>
-      </AnimatePresence>
-
-      {/* ── Content grid ────────────────────────────────────────────── */}
-      <div className="relative z-20 flex h-full items-center">
-        <div className="grid w-full grid-cols-1 gap-8 px-5 sm:px-8 md:grid-cols-2 md:pl-8 md:pr-0">
-
-          {/* Text column */}
-          <div className="flex flex-col justify-center py-16 sm:py-12 md:py-0">
-            <AnimatePresence mode="popLayout">
-              <motion.div key={slide.id} className="space-y-5 sm:space-y-8">
-
-                {/* Subtitle */}
-                <div className="overflow-hidden">
-                  <motion.p
-                    className="text-xs tracking-[0.4em] text-white/70"
-                    initial={{ y: "115%", opacity: 0 }}
-                    animate={textEnter(0)}
-                    exit={textExit(0)}
-                  >
-                    {slide.subtitle}
-                  </motion.p>
-                </div>
-
-                {/* Title */}
-                <div className="overflow-hidden">
-                  <motion.h1
-                    className="max-w-xl font-serif text-4xl leading-none sm:text-5xl md:text-6xl mb-2"
-                    initial={{ y: "115%", opacity: 0 }}
-                    animate={textEnter(0.1)}
-                    exit={textExit(0.05)}
-                  >
-                    {slide.title}
-                  </motion.h1>
-                </div>
-
-                {/* Description */}
-                <div className="overflow-hidden">
-                  <motion.p
-                    className="max-w-md text-sm sm:text-base md:text-lg leading-relaxed text-white/80"
-                    initial={{ y: "115%", opacity: 0 }}
-                    animate={textEnter(0.2)}
-                    exit={textExit(0.02)}
-                  >
-                    {slide.description}
-                  </motion.p>
-                </div>
-
-                {/* CTA */}
-                <div className="overflow-hidden">
-                  <motion.a
-                    href="#"
-                    className="inline-flex items-center gap-3 border-b border-white pb-2 text-xs uppercase tracking-[0.3em]"
-                    initial={{ y: "115%", opacity: 0 }}
-                    animate={textEnter(0.3)}
-                    exit={textExit(0)}
-                  >
-                    {slide.cta}
-                  </motion.a>
-                </div>
-
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
-          {/* Product image column — hidden on mobile */}
-          <div className="relative hidden md:flex items-center justify-end pr-16" style={{ perspective: 1000 }}>
-            {/* Third slide preview — lazy loaded, no blur div */}
-            <motion.div
-              className="absolute right-0 top-1/2 h-40 w-30
-               -translate-y-1/2 overflow-hidden rounded-[25px]
-               opacity-60"
-              animate={{ x: 0, scale: 0.9 }}
-              transition={{ duration: 0.8 }}
-              style={willChangeTransform}
-            >
-              <img
-                src={thirdSlide.image}
-                alt={thirdSlide.title}
-                loading="lazy"
-                className="absolute inset-0 h-full w-full object-cover"
-              />
-              <div className="absolute inset-0 bg-black/25 z-10" />
-            </motion.div>
-
-            <AnimatePresence mode="wait" custom={direction}>
-              <motion.div
-                key={slide.id + "-image"}
-                custom={direction}
-                variants={imageVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                className="relative z-10 h-50 w-45 overflow-hidden rounded-[35px]"
-                style={willChangeTransform}
-              >
-                {/* Float animation on a stable inner wrapper */}
-                <motion.div
-                  className="h-full w-full relative"
-                  animate={{ y: [0, -12, 0] }}
-                  transition={{
-                    duration: 6,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    repeatType: "loop",
-                  }}
-                  style={willChangeTransform}
-                >
-                  <img
-                    src={nextSlide.image}
-                    alt={nextSlide.title}
-                    loading="lazy"
-                    className="absolute inset-0 h-full w-full object-cover scale-[1.06]"
-                  />
-                </motion.div>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
-        </div>
+      {/* CUSTOM CURSOR */}
+      <div
+        ref={cursorRingRef}
+        className="fixed top-0 left-0 pointer-events-none rounded-full flex items-center justify-center"
+        style={{
+          width: 44,
+          height: 44,
+          border: "1px solid rgba(255, 255, 255, 0.4)",
+          transform: "translate(-50%, -50%)",
+          zIndex: 999,
+          mixBlendMode: "difference",
+          willChange: "transform",
+        }}
+      >
+        <span
+          ref={cursorTextRef}
+          className="opacity-0 font-sans font-bold text-[8px] tracking-[0.2em] text-[#fff]"
+        />
       </div>
 
-      {/* ── Mobile-only image cluster (bottom-right, above nav) ───── */}
-      <div className="md:hidden absolute bottom-14 right-4 z-20" style={{ perspective: 800 }}>
-        {/* Third slide peek — lazy, no blur div */}
-        <motion.div
-          className="absolute right-0 bottom-0 h-27.5 w-20 overflow-hidden rounded-[18px] opacity-60"
-          animate={{ x: 0, scale: 0.9 }}
-          transition={{ duration: 0.8 }}
-          style={willChangeTransform}
-        >
-          <img
-            src={thirdSlide.image}
-            alt={thirdSlide.title}
-            loading="lazy"
-            className="absolute inset-0 h-full w-full object-cover"
-          />
-          <div className="absolute inset-0 bg-black/25 z-10" />
-        </motion.div>
+      <div
+        ref={cursorDotRef}
+        className="fixed top-0 left-0 pointer-events-none rounded-full bg-[#f57b23]"
+        style={{
+          width: 6,
+          height: 6,
+          transform: "translate(-50%, -50%)",
+          zIndex: 1000,
+          willChange: "transform",
+        }}
+      />
 
-        {/* Main animated card */}
-        <AnimatePresence mode="wait" custom={direction}>
-          <motion.div
-            key={slide.id + "-mob-image"}
-            custom={direction}
-            variants={imageVariants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            className="relative z-10 h-35 w-27.5 overflow-hidden rounded-[22px]"
-            style={willChangeTransform}
+      {/*  VIDEO BACKGROUND (ROTATES ON MOUSE)  */}
+      <div
+        ref={videoContainerRef}
+        className="absolute inset-0 w-full h-full transform-gpu"
+        style={{
+          willChange: "transform",
+          perspective: 1200,
+        }}
+      >
+        {SLIDES.map((s, i) => (
+          <div
+            key={s.id}
+            ref={(el) => { layerRefs.current[i] = el; }}
+            className="absolute inset-0 w-full h-full overflow-hidden"
+            style={{ opacity: 0, zIndex: 1 }}
           >
-            <motion.div
-              className="h-full w-full relative"
-              animate={{ y: [0, -8, 0] }}
-              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", repeatType: "loop" }}
-              style={willChangeTransform}
-            >
-              <img
-                src={nextSlide.image}
-                alt={nextSlide.title}
-                loading="lazy"
-                className="absolute inset-0 h-full w-full object-cover scale-[1.06]"
-              />
-            </motion.div>
-          </motion.div>
-        </AnimatePresence>
+            <video
+              ref={(el) => { videoRefs.current[i] = el; }}
+              src={s.video}
+              autoPlay={i === 0}
+              muted
+              loop
+              playsInline
+              preload={i === 0 ? "auto" : "metadata"}
+              className="absolute inset-0 w-full h-full object-cover scale-[1.08]"
+              style={{ willChange: "transform" }}
+            />
+          </div>
+        ))}
       </div>
 
-      {/* ── Navigation ──────────────────────────────────────────────── */}
-      <div className="absolute bottom-2 left-0 right-0 z-30 flex justify-center">
-        <div className="flex items-center gap-3 bg-black/30 px-4 py-2 backdrop-blur-md rounded-full">
 
-          {/* Dot indicators */}
-          <div className="flex items-center gap-1.5">
-            {slides.map((item, i) => (
-              <button
-                key={item.id}
-                onClick={() => setIndex([i, i > index ? 1 : -1])}
-                aria-label={`Go to slide ${i + 1}`}
-                className="cursor-pointer"
-              >
-                <motion.div
-                  animate={{
-                    backgroundColor: i === index ? "#ffffff" : "rgba(255,255,255,0.45)",
-                  }}
-                  transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                  className="h-1.5 w-1.5 rounded-full"
+      <div
+        ref={overlayRef}
+        className="absolute inset-0 pointer-events-none bg-black"
+        style={{ zIndex: 4, opacity: 0 }}
+      />
+
+      {/*  CENTRAL CONTENT CONTAINER (Glassy Search Bar + Headers) */}
+      <div
+        ref={contentRef}
+        className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none  no-custom-cursor"
+        style={{ zIndex: 10 }}
+      >
+        <div
+          ref={contentInnerRef}
+          className="w-full max-w-5xl px-4 text-center pointer-events-auto mt-[-4vh]"
+        >
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-semibold tracking-tight text-white mb-2 leading-tight">
+            <span className="text-primary">Discover</span> where life begins
+          </h1>
+
+          <p className="text-sm sm:text-lg md:text-xl font-medium text-white/95 mb-6 md:mb-8 tracking-wide">
+            Find exceptional homes crafted for every chapter of your life.
+          </p>
+
+          {/* Glassy Search Box */}
+          <div className="w-full bg-[#030214]/65 backdrop-blur-xl border border-white/10  p-4 sm:p-5 md:p-6  flex flex-col gap-4 text-left">
+            {/* Top Bar inside Search Box */}
+            <div className="flex flex-row items-center justify-center border-b border-white/10 pb-3">
+              {/* Tabs */}
+              <div className="flex gap-4 sm:gap-6 md:gap-8">
+                {(["buy", "rent", "sold"] as const).map((tab) => (
+                  <button
+                    key={tab}
+                    onClick={() => setActiveTab(tab)}
+                    className={`relative pb-2 text-xs sm:text-sm md:text-base font-semibold capitalize tracking-wide transition-colors cursor-pointer ${activeTab === tab ? "text-white" : "text-white/60 hover:text-white/80"
+                      }`}
+                  >
+                    {tab}
+                    {activeTab === tab && (
+                      <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-white rounded-full transition-all duration-300" />
+                    )}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Input Label */}
+            <div className="text-white/90 text-xs sm:text-sm font-medium">
+              {searchMode === "ai" ? (
+                <span>Describe your dream home in plain English...</span>
+              ) : (
+                <span>Search properties to {activeTab}</span>
+              )}
+            </div>
+
+            {/* Form Input Row */}
+            <div className="flex flex-col sm:flex-row gap-3 items-stretch">
+              <div className="flex-1 relative flex items-center">
+                <Search className="absolute left-4 text-slate-400 pointer-events-none" size={16} />
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  placeholder={
+                    searchMode === "ai"
+                      ? "e.g., A 3-bed modern villa in Beverly Hills with a pool and sea view"
+                      : activeTab === "buy"
+                        ? "Bath, NW3, or Leeds station"
+                        : activeTab === "rent"
+                          ? "Enter city, postcode or area to rent..."
+                          : "Enter location for sold prices..."
+                  }
+                  className="w-full pl-11 pr-4 py-3 sm:py-3.5 md:py-4 bg-white text-slate-900 placeholder-slate-400 focus:outline-none text-xs sm:text-sm md:text-base font-medium shadow-inner select-text cursor-text"
                 />
+              </div>
+              <button
+                onClick={handleSearch}
+                className="bg-primary hover:bg-primary/95 active:scale-[0.98] text-white font-bold px-6 sm:px-8 py-3 sm:py-3.5 md:py-4 transition-all shadow-lg flex items-center justify-center gap-2 text-xs sm:text-sm md:text-base shrink-0 cursor-pointer"
+              >
+                {searchMode === "ai" && <Sparkles size={16} />}
+                Search
               </button>
-            ))}
+            </div>
           </div>
-
         </div>
       </div>
-    </motion.section>
+
+
+
+
+      {/* BOTTOM CONTROL STRIP (CIRCULAR SVG PROGRESS)
+     */}
+      <div
+        className="absolute bottom-0 left-0 right-0 flex items-end justify-between"
+        style={{
+          zIndex: 40,
+          padding: "0 clamp(20px, 4vw, 52px) clamp(20px, 3.5vw, 36px)",
+          pointerEvents: "none",
+        }}
+      >
+        {/* Left: Navigation triggers */}
+        <div />
+
+
+
+        {/* Center: Slide indicator dots */}
+        <div className="flex items-center gap-2 pointer-events-auto">
+          {SLIDES.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => goTo(i)}
+              aria-label={`Slide ${i + 1}`}
+              style={{
+                width: 6,
+                height: 6,
+                borderRadius: "50%",
+                background: i === current ? "#f57b23" : "rgba(255, 255, 255, 0.2)",
+                border: "none",
+                cursor: "pointer",
+                padding: 0,
+                transition: "background 0.3s",
+              }}
+
+            />
+          ))}
+        </div>
+
+        {/* Right: SVG Circular Autoplay Progress */}
+        <div />
+
+      </div>
+    </div>
   );
 }

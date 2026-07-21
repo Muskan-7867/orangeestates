@@ -126,7 +126,7 @@ export default function Images() {
                             className="images-card shrink-0 w-42.5 text-center cursor-pointer select-none"
                         >
                             {/* Image container */}
-                            <div className="images-img-wrap overflow-hidden rounded-xl w-full h-24.5 relative bg-neutral-100">
+                            <div className="images-img-wrap overflow-hidden  w-full h-24.5 relative bg-neutral-100">
                                 <img
                                     src={image.url}
                                     alt={image.name}

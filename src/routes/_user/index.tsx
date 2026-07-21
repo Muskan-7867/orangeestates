@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import Images from '#/features/home/components/Images'
+
 import ScrollImages from '#/features/home/components/ScrollImages'
 import PropertyGrid from '#/features/home/components/PropertyGrid'
 import WhyChooseUs from '#/features/home/components/WhyChooseUs'
@@ -23,7 +23,7 @@ function RouteComponent() {
       {/* <HeroSection /> */}
       {/* <Images /> */}
       {/* <Features /> */}
-      <ScrollImages />
+      {/* <ScrollImages /> */}
       {/* <Spotlight /> */}
       <PropertyGrid />
       {/* <Bridge /> */}

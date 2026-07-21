@@ -160,7 +160,7 @@ export function PropertyCard({ property }: { property: (typeof properties)[0] })
               FLAT
             </span>
             <span className="bg-gray-200 px-2 py-0.5 sm:px-3 sm:py-1 text-[10px] sm:text-[11px] tracking-wider text-gray-800 font-medium">
-              SALE
+              {property.purpose === "rent" ? "RENT" : "SALE"}
             </span>
           </div>
 

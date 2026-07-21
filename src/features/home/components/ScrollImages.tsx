@@ -8,7 +8,7 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 const images = [
     {
         // src: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=600",
-        src:"/shard.jpg",
+        src: "/shard.jpg",
         blurSrc: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=20&q=10",
     },
     {
@@ -105,12 +105,14 @@ export default function ScrollImages() {
             {/* ── DESKTOP (md+): original pinned scroll layout ── */}
             <section
                 ref={sectionref}
-                className="hidden md:flex h-[80vh] w-full items-center relative"
+                className="hidden md:flex h-[80vh] w-full items-center relative overflow-hidden "
             >
+
+
                 {/* Left overlay */}
                 <div className="absolute left-0 top-0 h-full w-[65%] z-20 flex items-center px-28">
                     {/* Dark gradient */}
-                    <div className="absolute inset-0 bg-linear-to-r from-bg via-bg/20 to-transparent" />
+                    {/* <div className="absolute inset-0 bg-linear-to-r from-bg via-bg/20 to-transparent" /> */}
 
                     {/* Progressive blur */}
                     <div className="smooth-blur">
@@ -194,10 +196,12 @@ export default function ScrollImages() {
                         </div>
                     ))}
                 </div>
+
             </section>
 
             {/* ── MOBILE (below md): text on top, horizontal image scroll below ── */}
             <section className="flex flex-col md:hidden w-full py-10 p-4 ">
+
                 {/* Text content */}
                 <div className="text-center mb-8 px-6">
                     <h1 className="text-2xl sm:text-4xl font-medium leading-[1.1] tracking-tight font-serif text-primary">
@@ -212,9 +216,9 @@ export default function ScrollImages() {
                     </p>
 
                     <div className="mt-8 flex gap-3 justify-center">
-                        <button 
-                   
-                        className=" bg-black px-4 py-2 text-white text-xs font-medium">
+                        <button
+
+                            className=" bg-black px-4 py-2 text-white text-xs font-medium">
                             Explore Homes
                         </button>
 
@@ -281,6 +285,7 @@ export default function ScrollImages() {
                         ))}
                     </div>
                 </div>
+
             </section>
         </>
     );

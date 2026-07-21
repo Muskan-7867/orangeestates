@@ -7,7 +7,8 @@ import {
 import appCss from '../styles.css?url'
 
 import type { QueryClient } from '@tanstack/react-query'
-import LenisProvider from '#/components/provider/Lenis'
+import LenisProvider from '#/components/provider/SmoothScroll'
+import SmoothScroller from '#/components/provider/SmoothScroll'
 
 interface MyRouterContext {
   queryClient: QueryClient
@@ -44,9 +45,12 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        <LenisProvider >
+        {/* <LenisProvider > */}
+        <SmoothScroller >
+
           {children}
-        </LenisProvider>
+        </SmoothScroller>
+        {/* </LenisProvider> */}
         {/* <TanStackDevtools
           config={{
             position: 'bottom-right',
