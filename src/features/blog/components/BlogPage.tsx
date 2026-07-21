@@ -28,7 +28,7 @@ export default function BlogPage({ initialPosts = [], initialCategories }: { ini
 
 
   return (
-    <main className="min-h-screen bg-bg py-28 relative">
+    <main className="min-h-screen bg-bg py-22 relative">
       {/* Header Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-10 mb-12 flex flex-col justify-center items-center">
       
