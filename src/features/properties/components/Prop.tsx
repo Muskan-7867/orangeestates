@@ -145,12 +145,11 @@ export default function PropHero() {
         }, "-=0.8");
     }, { scope: containerRef });
 
-    const allLetters = [...word1Letters, ...word2Letters];
 
     return (
         <div
             ref={containerRef}
-            className="relative h-[80vh] w-full overflow-hidden"
+            className="relative h-[50vh] w-full overflow-hidden"
         >
             <video
                 className="h-full w-full object-cover"

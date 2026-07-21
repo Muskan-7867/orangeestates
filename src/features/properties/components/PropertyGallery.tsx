@@ -241,7 +241,7 @@ export default function PropertyGallery({ property }: { property: any }) {
           <button
             key={idx}
             onClick={() => selectImage(idx)}
-            className="relative shrink-0 w-24 h-16 rounded-xl overflow-hidden border border-black/5 hover:border-black/10 focus:outline-none cursor-pointer transition-all duration-300"
+            className="relative shrink-0 w-24 h-16  overflow-hidden border border-black/5 hover:border-black/10 focus:outline-none cursor-pointer transition-all duration-300"
           >
             {/* Blur placeholder */}
             <div
@@ -265,7 +265,7 @@ export default function PropertyGallery({ property }: { property: any }) {
             {activeImageIndex === idx && (
               <motion.div
                 layoutId="activeThumbHighlight"
-                className="absolute inset-0 border-2 border-primary rounded-xl  pointer-events-none"
+                className="absolute inset-0 border-2 border-primary   pointer-events-none"
                 transition={{ type: "spring", stiffness: 350, damping: 25 }}
               />
             )}
