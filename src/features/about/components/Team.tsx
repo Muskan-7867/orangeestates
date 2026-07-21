@@ -5,20 +5,16 @@ import BlurImage from "#/components/ui/BlurImage";
 
 const team = [
   {
-    name: "Eleanor Whitfield",
-    role: "Chief Executive Officer",
-    img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=500&fit=crop&crop=face",
+    name:"Anil Verma",
+    role: "Founder & CEO",
+    img: "/people2.webp",
   },
   {
-    name: "James Harrington",
-    role: "Head of Acquisitions",
-    img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=500&fit=crop&crop=face",
+    name: "Adam El Adam",
+    role: "Founder & Managing Director",
+    img: "/people1.webp",
   },
-  {
-    name: "Sophia Chen",
-    role: "Director of Client Relations",
-    img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=500&fit=crop&crop=face",
-  },
+
 ];
 
 export default function Team({teamRef}: {teamRef:RefObject<HTMLDivElement | null> }) {
@@ -32,11 +28,11 @@ export default function Team({teamRef}: {teamRef:RefObject<HTMLDivElement | null
               The People
             </p>
             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl ">
-              Meet Our Leadership
+              Meet Our Channel Partners
             </h2>
           </div>
 
-          <div ref={teamRef} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div ref={teamRef} className="flex justify-center  gap-6">
             {team.map((person) => (
               <div key={person.name} className="team-card group relative overflow-hidden">
                 <div className="overflow-hidden h-80">
