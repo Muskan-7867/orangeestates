@@ -1,25 +1,31 @@
 import { cn } from "#/lib/utils";
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { useLocation } from "@tanstack/react-router";
-import { motion } from "motion/react"
+import { motion } from "motion/react";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 export default function FloatingSearchBar() {
     const [isFocused, setIsFocused] = useState(false);
+    const [mounted, setMounted] = useState(false);
     const barRef = useRef<HTMLDivElement | null>(null);
     const inputRef = useRef<HTMLInputElement | null>(null);
-    const [isExpanded, setIsExpanded] = useState(false)
-    const [searchText, setSearchText] = useState("")
+    const [isExpanded, setIsExpanded] = useState(false);
+    const [searchText, setSearchText] = useState("");
     const location = useLocation();
     const pathname = location.pathname.replace(/\/$/, "") || "/";
     const isHomePage =
         pathname === "/" ||
         pathname === "/_user" ||
         pathname === "/_user/";
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
 
     // ── Outside-click ──
     useEffect(() => {
@@ -34,7 +40,7 @@ export default function FloatingSearchBar() {
 
     // ── GSAP: slide in from bottom when scrolled past hero ──
     useGSAP(() => {
-        if (!barRef.current) return;
+        if (!barRef.current || !mounted) return;
 
         const el = barRef.current;
 
@@ -91,51 +97,27 @@ export default function FloatingSearchBar() {
         });
 
         return () => trigger.kill();
-    }, [isHomePage, pathname]);
+    }, [isHomePage, pathname, mounted]);
 
     useEffect(() => {
         if (isExpanded) {
             inputRef.current?.focus();
-
         } else {
             setSearchText("");
         }
-    }, [isExpanded])
+    }, [isExpanded]);
 
-    const buttonVariants = {
+    if (!mounted) return null;
 
-        collapsed: {
-            width: 115,
-            marginLeft: 0
-        },
-        expanded: {
-            width: 400,
-            transition: {
-                duration: 0.3,
-            },
-            marginLeft: 50
-
-        },
-    };
-
-    const iconVariants = {
-        hidden: { x: -50, opacity: 0 },
-        visible: { x: 16, opacity: 1 },
-    };
-
-
-    return (
+    return createPortal(
         // Desktop only, always mounted — GSAP controls visibility
         <div className="hidden lg:block">
             <div
                 ref={barRef}
-                className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50"
+                className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[9999]"
                 style={{ opacity: 0 }} // start hidden; GSAP takes over
             >
                 <motion.div
-                    // variants={buttonVariants}
-                    // initial="collapsed"
-                    // animate={isExpanded ? 'expanded' : "collapsed"}
                     onClick={() => setIsFocused(true)}
                     className={cn(
                         "bg-linear-to-b from-white to-gray-200 rounded-full px-4 py-2 shadow1 backdrop-blur-2xl border border-white flex justify-between items-center gap-2",
@@ -143,7 +125,6 @@ export default function FloatingSearchBar() {
                         isFocused ? "scale-105 transition-all duration-300" : ""
                     )}
                 >
-
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none">
                         <path fillRule="evenodd" clipRule="evenodd" d="M16.489 17.5497C14.8753 18.922 12.7843 19.75 10.5 19.75C5.39137 19.75 1.25 15.6086 1.25 10.5C1.25 5.39137 5.39137 1.25 10.5 1.25C15.6086 1.25 19.75 5.39137 19.75 10.5C19.75 12.7843 18.922 14.8753 17.5497 16.489L22.5303 21.4697C22.8232 21.7626 22.8232 22.2374 22.5303 22.5303C22.2374 22.8232 21.7626 22.8232 21.4697 22.5303L16.489 17.5497ZM2.75 10.5C2.75 6.21979 6.21979 2.75 10.5 2.75C14.7802 2.75 18.25 6.21979 18.25 10.5C18.25 12.589 17.4235 14.485 16.0796 15.8788C16.0408 15.905 16.004 15.9353 15.9697 15.9697C15.9353 16.004 15.905 16.0408 15.8788 16.0796C14.485 17.4235 12.589 18.25 10.5 18.25C6.21979 18.25 2.75 14.7802 2.75 10.5Z" fill="currentColor" />
                     </svg>
@@ -156,9 +137,10 @@ export default function FloatingSearchBar() {
                         placeholder="search properties...."
                         className="focus:outline-none text-black w-98 text-sm"
                     />
-
                 </motion.div>
             </div>
-        </div>
+        </div>,
+        document.body
     );
 }
+

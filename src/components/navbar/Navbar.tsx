@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import gsap from "gsap";
@@ -9,16 +10,16 @@ import MobileBottomNav from "./MobileBottomNav";
 import { FaWhatsapp } from "react-icons/fa";
 import SearchBar from "./SearchBar";
 import FloatingSearchBar from "./FloatingSearchBar";
-// import BetterAuthHeader from "#/integrations/better-auth/header-user";
 
-gsap.registerPlugin(ScrollTrigger, useGSAP)
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-export default function Navbar({ open }: { open: boolean, setOpen: React.Dispatch<React.SetStateAction<boolean>> }) {
-  const navbarRef = useRef(null)
-  const location = useLocation()
-  const [isScrolled, setIsScrolled] = useState(false)
+export default function Navbar({ open }: { open: boolean; setOpen: React.Dispatch<React.SetStateAction<boolean>> }) {
+  const navbarRef = useRef(null);
+  const location = useLocation();
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
-  const pathname = location.pathname.replace(/\/$/, "") || "/"
+  const pathname = location.pathname.replace(/\/$/, "") || "/";
   const hasDarkHero =
     pathname === "/" ||
     pathname === "/_user" ||
@@ -27,6 +28,10 @@ export default function Navbar({ open }: { open: boolean, setOpen: React.Dispatc
     pathname === "/_user/about" ||
     pathname === "/contact" ||
     pathname === "/_user/contact";
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (!hasDarkHero) {
@@ -54,12 +59,12 @@ export default function Navbar({ open }: { open: boolean, setOpen: React.Dispatc
     };
   }, [pathname, hasDarkHero]);
 
-
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
   }, [open]);
 
   useGSAP(() => {
+    if (!mounted) return;
     let lastScroll = 0;
 
     const getThreshold = () => {
@@ -92,7 +97,6 @@ export default function Navbar({ open }: { open: boolean, setOpen: React.Dispatc
         const current = self.scroll();
         const threshold = getThreshold();
 
-
         // Ignore tiny movements
         if (Math.abs(current - lastScroll) < 50) return;
 
@@ -113,10 +117,7 @@ export default function Navbar({ open }: { open: boolean, setOpen: React.Dispatc
             ease: "power2.out",
             overwrite: true,
             background: "linear-gradient(to bottom, #f5f5f7 0%, transparent)",
-            backdropFilter: "blur 2px",
-            mask: "linear-gradient(rgba(22, 180, 93, 0) 10 %, #3C1DEB 20 %, #169B4E 40 %, rgba(63, 167, 31, 0.71) 50 %)"
-
-
+            backdropFilter: "blur(2px)",
           });
         } else {
           // Scrolling UP past hero: remove gradient so hero is visible again
@@ -136,46 +137,47 @@ export default function Navbar({ open }: { open: boolean, setOpen: React.Dispatc
     return () => {
       trigger.kill();
     };
-  }, [pathname]);
+  }, [pathname, mounted]);
 
   return (
     <>
-      {/* ── Top bar ── */}
-      <nav ref={navbarRef} className={`w-full flex items-center justify-between fixed top-0 z-50 py-2 px-2 sm:px-34`}>
-        {/* Progressive blur backdrop — only active after user scrolls */}
-        <div className={`navbar-progressive-blur${isScrolled ? " active" : ""}`} aria-hidden="true" />
+      {/* ── Top bar (Portaled to document.body for true fixed positioning) ── */}
+      {mounted &&
+        createPortal(
+          <nav
+            ref={navbarRef}
+            className="w-full flex items-center justify-between fixed top-0 left-0 right-0 z-50 py-2 px-2 sm:px-34"
+          >
+            {/* Progressive blur backdrop — only active after user scrolls */}
+            <div className={`navbar-progressive-blur${isScrolled ? " active" : ""}`} aria-hidden="true" />
 
+            <Logo src={isScrolled ? "/oe-logo-dark.png" : "/oe-logo-light.png"} />
 
+            <SearchBar />
 
-        <Logo src={isScrolled ? "/oe-logo-dark.png" : "/oe-logo-light.png"} />
+            {/* WhatsApp Icon Link for Mobile */}
+            <a
+              href="https://wa.me/919501755756?text=Hello!%20I%20am%20interested%20in%20Orange%20Estate%20properties%20and%20would%20like%20to%20get%20more%20information."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="lg:hidden flex h-9 w-9 items-center justify-center rounded-full bg-[#25D366] text-white shadow hover:bg-[#20ba5a] active:scale-95 transition-all duration-300 cursor-pointer"
+              aria-label="Contact on WhatsApp"
+            >
+              <FaWhatsapp className="h-5.5 w-5.5" />
+            </a>
 
-        <SearchBar />
-
-        {/* WhatsApp Icon Link for Mobile */}
-        <a
-          href="https://wa.me/919501755756?text=Hello!%20I%20am%20interested%20in%20Orange%20Estate%20properties%20and%20would%20like%20to%20get%20more%20information."
-          target="_blank"
-          rel="noopener noreferrer"
-          className="lg:hidden flex h-9 w-9 items-center justify-center rounded-full bg-[#25D366] text-white shadow hover:bg-[#20ba5a] active:scale-95 transition-all duration-300 cursor-pointer"
-          aria-label="Contact on WhatsApp"
-        >
-          <FaWhatsapp className="h-5.5 w-5.5" />
-        </a>
-
-        <div className="hidden lg:flex items-center gap-4">
-          {/* <BetterAuthHeader /> */}
-          <Menubar />
-        </div>
-
-
-      </nav>
+            <div className="hidden lg:flex items-center gap-4">
+              <Menubar />
+            </div>
+          </nav>,
+          document.body
+        )}
 
       {/* ── Floating Mobile Navigation Bar ── */}
       <MobileBottomNav />
 
       {/* ── Floating Desktop Search Bar (appears after hero) ── */}
       <FloatingSearchBar />
-
     </>
   );
 }

@@ -3,27 +3,27 @@ import { Link, useLocation } from "@tanstack/react-router";
 import { Building2, BookOpen, Info, Home, Search, HomeIcon, Key } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { Activity, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
 export default function MobileBottomNav() {
   const location = useLocation();
   const currentPath = location.pathname.replace(/\/$/, "") || "/";
   const [isSearchIconClick, setIsSearchedClick] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const bottomNavRef = useRef<HTMLDivElement>(null);
 
-  // const { data: session } = authClient.useSession();
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const mobileLinks = [
     { label: "Home", href: "/", icon: Home },
     { label: "Buy", href: "/buy", icon: Building2 },
     { label: "Rent", href: "/rent", icon: Key },
     { label: "Blog", href: "/blog", icon: BookOpen },
-    // { 
-    //   label: session?.user ? "Profile" : "Login", 
-    //   href: "/login", 
-    //   icon: User 
-    // },
   ];
+
   useEffect(() => {
     if (isSearchIconClick) {
       requestAnimationFrame(() => {
@@ -37,12 +37,17 @@ export default function MobileBottomNav() {
 
     const handleViewport = () => {
       const vv = window.visualViewport!;
-      // offsetTop accounts for the viewport scrolling up when keyboard appears
-      const keyboardHeight = window.innerHeight - (vv.height + vv.offsetTop);
+      const heightDiff = window.innerHeight - vv.height;
 
       if (bottomNavRef.current) {
-        bottomNavRef.current.style.bottom =
-          keyboardHeight > 10 ? `${keyboardHeight}px` : "0px";
+        if (heightDiff > 150) {
+          // Virtual soft keyboard is open
+          const keyboardHeight = window.innerHeight - (vv.height + vv.offsetTop);
+          bottomNavRef.current.style.bottom = `${Math.max(0, keyboardHeight)}px`;
+        } else {
+          // Normal page scrolling
+          bottomNavRef.current.style.bottom = "0px";
+        }
       }
     };
 
@@ -55,9 +60,11 @@ export default function MobileBottomNav() {
     };
   }, []);
 
-  return (
+  if (!mounted) return null;
+
+  return createPortal(
     <AnimatePresence mode="wait">
-      <div ref={bottomNavRef} className="lg:hidden fixed bottom-0  left-0 right-0 px-2 pb-6 z-50   bg-linear-to-b from-transparent to-white  flex flex-row gap-1">
+      <div ref={bottomNavRef} className="lg:hidden fixed bottom-0 left-0 right-0 px-2 pb-6 z-50 bg-linear-to-b from-transparent to-white flex flex-row gap-1">
         {
           isSearchIconClick && (
             <motion.button
@@ -187,6 +194,7 @@ export default function MobileBottomNav() {
 
 
       </div>
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 }  
