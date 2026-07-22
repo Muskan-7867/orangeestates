@@ -22,7 +22,7 @@ export default function SmoothScroller({ children }: Props) {
             content: content.current!,
             smooth: 2.5,
             effects: true,
-            normalizeScroll: true,
+            normalizeScroll: { allowNestedScroll: true },
             smoothTouch: 0.1,
         });
 

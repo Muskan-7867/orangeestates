@@ -101,7 +101,7 @@ export function PropertyCard({ property }: { property: (typeof properties)[0] })
 
         {/* Image nav — always visible on touch, hover-only on desktop */}
         <div className="absolute bottom-3 left-1/2 -translate-x-1/2 sm:opacity-0 sm:transition sm:duration-300 sm:group-hover:opacity-100">
-          <div className="flex items-center gap-3 rounded-md bg-black/50 px-3 py-1.5 backdrop-blur-md">
+          <div className="flex items-center gap-3  bg-black/50 px-3 py-1.5 backdrop-blur-md">
             <button 
               type="button"
               aria-label="Previous image"

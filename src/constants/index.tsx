@@ -127,7 +127,78 @@ export const properties = [
   },
 ];
 
+export const propertyTypes = [
+    { label: "All Property Types", value: "All" },
+    { label: "Apartment", value: "Apartment" },
+    { label: "Penthouse", value: "Penthouse" },
+    { label: "Duplex", value: "Duplex" },
+    { label: "Villa / House", value: "Villa" },
+  ];
 
+  export const minPriceOptions = [
+    { label: "Min Price (Any)", value: "All" },
+    { label: "£1,000 / mo", value: "1000" },
+    { label: "£5,000 / mo", value: "5000" },
+    { label: "£1,000,000", value: "1000000" },
+    { label: "£3,000,000", value: "3000000" },
+    { label: "£5,000,000", value: "5000000" },
+    { label: "£8,000,000", value: "8000000" },
+    { label: "£10,000,000+", value: "10000000" },
+  ];
+
+  export const maxPriceOptions = [
+    { label: "Max Price (Any)", value: "All" },
+    { label: "£5,000 / mo", value: "5000" },
+    { label: "£10,000 / mo", value: "10000" },
+    { label: "£3,000,000", value: "3000000" },
+    { label: "£5,000,000", value: "5000000" },
+    { label: "£8,000,000", value: "8000000" },
+    { label: "£12,000,000", value: "12000000" },
+    { label: "£20,000,000+", value: "20000000" },
+  ];
+
+  export const bedOptions = [
+    { label: "Any Bedrooms", value: "All" },
+    { label: "1+ Bed", value: "1" },
+    { label: "2+ Beds", value: "2" },
+    { label: "3+ Beds", value: "3" },
+    { label: "4+ Beds", value: "4" },
+    { label: "5+ Beds", value: "5" },
+  ];
+
+  export const bathOptions = [
+    { label: "Any Bathrooms", value: "All" },
+    { label: "1+ Bath", value: "1" },
+    { label: "2+ Baths", value: "2" },
+    { label: "3+ Baths", value: "3" },
+    { label: "4+ Baths", value: "4" },
+    { label: "5+ Baths", value: "5" },
+  ];
+
+  export const completionOptions = [
+    { label: "All Completion Status", value: "All" },
+    { label: "Ready / Completed", value: "Ready" },
+    { label: "Off-Plan", value: "Off-Plan" },
+    { label: "Under Construction", value: "Under Construction" },
+  ];
+
+ export const developerOptions = [
+    { label: "All Developers", value: "All" },
+    { label: "Emaar Properties", value: "Emaar" },
+    { label: "Damac Properties", value: "Damac" },
+    { label: "Sobha Realty", value: "Sobha" },
+    { label: "Nakheel", value: "Nakheel" },
+    { label: "Select Group", value: "Select Group" },
+    { label: "Ellington", value: "Ellington" },
+    { label: "Omniyat", value: "Omniyat" },
+  ];
+
+  export const sizeOptions = [
+    { label: "Any Size", value: "All" },
+    { label: "Under 1,500 SQ.FT.", value: "under-1500" },
+    { label: "1,500 - 3,000 SQ.FT.", value: "1500-3000" },
+    { label: "Above 3,000 SQ.FT.", value: "above-3000" },
+  ];
 
 export const SLIDES = [
   {
