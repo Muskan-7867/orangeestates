@@ -8,7 +8,7 @@ export default function RelatedProperties({ relatedProperties }: { relatedProper
 
     return (
         <section className="w-full px-4 md:px-12 lg:px-34 mt-16 sm:mt-24">
-            <div className="border-t border-gray-200/80 pt-16">
+            <div className=" pt-16">
                 <div className="flex flex-col items-center mb-10">
                     <span className="text-[10px] sm:text-xs uppercase tracking-[0.3em] text-gray-500 font-semibold">
                         Recommendations

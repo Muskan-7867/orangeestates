@@ -1,5 +1,6 @@
 import { Heart, Share2, Calendar, X } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "motion/react";
 import PropertyBookingForm from "./PropertyBookingForm";
 
@@ -7,6 +8,23 @@ export default function PropertyHeaderDesc({property}: {property: any}) {
   const [isFavorite, setIsFavorite] = useState(false);
   const [copied, setCopied] = useState(false);
   const [isBookingOpen, setIsBookingOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Lock body scroll when modal is open
+  useEffect(() => {
+    if (isBookingOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isBookingOpen]);
 
   const handleShare = () => {
     navigator.clipboard.writeText(window.location.href);
@@ -18,7 +36,7 @@ export default function PropertyHeaderDesc({property}: {property: any}) {
     <div className="bg-white p-4 sm:p-8 border border-gray-100 ">
       <div className="flex justify-between items-start gap-4 flex-wrap">
         <div>
-          <span className="bg-primary/10 text-primary px-3 py-1 text-[10px] sm:text-xs tracking-wider uppercase font-semibold rounded-md">
+          <span className="bg-primary/10 text-primary px-3 py-1 text-[10px] sm:text-xs tracking-wider uppercase font-semibold ">
             Premium Listing
           </span>
           <h1 className="mt-4 font-serif text-xl sm:text-4xl text-gray-900 leading-tight">
@@ -29,7 +47,7 @@ export default function PropertyHeaderDesc({property}: {property: any}) {
         <div className="flex items-center gap-2">
           <button
             onClick={() => setIsBookingOpen(true)}
-            className="flex items-center gap-2 h-11 px-5 bg-primary hover:bg-primary/90 text-white text-xs font-semibold tracking-wider uppercase transition-all duration-300 cursor-pointer shadow-sm rounded-sm"
+            className="flex items-center gap-2 h-11 px-5 bg-primary hover:bg-primary/90 text-white text-xs font-semibold tracking-wider uppercase transition-all duration-300 cursor-pointer"
           >
             <Calendar size={16} />
             <span>Book Stay</span>
@@ -62,35 +80,39 @@ export default function PropertyHeaderDesc({property}: {property: any}) {
         </div>
       </div>
 
-      {/* Booking Form Modal Dialog */}
-      <AnimatePresence>
-        {isBookingOpen && (
-          <div 
-            className="fixed inset-0 z-100 flex items-center justify-center p-4 sm:p-6 mt-12 bg-black/60 backdrop-blur-sm"
-            onClick={() => setIsBookingOpen(false)}
-          >
-            <motion.div
-              initial={{ scale: 0.95, opacity: 0, y: 15 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.95, opacity: 0, y: 15 }}
-              transition={{ type: "spring", stiffness: 260, damping: 25 }}
-              onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-md bg-white rounded-2xl overflow-hidden shadow-2xl border border-gray-100"
-            >
-              {/* Close Icon Button */}
-              <button
+      {/* Booking Form Modal Dialog (Portaled to document.body for true full-screen fixed positioning) */}
+      {mounted &&
+        createPortal(
+          <AnimatePresence>
+            {isBookingOpen && (
+              <div
+                className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6 bg-black/60 backdrop-blur-sm"
                 onClick={() => setIsBookingOpen(false)}
-                className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 text-gray-500 hover:text-gray-800 transition-all cursor-pointer z-10"
-                title="Close"
               >
-                <X size={18} />
-              </button>
+                <motion.div
+                  initial={{ scale: 0.95, opacity: 0, y: 15 }}
+                  animate={{ scale: 1, opacity: 1, y: 0 }}
+                  exit={{ scale: 0.95, opacity: 0, y: 15 }}
+                  transition={{ type: "spring", stiffness: 260, damping: 25 }}
+                  onClick={(e) => e.stopPropagation()}
+                  className="relative w-full max-w-md bg-white  overflow-hidden shadow-2xl border border-gray-100"
+                >
+                  {/* Close Icon Button */}
+                  <button
+                    onClick={() => setIsBookingOpen(false)}
+                    className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 text-gray-500 hover:text-gray-800 transition-all cursor-pointer z-10"
+                    title="Close"
+                  >
+                    <X size={18} />
+                  </button>
 
-              <PropertyBookingForm property={property} onClose={() => setIsBookingOpen(false)} />
-            </motion.div>
-          </div>
+                  <PropertyBookingForm property={property} onClose={() => setIsBookingOpen(false)} />
+                </motion.div>
+              </div>
+            )}
+          </AnimatePresence>,
+          document.body
         )}
-      </AnimatePresence>
 
             <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-6 py-6 border-t border-b border-gray-100">
               <div className="flex flex-col">

@@ -9,11 +9,18 @@ import PropHero from "./Prop";
 const ITEMS_PER_PAGE = 6;
 
 export default function PropertiesPage({ purpose = "all" }: { purpose?: "all" | "buy" | "rent" | "new-homes" }) {
+  const [selectedPurpose, setSelectedPurpose] = useState<string>(purpose);
   const [selectedCountry, setSelectedCountry] = useState("All");
   const [selectedType, setSelectedType] = useState("All");
   const [selectedPriceRange, setSelectedPriceRange] = useState("All");
+  const [selectedMinPrice, setSelectedMinPrice] = useState("All");
+  const [selectedMaxPrice, setSelectedMaxPrice] = useState("All");
   const [selectedBeds, setSelectedBeds] = useState("All");
+  const [selectedBaths, setSelectedBaths] = useState("All");
+  const [selectedCompletion, setSelectedCompletion] = useState("All");
+  const [selectedDeveloper, setSelectedDeveloper] = useState("All");
   const [selectedSize, setSelectedSize] = useState("All");
+  const [selectedArea, setSelectedArea] = useState("All");
   const [searchQuery, setSearchQuery] = useState(() => {
     if (typeof window !== "undefined") {
       return new URLSearchParams(window.location.search).get("q") || "";
@@ -21,6 +28,10 @@ export default function PropertiesPage({ purpose = "all" }: { purpose?: "all" | 
     return "";
   });
   const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    setSelectedPurpose(purpose);
+  }, [purpose]);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -45,14 +56,20 @@ export default function PropertiesPage({ purpose = "all" }: { purpose?: "all" | 
     return clean ? parseInt(clean, 10) : 0;
   };
 
+  // Developers & completion mock lists for fallback lookup
+  const developers = ["Emaar", "Damac", "Sobha", "Nakheel", "Select Group", "Ellington", "Omniyat"];
+  const completions = ["Ready", "Off-Plan", "Under Construction"];
+
   // Filter properties by buy/rent purpose
   const propertiesByPurpose =
-    purpose === "all"
+    selectedPurpose === "all"
       ? properties
-      : properties.filter((p) => p.purpose === purpose);
+      : properties.filter((p) => p.purpose === selectedPurpose);
 
-  // Apply all filters: Country, Search, Type, Price, Beds, Size
+  // Apply all filters: Country, Search, Type, Price (Min/Max & Range), Beds, Baths, Completion, Developer, Size, Area
   const filteredProperties = propertiesByPurpose.filter((property) => {
+    const propIdNum = parseInt(property.id, 10) || 1;
+
     // 1. Country filter
     if (selectedCountry !== "All") {
       const originalIndex = properties.findIndex((p) => p.id === property.id);
@@ -85,9 +102,9 @@ export default function PropertiesPage({ purpose = "all" }: { purpose?: "all" | 
       }
     }
 
-    // 4. Price range filter
+    // 4. Price range legacy filter
+    const numPrice = parseNum(property.price);
     if (selectedPriceRange !== "All") {
-      const numPrice = parseNum(property.price);
       const isRent = property.price.includes("month");
       if (isRent) {
         if (selectedPriceRange === "under-5m" && numPrice >= 5000) return false;
@@ -100,18 +117,74 @@ export default function PropertiesPage({ purpose = "all" }: { purpose?: "all" | 
       }
     }
 
+    // Min Price filter
+    if (selectedMinPrice !== "All") {
+      const minVal = parseInt(selectedMinPrice, 10);
+      if (numPrice < minVal) return false;
+    }
+
+    // Max Price filter
+    if (selectedMaxPrice !== "All") {
+      const maxVal = parseInt(selectedMaxPrice, 10);
+      if (numPrice > maxVal) return false;
+    }
+
     // 5. Beds filter
     if (selectedBeds !== "All") {
       const minBeds = parseInt(selectedBeds, 10);
       if (property.beds < minBeds) return false;
     }
 
-    // 6. Size filter
+    // 6. Baths filter
+    if (selectedBaths !== "All") {
+      const minBaths = parseInt(selectedBaths, 10);
+      if ((property.baths || 1) < minBaths) return false;
+    }
+
+    // 7. Completion filter
+    if (selectedCompletion !== "All") {
+      const propCompletion =
+        (property as any).completion ||
+        (property.purpose === "new-homes"
+          ? "Off-Plan"
+          : completions[(propIdNum - 1) % completions.length]);
+      if (propCompletion !== selectedCompletion) return false;
+    }
+
+    // 8. Developer filter
+    if (selectedDeveloper !== "All") {
+      const propDeveloper =
+        (property as any).developer ||
+        developers[(propIdNum - 1) % developers.length];
+      if (propDeveloper !== selectedDeveloper) return false;
+    }
+
+    // 9. Size filter
     if (selectedSize !== "All") {
       const numArea = parseNum(property.area);
       if (selectedSize === "under-1500" && numArea >= 1500) return false;
       if (selectedSize === "1500-3000" && (numArea < 1500 || numArea > 3000)) return false;
       if (selectedSize === "above-3000" && numArea <= 3000) return false;
+    }
+
+    // 10. Map Area filter
+    if (selectedArea !== "All") {
+      const propTitle = property.title.toLowerCase();
+      const areaLower = selectedArea.toLowerCase();
+
+      const areaKeywords: Record<string, string[]> = {
+        "Downtown Dubai": ["heights", "albert", "embankment", "downtown"],
+        "Palm Jumeirah": ["crest", "penthouse", "palm"],
+        "Dubai Marina": ["duplex", "hanover", "square", "marina"],
+        "Business Bay": ["gardens", "bayswater", "business"],
+        Mayfair: ["mayfair", "hanover"],
+        Bayswater: ["bayswater", "craven"],
+        "Albert Embankment": ["embankment", "albert"],
+      };
+
+      const keywords = areaKeywords[selectedArea] || [areaLower];
+      const hasMatch = keywords.some((kw) => propTitle.includes(kw));
+      if (!hasMatch) return false;
     }
 
     return true;
@@ -133,11 +206,18 @@ export default function PropertiesPage({ purpose = "all" }: { purpose?: "all" | 
 
   const handleResetFilters = () => {
     triggerLoad(() => {
+      setSelectedPurpose("all");
       setSelectedCountry("All");
       setSelectedType("All");
       setSelectedPriceRange("All");
+      setSelectedMinPrice("All");
+      setSelectedMaxPrice("All");
       setSelectedBeds("All");
+      setSelectedBaths("All");
+      setSelectedCompletion("All");
+      setSelectedDeveloper("All");
       setSelectedSize("All");
+      setSelectedArea("All");
       setSearchQuery("");
       setCurrentPage(1);
     });
@@ -146,26 +226,10 @@ export default function PropertiesPage({ purpose = "all" }: { purpose?: "all" | 
   return (
     <main className="min-h-screen bg-bg pb-28">
       <section className="">
-
         <div className="w-full  ">
-          {/* Header */}
-          {/* <div className="flex flex-col items-center">
-           
-            <h2 className="mt-2 text-2xl md:text-6xl font-light font-serif text-gray-900 text-center">
-              Featured Properties
-            </h2>
-
-            <p className="max-w-md mt-4 text-center text-gray-600 text-sm">
-              Explore our handpicked collection of exceptional homes and
-              investment properties.
-            </p>
-          </div> */}
-
           {/* Gallery */}
           <div className="mb-2 ">
-        <PropHero />
-
-            {/* <PropertyHero /> */}
+            <PropHero />
           </div>
 
           {/* Filter */}
@@ -175,6 +239,13 @@ export default function PropertiesPage({ purpose = "all" }: { purpose?: "all" | 
             setSelectedCountry={(country) =>
               triggerLoad(() => {
                 setSelectedCountry(country);
+                setCurrentPage(1);
+              })
+            }
+            selectedPurpose={selectedPurpose}
+            setSelectedPurpose={(purpose) =>
+              triggerLoad(() => {
+                setSelectedPurpose(purpose);
                 setCurrentPage(1);
               })
             }
@@ -199,6 +270,20 @@ export default function PropertiesPage({ purpose = "all" }: { purpose?: "all" | 
                 setCurrentPage(1);
               })
             }
+            selectedMinPrice={selectedMinPrice}
+            setSelectedMinPrice={(minPrice) =>
+              triggerLoad(() => {
+                setSelectedMinPrice(minPrice);
+                setCurrentPage(1);
+              })
+            }
+            selectedMaxPrice={selectedMaxPrice}
+            setSelectedMaxPrice={(maxPrice) =>
+              triggerLoad(() => {
+                setSelectedMaxPrice(maxPrice);
+                setCurrentPage(1);
+              })
+            }
             selectedBeds={selectedBeds}
             setSelectedBeds={(beds) =>
               triggerLoad(() => {
@@ -206,10 +291,38 @@ export default function PropertiesPage({ purpose = "all" }: { purpose?: "all" | 
                 setCurrentPage(1);
               })
             }
+            selectedBaths={selectedBaths}
+            setSelectedBaths={(baths) =>
+              triggerLoad(() => {
+                setSelectedBaths(baths);
+                setCurrentPage(1);
+              })
+            }
+            selectedCompletion={selectedCompletion}
+            setSelectedCompletion={(completion) =>
+              triggerLoad(() => {
+                setSelectedCompletion(completion);
+                setCurrentPage(1);
+              })
+            }
+            selectedDeveloper={selectedDeveloper}
+            setSelectedDeveloper={(developer) =>
+              triggerLoad(() => {
+                setSelectedDeveloper(developer);
+                setCurrentPage(1);
+              })
+            }
             selectedSize={selectedSize}
             setSelectedSize={(size) =>
               triggerLoad(() => {
                 setSelectedSize(size);
+                setCurrentPage(1);
+              })
+            }
+            selectedArea={selectedArea}
+            setSelectedArea={(area) =>
+              triggerLoad(() => {
+                setSelectedArea(area);
                 setCurrentPage(1);
               })
             }

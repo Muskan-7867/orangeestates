@@ -36,7 +36,7 @@ export default function PropertyBookingForm({ property, onClose }: { property: a
           {onClose && (
             <button
               onClick={onClose}
-              className="px-6 py-2 bg-gray-900 hover:bg-gray-800 text-white rounded-lg text-xs font-semibold uppercase tracking-wider transition-colors cursor-pointer mt-4"
+              className="px-6 py-2 bg-gray-900 hover:bg-gray-800 text-white text-xs font-semibold uppercase tracking-wider transition-colors cursor-pointer mt-4"
             >
               Done
             </button>
@@ -56,7 +56,7 @@ export default function PropertyBookingForm({ property, onClose }: { property: a
                 required
                 value={checkIn}
                 onChange={(e) => setCheckIn(e.target.value)}
-                className="w-full bg-gray-55 border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-primary focus:bg-white transition-colors"
+                className="w-full bg-gray-55 border border-gray-200  px-3 py-2.5 text-sm focus:outline-none focus:border-primary focus:bg-white transition-colors"
               />
             </div>
 
@@ -71,7 +71,7 @@ export default function PropertyBookingForm({ property, onClose }: { property: a
                 required
                 value={checkOut}
                 onChange={(e) => setCheckOut(e.target.value)}
-                className="w-full bg-gray-55 border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-primary focus:bg-white transition-colors"
+                className="w-full bg-gray-55 border border-gray-200  px-3 py-2.5 text-sm focus:outline-none focus:border-primary focus:bg-white transition-colors"
               />
             </div>
           </div>
@@ -85,7 +85,7 @@ export default function PropertyBookingForm({ property, onClose }: { property: a
               <button
                 type="button"
                 onClick={() => setGuests((g) => Math.max(1, g - 1))}
-                className="w-10 h-10 border border-gray-200 rounded-lg flex items-center justify-center text-gray-600 hover:bg-gray-50 active:scale-95 transition-all cursor-pointer font-bold animate-none"
+                className="w-10 h-10 border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-gray-50 active:scale-95 transition-all cursor-pointer font-bold animate-none"
               >
                 -
               </button>
@@ -95,7 +95,7 @@ export default function PropertyBookingForm({ property, onClose }: { property: a
               <button
                 type="button"
                 onClick={() => setGuests((g) => Math.min(10, g + 1))}
-                className="w-10 h-10 border border-gray-200 rounded-lg flex items-center justify-center text-gray-600 hover:bg-gray-50 active:scale-95 transition-all cursor-pointer font-bold animate-none"
+                className="w-10 h-10 border border-gray-200  flex items-center justify-center text-gray-600 hover:bg-gray-50 active:scale-95 transition-all cursor-pointer font-bold animate-none"
               >
                 +
               </button>
@@ -106,7 +106,7 @@ export default function PropertyBookingForm({ property, onClose }: { property: a
             whileHover={{ scale: 1.01 }}
             whileTap={{ scale: 0.98 }}
             type="submit"
-            className="w-full bg-primary text-white py-3.5 rounded-lg text-xs font-semibold tracking-wider uppercase transition-colors cursor-pointer mt-4"
+            className="w-full bg-primary text-white py-3.5  text-xs font-semibold tracking-wider uppercase transition-colors cursor-pointer mt-4"
           >
             Request Booking
           </motion.button>
