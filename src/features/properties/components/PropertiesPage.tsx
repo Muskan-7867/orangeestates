@@ -6,7 +6,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import PropertyFilters from "./PropertyFilters";
 import PropHero from "./Prop";
 
-const ITEMS_PER_PAGE = 6;
+const ITEMS_PER_PAGE = 15;
 
 export default function PropertiesPage({ purpose = "all" }: { purpose?: "all" | "buy" | "rent" | "new-homes" }) {
   const [selectedPurpose, setSelectedPurpose] = useState<string>(purpose);

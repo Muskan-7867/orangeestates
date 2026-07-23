@@ -3,6 +3,8 @@ import { PropertyCard } from "#/components/ui/PropertyCard";
 import { properties } from "#/constants";
 
 export default function PropertyGrid() {
+  const featuredProperties = properties.slice(0, 6);
+
   return (
     <section className="py-10 lg:py-24 bg-bg">
       <div className="mx-auto max-w-[1800px] px-4 sm:px-10 flex flex-col items-center">
@@ -37,7 +39,7 @@ export default function PropertyGrid() {
         {/* Mobile: horizontal scroll row */}
         <div className="lg:hidden w-full">
           <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4 px-4 scrollbar-hide">
-            {properties.map((property) => (
+            {featuredProperties.map((property) => (
               <div
                 key={property.title}
                 className="snap-start shrink-0 w-[78vw] sm:w-[55vw]"
@@ -50,7 +52,7 @@ export default function PropertyGrid() {
 
         {/* Desktop: 3-column grid */}
         <div className="hidden lg:grid gap-4 lg:grid-cols-3">
-          {properties.map((property) => (
+          {featuredProperties.map((property) => (
             <PropertyCard
               key={property.title}
               property={property}
