@@ -99,7 +99,7 @@ export default function PropertyFilters({
     (selectedDeveloper !== "All" ? 1 : 0) +
     (selectedSize !== "All" ? 1 : 0) +
     (selectedArea !== "All" ? 1 : 0) +
-    (searchQuery.trim() ? 1 : 0);
+    (searchQuery?.trim() ? 1 : 0);
 
   const hasActiveFilters = activeFiltersCount > 0;
 

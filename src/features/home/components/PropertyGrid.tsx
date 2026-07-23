@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { PropertyCard } from "#/components/ui/PropertyCard";
 import { properties } from "#/constants";
+import { PropertyCard } from "#/components/shared/PropertyCard";
 
 export default function PropertyGrid() {
   const featuredProperties = properties.slice(0, 6);
@@ -24,16 +24,16 @@ export default function PropertyGrid() {
             lifestyle and redefine contemporary living.
           </p>
 
-                 {/* Explore Button */}
-        <div className="mt-10 lg:mt-14">
-          <Link
-            to="/properties"
-            className="group inline-flex items-center gap-3 bg-primary px-4 py-3 text-xs font-semibold uppercase tracking-[0.15em] text-white transition-all duration-300  hover:bg-primary/90 "
-          >
-            Explore Properties
-           
-          </Link>
-        </div>
+          {/* Explore Button */}
+          <div className="mt-10 lg:mt-14">
+            <Link
+              to="/properties"
+              className="group inline-flex items-center gap-3 bg-primary px-4 py-3 text-xs font-semibold uppercase tracking-[0.15em] text-white transition-all duration-300  hover:bg-primary/90 "
+            >
+              Explore Properties
+
+            </Link>
+          </div>
         </div>
 
         {/* Mobile: horizontal scroll row */}
@@ -60,7 +60,7 @@ export default function PropertyGrid() {
           ))}
         </div>
 
- 
+
       </div>
     </section>
   );

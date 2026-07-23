@@ -1,45 +1,62 @@
-import { useState, useEffect } from "react";
-import { PropertyCard } from "#/components/ui/PropertyCard";
-import { PropertyCardSkeleton } from "#/components/ui/PropertyCard";
+import { useState } from "react";
+
 import { properties } from "#/constants";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import PropertyFilters from "./PropertyFilters";
 import PropHero from "./Prop";
+import { useNavigate, useSearch } from "@tanstack/react-router";
+import { PropertyCard, PropertyCardSkeleton } from "#/components/shared/PropertyCard";
+import type { PropertySearchParams } from "../types/filterSchema";
 
 const ITEMS_PER_PAGE = 15;
 
-export default function PropertiesPage({ purpose = "all" }: { purpose?: "all" | "buy" | "rent" | "new-homes" }) {
-  const [selectedPurpose, setSelectedPurpose] = useState<string>(purpose);
-  const [selectedCountry, setSelectedCountry] = useState("All");
-  const [selectedType, setSelectedType] = useState("All");
-  const [selectedPriceRange, setSelectedPriceRange] = useState("All");
-  const [selectedMinPrice, setSelectedMinPrice] = useState("All");
-  const [selectedMaxPrice, setSelectedMaxPrice] = useState("All");
-  const [selectedBeds, setSelectedBeds] = useState("All");
-  const [selectedBaths, setSelectedBaths] = useState("All");
-  const [selectedCompletion, setSelectedCompletion] = useState("All");
-  const [selectedDeveloper, setSelectedDeveloper] = useState("All");
-  const [selectedSize, setSelectedSize] = useState("All");
-  const [selectedArea, setSelectedArea] = useState("All");
-  const [searchQuery, setSearchQuery] = useState(() => {
-    if (typeof window !== "undefined") {
-      return new URLSearchParams(window.location.search).get("q") || "";
-    }
-    return "";
-  });
-  const [currentPage, setCurrentPage] = useState(1);
+export interface PropertiesPageProps {
+  purpose?: "all" | "buy" | "rent" | "new-homes";
+}
 
-  useEffect(() => {
-    setSelectedPurpose(purpose);
-  }, [purpose]);
+export default function PropertiesPage({ purpose: propPurpose }: PropertiesPageProps = {}) {
+  // 1. Get search object without long inline destructuring
+  const search = useSearch({ strict: false }) as PropertySearchParams;
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const q = new URLSearchParams(window.location.search).get("q") || "";
-      setSearchQuery(q);
-    }
-  }, [typeof window !== "undefined" ? window.location.search : ""]);
+  // 2. Destructure with default fallback values on separate clean lines
+  const {
+    purpose = propPurpose || "all",
+    country = "All",
+    type = "All",
+    priceRange = "All",
+    minPrice = "All",
+    maxPrice = "All",
+    beds = "All",
+    baths = "All",
+    completion = "All",
+    developer = "All",
+    size = "All",
+    area = "All",
+    q = "",
+    page: currentPage = 1,
+  } = search;
+
   const [isLoading, setIsLoading] = useState(false);
+
+  // Helper to update specific search params in URL
+  const updateFilter = (newParams: Partial<PropertySearchParams>) => {
+    navigate({
+      to: ".",
+      search: (prev: PropertySearchParams) => {
+        const updated = {
+          ...prev,
+          ...newParams,
+        };
+        // Reset to page 1 whenever filters change unless changing page directly
+        if (!("page" in newParams)) {
+          updated.page = 1;
+        }
+        return updated;
+      },
+      replace: true,
+    });
+  };
 
   const countries = [
     "All",
@@ -62,33 +79,33 @@ export default function PropertiesPage({ purpose = "all" }: { purpose?: "all" | 
 
   // Filter properties by buy/rent purpose
   const propertiesByPurpose =
-    selectedPurpose === "all"
+    purpose === "all"
       ? properties
-      : properties.filter((p) => p.purpose === selectedPurpose);
+      : properties.filter((p) => p.purpose === purpose);
 
   // Apply all filters: Country, Search, Type, Price (Min/Max & Range), Beds, Baths, Completion, Developer, Size, Area
   const filteredProperties = propertiesByPurpose.filter((property) => {
     const propIdNum = parseInt(property.id, 10) || 1;
 
     // 1. Country filter
-    if (selectedCountry !== "All") {
+    if (country !== "All") {
       const originalIndex = properties.findIndex((p) => p.id === property.id);
       const propertyCountry =
         countries[(originalIndex % (countries.length - 1)) + 1];
-      if (propertyCountry !== selectedCountry) return false;
+      if (propertyCountry !== country) return false;
     }
 
     // 2. Search query filter
-    if (searchQuery.trim()) {
-      if (!property.title.toLowerCase().includes(searchQuery.toLowerCase())) {
+    if (q?.trim()) {
+      if (!property.title.toLowerCase().includes(q.toLowerCase())) {
         return false;
       }
     }
 
     // 3. Type filter
-    if (selectedType !== "All") {
+    if (type !== "All") {
       const titleLower = property.title.toLowerCase();
-      const typeLower = selectedType.toLowerCase();
+      const typeLower = type?.toLowerCase();
       if (typeLower === "apartment") {
         if (!titleLower.includes("apartment") && !titleLower.includes("flat")) return false;
       } else if (typeLower === "penthouse") {
@@ -104,73 +121,73 @@ export default function PropertiesPage({ purpose = "all" }: { purpose?: "all" | 
 
     // 4. Price range legacy filter
     const numPrice = parseNum(property.price);
-    if (selectedPriceRange !== "All") {
+    if (minPrice !== "All" || maxPrice !== "All" || priceRange !== "All") {
       const isRent = property.price.includes("month");
       if (isRent) {
-        if (selectedPriceRange === "under-5m" && numPrice >= 5000) return false;
-        if (selectedPriceRange === "5m-8m" && (numPrice < 5000 || numPrice > 7000)) return false;
-        if (selectedPriceRange === "above-8m" && numPrice <= 7000) return false;
+        if (priceRange === "under-5m" && numPrice >= 5000) return false;
+        if (priceRange === "5m-8m" && (numPrice < 5000 || numPrice > 7000)) return false;
+        if (priceRange === "above-8m" && numPrice <= 7000) return false;
       } else {
-        if (selectedPriceRange === "under-5m" && numPrice >= 5000000) return false;
-        if (selectedPriceRange === "5m-8m" && (numPrice < 5000000 || numPrice > 8000000)) return false;
-        if (selectedPriceRange === "above-8m" && numPrice <= 8000000) return false;
+        if (priceRange === "under-5m" && numPrice >= 5000000) return false;
+        if (priceRange === "5m-8m" && (numPrice < 5000000 || numPrice > 8000000)) return false;
+        if (priceRange === "above-8m" && numPrice <= 8000000) return false;
       }
     }
 
     // Min Price filter
-    if (selectedMinPrice !== "All") {
-      const minVal = parseInt(selectedMinPrice, 10);
+    if (minPrice !== "All") {
+      const minVal = parseInt(minPrice, 10);
       if (numPrice < minVal) return false;
     }
 
     // Max Price filter
-    if (selectedMaxPrice !== "All") {
-      const maxVal = parseInt(selectedMaxPrice, 10);
+    if (maxPrice !== "All") {
+      const maxVal = parseInt(maxPrice, 10);
       if (numPrice > maxVal) return false;
     }
 
     // 5. Beds filter
-    if (selectedBeds !== "All") {
-      const minBeds = parseInt(selectedBeds, 10);
+    if (beds !== "All") {
+      const minBeds = parseInt(beds, 10);
       if (property.beds < minBeds) return false;
     }
 
     // 6. Baths filter
-    if (selectedBaths !== "All") {
-      const minBaths = parseInt(selectedBaths, 10);
+    if (baths !== "All") {
+      const minBaths = parseInt(baths, 10);
       if ((property.baths || 1) < minBaths) return false;
     }
 
     // 7. Completion filter
-    if (selectedCompletion !== "All") {
+    if (completion !== "All") {
       const propCompletion =
         (property as any).completion ||
         (property.purpose === "new-homes"
           ? "Off-Plan"
           : completions[(propIdNum - 1) % completions.length]);
-      if (propCompletion !== selectedCompletion) return false;
+      if (propCompletion !== completion) return false;
     }
 
     // 8. Developer filter
-    if (selectedDeveloper !== "All") {
+    if (developer !== "All") {
       const propDeveloper =
         (property as any).developer ||
         developers[(propIdNum - 1) % developers.length];
-      if (propDeveloper !== selectedDeveloper) return false;
+      if (propDeveloper !== developer) return false;
     }
 
     // 9. Size filter
-    if (selectedSize !== "All") {
+    if (size !== "All") {
       const numArea = parseNum(property.area);
-      if (selectedSize === "under-1500" && numArea >= 1500) return false;
-      if (selectedSize === "1500-3000" && (numArea < 1500 || numArea > 3000)) return false;
-      if (selectedSize === "above-3000" && numArea <= 3000) return false;
+      if (size === "under-1500" && numArea >= 1500) return false;
+      if (size === "1500-3000" && (numArea < 1500 || numArea > 3000)) return false;
+      if (size === "above-3000" && numArea <= 3000) return false;
     }
 
     // 10. Map Area filter
-    if (selectedArea !== "All") {
+    if (area !== "All") {
       const propTitle = property.title.toLowerCase();
-      const areaLower = selectedArea.toLowerCase();
+      const areaLower = area?.toLowerCase();
 
       const areaKeywords: Record<string, string[]> = {
         "Downtown Dubai": ["heights", "albert", "embankment", "downtown"],
@@ -182,7 +199,7 @@ export default function PropertiesPage({ purpose = "all" }: { purpose?: "all" | 
         "Albert Embankment": ["embankment", "albert"],
       };
 
-      const keywords = areaKeywords[selectedArea] || [areaLower];
+      const keywords = areaKeywords[area] || [areaLower];
       const hasMatch = keywords.some((kw) => propTitle.includes(kw));
       if (!hasMatch) return false;
     }
@@ -200,144 +217,103 @@ export default function PropertiesPage({ purpose = "all" }: { purpose?: "all" | 
   const triggerLoad = (fn: () => void) => {
     setIsLoading(true);
     fn();
-    const t = setTimeout(() => setIsLoading(false), 400);
+    const t = setTimeout(() => setIsLoading(false), 300);
     return () => clearTimeout(t);
   };
 
   const handleResetFilters = () => {
     triggerLoad(() => {
-      setSelectedPurpose("all");
-      setSelectedCountry("All");
-      setSelectedType("All");
-      setSelectedPriceRange("All");
-      setSelectedMinPrice("All");
-      setSelectedMaxPrice("All");
-      setSelectedBeds("All");
-      setSelectedBaths("All");
-      setSelectedCompletion("All");
-      setSelectedDeveloper("All");
-      setSelectedSize("All");
-      setSelectedArea("All");
-      setSearchQuery("");
-      setCurrentPage(1);
+      navigate({
+        to: ".",
+        search: propPurpose && propPurpose !== "all" ? { purpose: propPurpose } : {},
+        replace: true,
+      });
     });
   };
 
   return (
     <main className="min-h-screen bg-bg pb-28">
       <section className="">
-        <div className="w-full  ">
+        <div className="w-full">
           {/* Gallery */}
-          <div className="mb-2 ">
+          <div className="mb-2">
             <PropHero />
           </div>
 
           {/* Filter */}
           <PropertyFilters
             countries={countries}
-            selectedCountry={selectedCountry}
+            selectedCountry={country}
             setSelectedCountry={(country) =>
-              triggerLoad(() => {
-                setSelectedCountry(country);
-                setCurrentPage(1);
-              })
+              triggerLoad(() => updateFilter({ country }))
             }
-            selectedPurpose={selectedPurpose}
+            selectedPurpose={purpose}
             setSelectedPurpose={(purpose) =>
-              triggerLoad(() => {
-                setSelectedPurpose(purpose);
-                setCurrentPage(1);
-              })
+              triggerLoad(() => updateFilter({ purpose: purpose as any }))
             }
-            searchQuery={searchQuery}
+            searchQuery={q}
             setSearchQuery={(query) =>
-              triggerLoad(() => {
-                setSearchQuery(query);
-                setCurrentPage(1);
-              })
+              triggerLoad(() => updateFilter({ q: query }))
             }
-            selectedType={selectedType}
+            selectedType={type}
             setSelectedType={(type) =>
-              triggerLoad(() => {
-                setSelectedType(type);
-                setCurrentPage(1);
-              })
+              triggerLoad(() => updateFilter({ type }))
             }
-            selectedPriceRange={selectedPriceRange}
-            setSelectedPriceRange={(price) =>
-              triggerLoad(() => {
-                setSelectedPriceRange(price);
-                setCurrentPage(1);
-              })
+            selectedPriceRange={priceRange}
+            setSelectedPriceRange={(priceRange) =>
+              triggerLoad(() => updateFilter({ priceRange }))
             }
-            selectedMinPrice={selectedMinPrice}
+            selectedMinPrice={minPrice}
             setSelectedMinPrice={(minPrice) =>
-              triggerLoad(() => {
-                setSelectedMinPrice(minPrice);
-                setCurrentPage(1);
-              })
+              triggerLoad(() => updateFilter({ minPrice }))
             }
-            selectedMaxPrice={selectedMaxPrice}
+            selectedMaxPrice={maxPrice}
             setSelectedMaxPrice={(maxPrice) =>
-              triggerLoad(() => {
-                setSelectedMaxPrice(maxPrice);
-                setCurrentPage(1);
-              })
+              triggerLoad(() => updateFilter({ maxPrice }))
             }
-            selectedBeds={selectedBeds}
+            selectedBeds={beds}
             setSelectedBeds={(beds) =>
-              triggerLoad(() => {
-                setSelectedBeds(beds);
-                setCurrentPage(1);
-              })
+              triggerLoad(() => updateFilter({ beds }))
             }
-            selectedBaths={selectedBaths}
+            selectedBaths={baths}
             setSelectedBaths={(baths) =>
-              triggerLoad(() => {
-                setSelectedBaths(baths);
-                setCurrentPage(1);
-              })
+              triggerLoad(() => updateFilter({ baths }))
             }
-            selectedCompletion={selectedCompletion}
+            selectedCompletion={completion}
             setSelectedCompletion={(completion) =>
-              triggerLoad(() => {
-                setSelectedCompletion(completion);
-                setCurrentPage(1);
-              })
+              triggerLoad(() => updateFilter({ completion }))
             }
-            selectedDeveloper={selectedDeveloper}
+            selectedDeveloper={developer}
             setSelectedDeveloper={(developer) =>
-              triggerLoad(() => {
-                setSelectedDeveloper(developer);
-                setCurrentPage(1);
-              })
+              triggerLoad(() => updateFilter({ developer }))
             }
-            selectedSize={selectedSize}
+            selectedSize={size}
             setSelectedSize={(size) =>
-              triggerLoad(() => {
-                setSelectedSize(size);
-                setCurrentPage(1);
-              })
+              triggerLoad(() => updateFilter({ size }))
             }
-            selectedArea={selectedArea}
+            selectedArea={area}
             setSelectedArea={(area) =>
-              triggerLoad(() => {
-                setSelectedArea(area);
-                setCurrentPage(1);
-              })
+              triggerLoad(() => updateFilter({ area }))
             }
             onResetFilters={handleResetFilters}
           />
 
           {/* Grid */}
-          <div className="grid gap-8 sm:grid-cols-2 xl:grid-cols-3 px-4 lg:px-18  ">
+          <div className="grid gap-8 sm:grid-cols-2 xl:grid-cols-3 px-4 lg:px-18">
             {isLoading
               ? Array.from({ length: ITEMS_PER_PAGE }).map((_, i) => (
                   <PropertyCardSkeleton key={i} />
                 ))
-              : paginatedProperties.map((property) => (
+              : paginatedProperties.length > 0
+              ? paginatedProperties.map((property) => (
                   <PropertyCard key={property.title} property={property} />
-                ))}
+                ))
+              : (
+                <div className="col-span-full py-16 text-center text-gray-500">
+                  <p className="text-lg font-medium">No properties found</p>
+                  <p className="text-sm mt-1">Try resetting or adjusting your search filters.</p>
+                </div>
+              )}
           </div>
 
           {/* Pagination */}
@@ -346,7 +322,7 @@ export default function PropertiesPage({ purpose = "all" }: { purpose?: "all" | 
               <button
                 onClick={() =>
                   triggerLoad(() =>
-                    setCurrentPage((prev) => Math.max(prev - 1, 1))
+                    updateFilter({ page: Math.max(currentPage - 1, 1) })
                   )
                 }
                 disabled={currentPage === 1}
@@ -356,24 +332,26 @@ export default function PropertiesPage({ purpose = "all" }: { purpose?: "all" | 
                 <ChevronLeft size={16} />
               </button>
 
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
                 <button
-                  key={page}
-                  onClick={() => setCurrentPage(page)}
+                  key={pageNum}
+                  onClick={() =>
+                    triggerLoad(() => updateFilter({ page: pageNum }))
+                  }
                   className={`w-9 h-9 flex items-center justify-center text-sm border transition-all duration-300 cursor-pointer ${
-                    currentPage === page
+                    pageNum === currentPage
                       ? "bg-primary text-white border-primary"
                       : "bg-white text-gray-700 border-gray-300 hover:border-black"
                   }`}
                 >
-                  {page}
+                  {pageNum}
                 </button>
               ))}
 
               <button
                 onClick={() =>
                   triggerLoad(() =>
-                    setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+                    updateFilter({ page: Math.min(currentPage + 1, totalPages) })
                   )
                 }
                 disabled={currentPage === totalPages}
@@ -384,6 +362,7 @@ export default function PropertiesPage({ purpose = "all" }: { purpose?: "all" | 
               </button>
             </div>
           )}
+          
         </div>
       </section>
     </main>
