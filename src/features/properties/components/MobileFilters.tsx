@@ -87,6 +87,11 @@ export default function MobileFilters({
   setSelectedSize,
   handleClearAll,
 }: MobileFiltersProps) {
+  const handleSelectAndClose = (fn?: () => void) => {
+    if (fn) fn();
+    setIsSidebarOpen(false);
+  };
+
   return (
     <div className="fixed inset-0 z-[9999] md:hidden">
       {/* Backdrop Overlay */}
@@ -95,10 +100,13 @@ export default function MobileFilters({
         className="fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity duration-300 animate-in fade-in"
       />
 
-      {/* Right Sliding Sidebar Panel */}
-      <div className="fixed inset-y-0 right-0 z-10 w-[85vw] sm:w-96 max-w-full h-full bg-white  flex flex-col transition-transform duration-300 animate-in slide-in-from-right">
+      {/* Bottom Sheet Panel */}
+      <div className="fixed inset-x-0 bottom-0 z-10 w-full max-h-[85vh] bg-white rounded-t-2xl flex flex-col transition-transform duration-300 animate-in slide-in-from-bottom shadow-2xl overflow-hidden">
+        {/* Grab Handle */}
+        <div className="w-12 h-1.5 bg-gray-300 rounded-full mx-auto mt-3 shrink-0" />
+
         {/* Header */}
-        <div className="px-5 py-4 border-b border-gray-200 flex items-center justify-between">
+        <div className="px-5 py-3 border-b border-gray-200 flex items-center justify-between shrink-0">
           <div className="flex items-center gap-2">
             <SlidersHorizontal className="w-5 h-5 text-primary" />
             <h3 className="text-lg font-serif font-medium text-gray-900">
@@ -107,14 +115,14 @@ export default function MobileFilters({
           </div>
           <button
             onClick={() => setIsSidebarOpen(false)}
-            className="p-1.5 text-gray-500 hover:text-gray-800 hover:bg-gray-100 transition-colors cursor-pointer"
+            className="p-1.5 text-gray-500 hover:text-gray-800 hover:bg-gray-100 transition-colors cursor-pointer rounded-full"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        {/* Sidebar Body */}
-        <div className="p-5 overflow-y-auto flex-1 flex flex-col gap-5">
+        {/* Sheet Body */}
+        <div className="p-5 overflow-y-auto scrollbar-hide flex-1 flex flex-col gap-8">
           {/* Purpose Option (Buy / Rent) */}
           <div>
             <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1.5 flex items-center gap-1.5">
@@ -126,10 +134,11 @@ export default function MobileFilters({
                 { label: "All", value: "all" },
                 { label: "Buy", value: "buy" },
                 { label: "Rent", value: "rent" },
+                { label: "New Homes", value: "new-homes" },
               ].map((p) => (
                 <button
                   key={p.value}
-                  onClick={() => setSelectedPurpose && setSelectedPurpose(p.value)}
+                  onClick={() => handleSelectAndClose(() => setSelectedPurpose && setSelectedPurpose(p.value))}
                   className={`flex-1 py-2 text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer text-center ${
                     selectedPurpose === p.value
                       ? "bg-primary text-white shadow-xs"
@@ -144,7 +153,7 @@ export default function MobileFilters({
 
           {/* Map Area Selection Option */}
           <div>
-            <label className="block   text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1.5 flex items-center gap-1.5">
+            <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1.5 flex items-center gap-1.5">
               <MapPin className="w-3.5 h-3.5 text-primary" />
               <span>Map Area Location</span>
             </label>
@@ -192,11 +201,11 @@ export default function MobileFilters({
                   />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="min-w-[--radix-dropdown-menu-trigger-width] bg-white border border-gray-200 shadow-lg p-1">
+              <DropdownMenuContent className="z-[10000] min-w-[--radix-dropdown-menu-trigger-width] max-h-60 overflow-y-auto scrollbar-hide bg-white border border-gray-200 shadow-lg p-1">
                 {countries.map((country) => (
                   <DropdownMenuItem
                     key={country}
-                    onClick={() => setSelectedCountry(country)}
+                    onClick={() => handleSelectAndClose(() => setSelectedCountry(country))}
                     className={
                       selectedCountry === country
                         ? "bg-primary/10 text-primary font-semibold"
@@ -234,11 +243,11 @@ export default function MobileFilters({
                   />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="min-w-[--radix-dropdown-menu-trigger-width] bg-white border border-gray-200 shadow-lg p-1">
+              <DropdownMenuContent className="z-[10000] min-w-[--radix-dropdown-menu-trigger-width] max-h-60 overflow-y-auto scrollbar-hide bg-white border border-gray-200 shadow-lg p-1">
                 {propertyTypes.map((t) => (
                   <DropdownMenuItem
                     key={t.value}
-                    onClick={() => setSelectedType && setSelectedType(t.value)}
+                    onClick={() => handleSelectAndClose(() => setSelectedType && setSelectedType(t.value))}
                     className={
                       selectedType === t.value
                         ? "bg-primary/10 text-primary font-semibold"
@@ -277,13 +286,11 @@ export default function MobileFilters({
                     />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="min-w-[--radix-dropdown-menu-trigger-width] bg-white border border-gray-200 shadow-lg p-1">
+                <DropdownMenuContent className="z-[10000] min-w-[--radix-dropdown-menu-trigger-width] max-h-60 overflow-y-auto scrollbar-hide bg-white border border-gray-200 shadow-lg p-1">
                   {minPriceOptions.map((p) => (
                     <DropdownMenuItem
                       key={p.value}
-                      onClick={() =>
-                        setSelectedMinPrice && setSelectedMinPrice(p.value)
-                      }
+                      onClick={() => handleSelectAndClose(() => setSelectedMinPrice && setSelectedMinPrice(p.value))}
                       className={
                         selectedMinPrice === p.value
                           ? "bg-primary/10 text-primary font-semibold"
@@ -319,13 +326,11 @@ export default function MobileFilters({
                     />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="min-w-[--radix-dropdown-menu-trigger-width] bg-white border border-gray-200 shadow-lg p-1">
+                <DropdownMenuContent className="z-[10000] min-w-[--radix-dropdown-menu-trigger-width] scrollbar-hide max-h-60 overflow-y-auto bg-white border border-gray-200 shadow-lg p-1">
                   {maxPriceOptions.map((p) => (
                     <DropdownMenuItem
                       key={p.value}
-                      onClick={() =>
-                        setSelectedMaxPrice && setSelectedMaxPrice(p.value)
-                      }
+                      onClick={() => handleSelectAndClose(() => setSelectedMaxPrice && setSelectedMaxPrice(p.value))}
                       className={
                         selectedMaxPrice === p.value
                           ? "bg-primary/10 text-primary font-semibold"
@@ -350,7 +355,7 @@ export default function MobileFilters({
               {bedOptions.map((b) => (
                 <button
                   key={b.value}
-                  onClick={() => setSelectedBeds && setSelectedBeds(b.value)}
+                  onClick={() => handleSelectAndClose(() => setSelectedBeds && setSelectedBeds(b.value))}
                   className={`flex-1 py-2 text-xs font-medium border transition-all cursor-pointer text-center ${
                     selectedBeds === b.value
                       ? "bg-primary text-white border-primary shadow-xs"
@@ -373,7 +378,7 @@ export default function MobileFilters({
               {bathOptions.map((b) => (
                 <button
                   key={b.value}
-                  onClick={() => setSelectedBaths && setSelectedBaths(b.value)}
+                  onClick={() => handleSelectAndClose(() => setSelectedBaths && setSelectedBaths(b.value))}
                   className={`flex-1 py-2 text-xs font-medium border transition-all cursor-pointer text-center ${
                     selectedBaths === b.value
                       ? "bg-primary text-white border-primary shadow-xs"
@@ -410,13 +415,11 @@ export default function MobileFilters({
                   />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="min-w-[--radix-dropdown-menu-trigger-width] bg-white border border-gray-200 shadow-lg p-1">
+              <DropdownMenuContent className="z-[10000] min-w-[--radix-dropdown-menu-trigger-width] max-h-60 overflow-y-auto scrollbar-hide bg-white border border-gray-200 shadow-lg p-1">
                 {completionOptions.map((c) => (
                   <DropdownMenuItem
                     key={c.value}
-                    onClick={() =>
-                      setSelectedCompletion && setSelectedCompletion(c.value)
-                    }
+                    onClick={() => handleSelectAndClose(() => setSelectedCompletion && setSelectedCompletion(c.value))}
                     className={
                       selectedCompletion === c.value
                         ? "bg-primary/10 text-primary font-semibold"
@@ -454,13 +457,11 @@ export default function MobileFilters({
                   />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="min-w-[--radix-dropdown-menu-trigger-width] bg-white border border-gray-200 shadow-lg p-1">
+              <DropdownMenuContent className="z-[10000] scrollbar-hide min-w-[--radix-dropdown-menu-trigger-width] max-h-60 overflow-y-auto bg-white border border-gray-200 shadow-lg p-1">
                 {developerOptions.map((d) => (
                   <DropdownMenuItem
                     key={d.value}
-                    onClick={() =>
-                      setSelectedDeveloper && setSelectedDeveloper(d.value)
-                    }
+                    onClick={() => handleSelectAndClose(() => setSelectedDeveloper && setSelectedDeveloper(d.value))}
                     className={
                       selectedDeveloper === d.value
                         ? "bg-primary/10 text-primary font-semibold"
@@ -498,11 +499,11 @@ export default function MobileFilters({
                   />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="min-w-[--radix-dropdown-menu-trigger-width] bg-white border border-gray-200 shadow-lg p-1">
+              <DropdownMenuContent className="z-[10000] min-w-[--radix-dropdown-menu-trigger-width] max-h-60 overflow-y-auto scrollbar-hide bg-white border border-gray-200 shadow-lg p-1">
                 {sizeOptions.map((s) => (
                   <DropdownMenuItem
                     key={s.value}
-                    onClick={() => setSelectedSize && setSelectedSize(s.value)}
+                    onClick={() => handleSelectAndClose(() => setSelectedSize && setSelectedSize(s.value))}
                     className={
                       selectedSize === s.value
                         ? "bg-primary/10 text-primary font-semibold"
@@ -518,9 +519,9 @@ export default function MobileFilters({
         </div>
 
         {/* Sidebar Footer Actions */}
-        <div className="p-4 border-t border-gray-200 bg-gray-50 flex items-center gap-3">
+        <div className="p-4 border-t border-gray-200 bg-gray-50 flex items-center gap-3 shrink-0">
           <button
-            onClick={handleClearAll}
+            onClick={() => handleSelectAndClose(handleClearAll)}
             className="flex-1 py-2.5 text-xs font-semibold uppercase tracking-wider text-gray-700 bg-white border border-gray-300 hover:bg-gray-100 transition-colors cursor-pointer text-center"
           >
             Clear All

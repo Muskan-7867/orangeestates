@@ -25,7 +25,7 @@ function PropertyTopBar({
   const MapAreaButton = ({ className = "" }: { className?: string }) => (
     <button
       onClick={() => setIsMapModalOpen(true)}
-      className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-3.5 py-2 text-xs sm:text-sm font-medium border transition-all cursor-pointer whitespace-nowrap shrink-0 shadow-xs ${
+      className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-3.5 py-2.5 text-xs sm:text-sm font-medium border transition-all cursor-pointer whitespace-nowrap shrink-0 shadow-xs ${
         selectedArea !== "All"
           ? "bg-primary text-white border-primary shadow-sm"
           : "bg-white text-gray-700 border-gray-200 hover:border-gray-300 hover:text-primary"
@@ -46,6 +46,7 @@ function PropertyTopBar({
             { label: "All", value: "all" },
             { label: "Buy", value: "buy" },
             { label: "Rent", value: "rent" },
+            { label: "New Homes", value: "new-homes" },
           ].map((item) => {
             const active = selectedPurpose === item.value;
 
@@ -81,7 +82,7 @@ function PropertyTopBar({
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search properties..."
-            className="w-full pl-9 pr-8 py-2 text-xs sm:text-sm bg-white border border-gray-200 focus:outline-none focus:border-primary transition-colors font-sans text-gray-800 placeholder-gray-400"
+            className="w-full pl-9 pr-8 py-3 text-xs sm:text-sm bg-white border border-gray-200 focus:outline-none focus:border-primary transition-colors font-sans text-gray-800 placeholder-gray-400"
           />
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-3.5 h-3.5 sm:w-4 sm:h-4" />
           {searchQuery && (
@@ -100,7 +101,7 @@ function PropertyTopBar({
         {/* Mobile Filter Button */}
         <button
           onClick={() => setIsSidebarOpen(true)}
-          className="md:hidden flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 bg-white border border-gray-200 text-gray-800 text-xs sm:text-sm font-medium hover:bg-gray-50 transition-colors shrink-0 cursor-pointer"
+          className="md:hidden flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-3 bg-white border border-gray-200 text-gray-800 text-xs sm:text-sm font-medium hover:bg-gray-50 transition-colors shrink-0 cursor-pointer"
         >
           <SlidersHorizontal className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary" />
           <span>Filters</span>
