@@ -38,12 +38,12 @@ export default function HeroBannerCarousel() {
 
   // Navigation and Search State
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState<"buy" | "rent" | "sold">("buy");
+  const [activeTab, setActiveTab] = useState<"buy" | "rent" | "sold" | "new-homes">("buy");
   const [searchMode, setSearchMode] = useState<"classic" | "ai">("classic");
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleSearch = () => {
-    const targetRoute = activeTab === "sold" ? "/properties" : `/${activeTab}`;
+    const targetRoute = activeTab === "sold" ? "/properties" : `/properties/${activeTab}`;
     navigate({
       to: targetRoute as any,
       search: { q: searchQuery } as any,
@@ -330,8 +330,8 @@ export default function HeroBannerCarousel() {
               src={s.video}
               autoPlay={i === 0}
               muted
-              loop
               playsInline
+              onEnded={goNext}
               preload={i === 0 ? "auto" : "metadata"}
               className="absolute inset-0 w-full h-full object-cover scale-[1.08]"
               style={{ willChange: "transform" }}
@@ -371,14 +371,14 @@ export default function HeroBannerCarousel() {
             <div className="flex flex-row items-center justify-center border-b border-white/10 pb-3">
               {/* Tabs */}
               <div className="flex gap-4 sm:gap-6 md:gap-8">
-                {(["buy", "rent", "sold"] as const).map((tab) => (
+                {(["buy", "rent", "new-homes", "sold"] as const).map((tab) => (
                   <button
                     key={tab}
                     onClick={() => setActiveTab(tab)}
                     className={`relative pb-2 text-xs sm:text-sm md:text-base font-semibold capitalize tracking-wide transition-colors cursor-pointer ${activeTab === tab ? "text-white" : "text-white/60 hover:text-white/80"
                       }`}
                   >
-                    {tab}
+                    {tab === "new-homes" ? "new homes" : tab}
                     {activeTab === tab && (
                       <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-white rounded-full transition-all duration-300" />
                     )}

@@ -19,9 +19,9 @@ export default function MobileBottomNav() {
 
   const mobileLinks = [
     { label: "Home", href: "/", icon: Home },
-    { label: "Buy", href: "/buy", icon: Building2 },
-    { label: "Rent", href: "/rent", icon: Key },
+    { label: "Properties", href: "/properties", icon: Building2 },
     { label: "Blog", href: "/blog", icon: BookOpen },
+    { label: "About", href: "/about", icon: Info },
   ];
 
   useEffect(() => {

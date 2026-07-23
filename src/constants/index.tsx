@@ -4,13 +4,10 @@ export const navLinks = [
     href: "/"
   },
   {
-    title: "Buy",
-    href: "/buy"
+    title: "Properties",
+    href: "/properties"
   },
-  {
-    title: "Rent",
-    href: "/rent"
-  },
+
   {
     title: "Blog",
     href: "/blog"
@@ -125,92 +122,135 @@ export const properties = [
     price: "£ 4,500 / month",
     purpose: "rent",
   },
+  {
+    id: "7",
+    slug: "marina-cove-residences-dubai",
+    images: [
+      { url: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=20&q=10" },
+      { url: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=20&q=10" },
+      { url: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=20&q=10" },
+    ],
+    title: "Marina Cove New Residences, Dubai Marina",
+    beds: 3,
+    baths: 3,
+    area: "2,150 SQ.FT.",
+    price: "£ 2,800,000",
+    purpose: "new-homes",
+  },
+  {
+    id: "8",
+    slug: "the-skyline-collection-downtown-dubai",
+    images: [
+      { url: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=20&q=10" },
+      { url: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=20&q=10" },
+    ],
+    title: "The Skyline Off-Plan Collection, Downtown Dubai",
+    beds: 2,
+    baths: 2,
+    area: "1,680 SQ.FT.",
+    price: "£ 3,250,000",
+    purpose: "new-homes",
+  },
+  {
+    id: "9",
+    slug: "palm-haven-luxury-villas-dubai",
+    images: [
+      { url: "https://images.unsplash.com/photo-1613977257363-707ba9348227?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1613977257363-707ba9348227?w=20&q=10" },
+      { url: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&q=80", blurUrl: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=20&q=10" },
+    ],
+    title: "Palm Haven Brand New Villas, Palm Jumeirah",
+    beds: 5,
+    baths: 6,
+    area: "6,500 SQ.FT.",
+    price: "£ 8,500,000",
+    purpose: "new-homes",
+  },
 ];
 
 export const propertyTypes = [
-    { label: "All Property Types", value: "All" },
-    { label: "Apartment", value: "Apartment" },
-    { label: "Penthouse", value: "Penthouse" },
-    { label: "Duplex", value: "Duplex" },
-    { label: "Villa / House", value: "Villa" },
-  ];
+  { label: "All Property Types", value: "All" },
+  { label: "Apartment", value: "Apartment" },
+  { label: "Penthouse", value: "Penthouse" },
+  { label: "Duplex", value: "Duplex" },
+  { label: "Villa / House", value: "Villa" },
+];
 
-  export const minPriceOptions = [
-    { label: "Min Price (Any)", value: "All" },
-    { label: "£1,000 / mo", value: "1000" },
-    { label: "£5,000 / mo", value: "5000" },
-    { label: "£1,000,000", value: "1000000" },
-    { label: "£3,000,000", value: "3000000" },
-    { label: "£5,000,000", value: "5000000" },
-    { label: "£8,000,000", value: "8000000" },
-    { label: "£10,000,000+", value: "10000000" },
-  ];
+export const minPriceOptions = [
+  { label: "Min Price (Any)", value: "All" },
+  { label: "£1,000 / mo", value: "1000" },
+  { label: "£5,000 / mo", value: "5000" },
+  { label: "£1,000,000", value: "1000000" },
+  { label: "£3,000,000", value: "3000000" },
+  { label: "£5,000,000", value: "5000000" },
+  { label: "£8,000,000", value: "8000000" },
+  { label: "£10,000,000+", value: "10000000" },
+];
 
-  export const maxPriceOptions = [
-    { label: "Max Price (Any)", value: "All" },
-    { label: "£5,000 / mo", value: "5000" },
-    { label: "£10,000 / mo", value: "10000" },
-    { label: "£3,000,000", value: "3000000" },
-    { label: "£5,000,000", value: "5000000" },
-    { label: "£8,000,000", value: "8000000" },
-    { label: "£12,000,000", value: "12000000" },
-    { label: "£20,000,000+", value: "20000000" },
-  ];
+export const maxPriceOptions = [
+  { label: "Max Price (Any)", value: "All" },
+  { label: "£5,000 / mo", value: "5000" },
+  { label: "£10,000 / mo", value: "10000" },
+  { label: "£3,000,000", value: "3000000" },
+  { label: "£5,000,000", value: "5000000" },
+  { label: "£8,000,000", value: "8000000" },
+  { label: "£12,000,000", value: "12000000" },
+  { label: "£20,000,000+", value: "20000000" },
+];
 
-  export const bedOptions = [
-    { label: "Any Bedrooms", value: "All" },
-    { label: "1+ Bed", value: "1" },
-    { label: "2+ Beds", value: "2" },
-    { label: "3+ Beds", value: "3" },
-    { label: "4+ Beds", value: "4" },
-    { label: "5+ Beds", value: "5" },
-  ];
+export const bedOptions = [
+  { label: "Any Bedrooms", value: "All" },
+  { label: "1+ Bed", value: "1" },
+  { label: "2+ Beds", value: "2" },
+  { label: "3+ Beds", value: "3" },
+  { label: "4+ Beds", value: "4" },
+  { label: "5+ Beds", value: "5" },
+];
 
-  export const bathOptions = [
-    { label: "Any Bathrooms", value: "All" },
-    { label: "1+ Bath", value: "1" },
-    { label: "2+ Baths", value: "2" },
-    { label: "3+ Baths", value: "3" },
-    { label: "4+ Baths", value: "4" },
-    { label: "5+ Baths", value: "5" },
-  ];
+export const bathOptions = [
+  { label: "Any Bathrooms", value: "All" },
+  { label: "1+ Bath", value: "1" },
+  { label: "2+ Baths", value: "2" },
+  { label: "3+ Baths", value: "3" },
+  { label: "4+ Baths", value: "4" },
+  { label: "5+ Baths", value: "5" },
+];
 
-  export const completionOptions = [
-    { label: "All Completion Status", value: "All" },
-    { label: "Ready / Completed", value: "Ready" },
-    { label: "Off-Plan", value: "Off-Plan" },
-    { label: "Under Construction", value: "Under Construction" },
-  ];
+export const completionOptions = [
+  { label: "All Completion Status", value: "All" },
+  { label: "Ready / Completed", value: "Ready" },
+  { label: "Off-Plan", value: "Off-Plan" },
+  { label: "Under Construction", value: "Under Construction" },
+];
 
- export const developerOptions = [
-    { label: "All Developers", value: "All" },
-    { label: "Emaar Properties", value: "Emaar" },
-    { label: "Damac Properties", value: "Damac" },
-    { label: "Sobha Realty", value: "Sobha" },
-    { label: "Nakheel", value: "Nakheel" },
-    { label: "Select Group", value: "Select Group" },
-    { label: "Ellington", value: "Ellington" },
-    { label: "Omniyat", value: "Omniyat" },
-  ];
+export const developerOptions = [
+  { label: "All Developers", value: "All" },
+  { label: "Emaar Properties", value: "Emaar" },
+  { label: "Damac Properties", value: "Damac" },
+  { label: "Sobha Realty", value: "Sobha" },
+  { label: "Nakheel", value: "Nakheel" },
+  { label: "Select Group", value: "Select Group" },
+  { label: "Ellington", value: "Ellington" },
+  { label: "Omniyat", value: "Omniyat" },
+];
 
-  export const sizeOptions = [
-    { label: "Any Size", value: "All" },
-    { label: "Under 1,500 SQ.FT.", value: "under-1500" },
-    { label: "1,500 - 3,000 SQ.FT.", value: "1500-3000" },
-    { label: "Above 3,000 SQ.FT.", value: "above-3000" },
-  ];
+export const sizeOptions = [
+  { label: "Any Size", value: "All" },
+  { label: "Under 1,500 SQ.FT.", value: "under-1500" },
+  { label: "1,500 - 3,000 SQ.FT.", value: "1500-3000" },
+  { label: "Above 3,000 SQ.FT.", value: "above-3000" },
+];
 
 export const SLIDES = [
   {
     id: 1,
-    video: "https://ik.imagekit.io/p8eiybmze/4.mp4",
+    video: "https://ik.imagekit.io/p8eiybmze/5.mp4",
     title: "VILLA SERENA",
     sub: "Beverly Hills · Exclusive Estate",
     tag: "01",
   },
   {
     id: 2,
-    video: "https://ik.imagekit.io/p8eiybmze/5.mp4",
+    video: "https://ik.imagekit.io/p8eiybmze/video_86adcc8c0fda%20(1).mp4",
     title: "OCEAN EDGE",
     sub: "Malibu · Coastal Retreat",
     tag: "02",

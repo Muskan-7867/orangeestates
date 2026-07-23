@@ -28,6 +28,9 @@ import { Route as UserBlogIndexRouteImport } from './routes/_user/blog.index'
 import { Route as UserBlogSlugRouteImport } from './routes/_user/blog.$slug'
 import { Route as UserPropertiesIndexRouteImport } from './routes/_user/properties.index'
 import { Route as UserPropertiesSlugRouteImport } from './routes/_user/properties.$slug'
+import { Route as UserPropertiesBuyRouteImport } from './routes/_user/properties.buy'
+import { Route as UserPropertiesNewHomesRouteImport } from './routes/_user/properties.new-homes'
+import { Route as UserPropertiesRentRouteImport } from './routes/_user/properties.rent'
 import { Route as AdminBlogEditorRouteImport } from './routes/admin/blog/editor'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
@@ -125,6 +128,21 @@ const UserPropertiesSlugRoute = UserPropertiesSlugRouteImport.update({
   path: '/properties/$slug',
   getParentRoute: () => UserRouteRoute,
 } as any)
+const UserPropertiesBuyRoute = UserPropertiesBuyRouteImport.update({
+  id: '/properties/buy',
+  path: '/properties/buy',
+  getParentRoute: () => UserRouteRoute,
+} as any)
+const UserPropertiesNewHomesRoute = UserPropertiesNewHomesRouteImport.update({
+  id: '/properties/new-homes',
+  path: '/properties/new-homes',
+  getParentRoute: () => UserRouteRoute,
+} as any)
+const UserPropertiesRentRoute = UserPropertiesRentRouteImport.update({
+  id: '/properties/rent',
+  path: '/properties/rent',
+  getParentRoute: () => UserRouteRoute,
+} as any)
 const AdminBlogEditorRoute = AdminBlogEditorRouteImport.update({
   id: '/blog/editor',
   path: '/blog/editor',
@@ -153,6 +171,9 @@ export interface FileRoutesByFullPath {
   '/admin/': typeof AdminIndexRoute
   '/blog/$slug': typeof UserBlogSlugRoute
   '/properties/$slug': typeof UserPropertiesSlugRoute
+  '/properties/buy': typeof UserPropertiesBuyRoute
+  '/properties/new-homes': typeof UserPropertiesNewHomesRoute
+  '/properties/rent': typeof UserPropertiesRentRoute
   '/admin/blog/editor': typeof AdminBlogEditorRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/blog/': typeof UserBlogIndexRoute
@@ -174,6 +195,9 @@ export interface FileRoutesByTo {
   '/admin': typeof AdminIndexRoute
   '/blog/$slug': typeof UserBlogSlugRoute
   '/properties/$slug': typeof UserPropertiesSlugRoute
+  '/properties/buy': typeof UserPropertiesBuyRoute
+  '/properties/new-homes': typeof UserPropertiesNewHomesRoute
+  '/properties/rent': typeof UserPropertiesRentRoute
   '/admin/blog/editor': typeof AdminBlogEditorRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/blog': typeof UserBlogIndexRoute
@@ -198,6 +222,9 @@ export interface FileRoutesById {
   '/admin/': typeof AdminIndexRoute
   '/_user/blog/$slug': typeof UserBlogSlugRoute
   '/_user/properties/$slug': typeof UserPropertiesSlugRoute
+  '/_user/properties/buy': typeof UserPropertiesBuyRoute
+  '/_user/properties/new-homes': typeof UserPropertiesNewHomesRoute
+  '/_user/properties/rent': typeof UserPropertiesRentRoute
   '/admin/blog/editor': typeof AdminBlogEditorRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/_user/blog/': typeof UserBlogIndexRoute
@@ -222,6 +249,9 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/blog/$slug'
     | '/properties/$slug'
+    | '/properties/buy'
+    | '/properties/new-homes'
+    | '/properties/rent'
     | '/admin/blog/editor'
     | '/api/auth/$'
     | '/blog/'
@@ -243,6 +273,9 @@ export interface FileRouteTypes {
     | '/admin'
     | '/blog/$slug'
     | '/properties/$slug'
+    | '/properties/buy'
+    | '/properties/new-homes'
+    | '/properties/rent'
     | '/admin/blog/editor'
     | '/api/auth/$'
     | '/blog'
@@ -266,6 +299,9 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/_user/blog/$slug'
     | '/_user/properties/$slug'
+    | '/_user/properties/buy'
+    | '/_user/properties/new-homes'
+    | '/_user/properties/rent'
     | '/admin/blog/editor'
     | '/api/auth/$'
     | '/_user/blog/'
@@ -414,6 +450,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UserPropertiesSlugRouteImport
       parentRoute: typeof UserRouteRoute
     }
+    '/_user/properties/buy': {
+      id: '/_user/properties/buy'
+      path: '/properties/buy'
+      fullPath: '/properties/buy'
+      preLoaderRoute: typeof UserPropertiesBuyRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
+    '/_user/properties/new-homes': {
+      id: '/_user/properties/new-homes'
+      path: '/properties/new-homes'
+      fullPath: '/properties/new-homes'
+      preLoaderRoute: typeof UserPropertiesNewHomesRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
+    '/_user/properties/rent': {
+      id: '/_user/properties/rent'
+      path: '/properties/rent'
+      fullPath: '/properties/rent'
+      preLoaderRoute: typeof UserPropertiesRentRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
     '/admin/blog/editor': {
       id: '/admin/blog/editor'
       path: '/blog/editor'
@@ -443,6 +500,9 @@ interface UserRouteRouteChildren {
   UserIndexRoute: typeof UserIndexRoute
   UserBlogSlugRoute: typeof UserBlogSlugRoute
   UserPropertiesSlugRoute: typeof UserPropertiesSlugRoute
+  UserPropertiesBuyRoute: typeof UserPropertiesBuyRoute
+  UserPropertiesNewHomesRoute: typeof UserPropertiesNewHomesRoute
+  UserPropertiesRentRoute: typeof UserPropertiesRentRoute
   UserBlogIndexRoute: typeof UserBlogIndexRoute
   UserPropertiesIndexRoute: typeof UserPropertiesIndexRoute
 }
@@ -459,6 +519,9 @@ const UserRouteRouteChildren: UserRouteRouteChildren = {
   UserIndexRoute: UserIndexRoute,
   UserBlogSlugRoute: UserBlogSlugRoute,
   UserPropertiesSlugRoute: UserPropertiesSlugRoute,
+  UserPropertiesBuyRoute: UserPropertiesBuyRoute,
+  UserPropertiesNewHomesRoute: UserPropertiesNewHomesRoute,
+  UserPropertiesRentRoute: UserPropertiesRentRoute,
   UserBlogIndexRoute: UserBlogIndexRoute,
   UserPropertiesIndexRoute: UserPropertiesIndexRoute,
 }

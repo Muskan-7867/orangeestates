@@ -1,4 +1,5 @@
 
+import { Link } from "@tanstack/react-router";
 import { MdLocalPhone, MdLocationOn } from "react-icons/md";
 import { IoIosMail } from "react-icons/io";
 import AnimatedContainer from "./AnimatedContainer";
@@ -20,22 +21,20 @@ const FooterContent = () => {
     {
       label: "Links",
       links: [
-        { title: "Buy", href: "/buy" },
-        { title: "Rent", href: "/rent" },
+        { title: "Properties", href: "/properties" },
         { title: "Blog", href: "/blog" },
         { title: "About Us", href: "/about" },
         { title: "Contact Us", href: "/contact" }
       ]
     },
     {
-  label: "Properties",
-  links: [
-    { title: "Plots", href: "/products?category=office-storage" },
-    { title: "Builder Floors", href: "/products?category=health" },
-    { title: "Villas", href: "/products?category=electronics" },
-    { title: "Commercial", href: "/products?category=fashion" }
-  ]
-}
+      label: "Properties",
+      links: [
+        { title: "Buy", href: "/properties/buy" },
+        { title: "Rent", href: "/properties/rent" },
+        { title: "New Homes", href: "/properties/new-homes" },
+      ]
+    }
 
   ];
 
@@ -85,13 +84,13 @@ const FooterContent = () => {
           <ul className="space-y-3">
             {group.links.map((link) => (
               <li key={link.title}>
-                <a
-                  href={link.href}
+                <Link
+                  to={link.href}
                   className="text-sm text-zinc-400 hover:text-white inline-flex items-center gap-1 transition-colors duration-300"
                 >
                   {link.icon && <link.icon className="size-3.5" />}
                   {link.title}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
